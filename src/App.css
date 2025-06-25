@@ -21,7 +21,7 @@
   left: 0;
   width: 100%;
   height: 600vh; /* 6倍视口高度，支持6个界面 */
-  background-image: url('/logo/bg2.webp');
+  background-image: url('/logo/bg3.webp');
   background-size: 100% auto;
   background-position: top left;
   background-repeat: no-repeat;
@@ -52,6 +52,9 @@
 }
 
 .main-content {
+  background-color: rgba(255, 255, 255, 0.6);
+  padding: 2rem;
+  border-radius: 0px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -105,7 +108,7 @@
   letter-spacing: 0.02em;
   animation: fadeInUp 1s ease-out 0.5s both;
   color: #000000;
-  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.3);
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.9);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
