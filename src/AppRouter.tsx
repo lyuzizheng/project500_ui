@@ -7,7 +7,7 @@ function AppRouter() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="/admin/hf7u8b827/L:userId" element={<AdminPage />} />
+        <Route path="/admin/hf7u8b827/:userId" element={<AdminPage />} />
       </Routes>
     </BrowserRouter>
   )

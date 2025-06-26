@@ -1,8 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useState, useEffect, useRef } from 'react';
 import "./App.css";
 
 function App() {
-  const [currentSection, setCurrentSection] = useState(0);
   const [currentLogoIndex, setCurrentLogoIndex] = useState(0);
   const [isLogoVisible, setIsLogoVisible] = useState(true);
   const appContainerRef = useRef<HTMLDivElement>(null);
@@ -15,13 +14,11 @@ function App() {
   ];
 
   const scrollToNext = () => {
-    // 直接滚动到目标section，不依赖状态
+    // 直接滚动到目标section
     const targetSection = document.getElementById("section-1");
     if (targetSection) {
       targetSection.scrollIntoView({ behavior: "smooth" });
     }
-    // 同时更新状态以保持一致性
-    setCurrentSection(1);
   };
 
   useEffect(() => {
@@ -92,7 +89,7 @@ function App() {
 
           <div className="welcome-text">
             <h1 className="welcome-title">感谢您体验伍零零剧场</h1>
-            <p className="welcome-subtitle">你准备好迎接您的重庆人身份了吗？</p>
+            <p className="welcome-subtitle">准备好迎接您的重庆人身份了吗？</p>
           </div>
 
           <div className="scroll-indicator" onClick={scrollToNext}>
