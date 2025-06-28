@@ -68,7 +68,7 @@ function Credit() {
 
       if (backgroundContainer && container) {
         const scrollTop = container.scrollTop;
-        const parallaxSpeed = scrollTop * 0.05; // 更慢的视差效果
+        const parallaxSpeed = scrollTop * 0.15; // 更慢的视差效果
         (
           backgroundContainer as HTMLElement
         ).style.backgroundPositionY = `-${parallaxSpeed}px`;
