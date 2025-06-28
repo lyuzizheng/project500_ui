@@ -1,6 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./App.css";
+import logoThin from "./assets/logo/500logo_thin.png";
+import logoThick from "./assets/logo/500logo_thick.png";
+import logoDiff from "./assets/logo/500logo_diff.png";
+import logoEmpty from "./assets/logo/500logo_empty.png";
 
 function App() {
   const [currentLogoIndex, setCurrentLogoIndex] = useState(0);
@@ -11,10 +15,10 @@ function App() {
   // 使用useMemo缓存logos数组，避免重复创建
   const logos = useMemo(
     () => [
-      "/logo/500logo_thin.png",
-      "/logo/500logo_thick.png",
-      "/logo/500logo_diff.png",
-      "/logo/500logo_empty.png",
+      logoThin,
+      logoThick,
+      logoDiff,
+      logoEmpty,
     ],
     []
   );
