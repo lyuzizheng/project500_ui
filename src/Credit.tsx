@@ -330,17 +330,17 @@ function Credit() {
             <div className="credit-participants">
               <p className="credit-participant-line">
                 金玉 yipei 马静 yanyan 王绮 向彤 张舒涵 二马 井 苦抹 朴生 石头
-宇文树学 兔兔 鸡 小金 Miyo 小白 senmu 春儿 炸鱼 小楼 邓立可
-大非哥 某姐或某老师 老师 M 某先生 老师 Jane 桃哥 艾登 刘老师
-西瓜 j 栀 周可安 Konni 李要爽 杜光源 h 李 刁先生 ayiii 烨烨 黄总
-成奕竹 任思涵 太祖虾 yang 某女士 小白 寅子 栗子 orange juice
-老陈 zc 羊老师 Diana 付 桉琦 海儿 赵开放 一个好人 Frau Haribo
-GXR 莉莉 Uga 小王 ry 波 B 速速 rainbow 侠客 Gerry 暗黑库洛洛
-lulu 袁先芬 廖传高 yitrans 小崴 知知 鸡毛 kiwi 过儿 Joey 玫瑰小狗
-Kai 老周 zy 轶琨 王 小陆 晓宇 阳女士 Brabalawuka 国王👸 铁牛
-Raven 橘子 SEAN 派派 33 思佳 yue 搞笑男 李丹 aduan 阿毛 逐夏
-鲜花饼 二娃 510 娃娃鱼 HJj 你老汉 e 凡人 豆包 CQUer 雪粉华 Pat
-张先生 Mads 霜儿 小巫 徐徐 光英 阿杰
+                宇文树学 兔兔 鸡 小金 Miyo 小白 senmu 春儿 炸鱼 小楼 邓立可
+                大非哥 某姐或某老师 老师 M 某先生 老师 Jane 桃哥 艾登 刘老师
+                西瓜 j 栀 周可安 Konni 李要爽 杜光源 h 李 刁先生 ayiii 烨烨 黄总
+                成奕竹 任思涵 太祖虾 yang 某女士 小白 寅子 栗子 orange juice
+                老陈 zc 羊老师 Diana 付 桉琦 海儿 赵开放 一个好人 Frau Haribo
+                GXR 莉莉 Uga 小王 ry 波 B 速速 rainbow 侠客 Gerry 暗黑库洛洛
+                lulu 袁先芬 廖传高 yitrans 小崴 知知 鸡毛 kiwi 过儿 Joey
+                玫瑰小狗 Kai 老周 zy 轶琨 王 小陆 晓宇 阳女士 Brabalawuka 国王👸
+                铁牛 Raven 橘子 SEAN 派派 33 思佳 yue 搞笑男 李丹 aduan 阿毛
+                逐夏 鲜花饼 二娃 510 娃娃鱼 HJj 你老汉 e 凡人 豆包 CQUer 雪粉华
+                Pat 张先生 Mads 霜儿 小巫 徐徐 光英 阿杰
               </p>
             </div>
             <p className="credit-thanks">谢谢你们对公共讨论的热情！</p>
