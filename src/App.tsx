@@ -1,17 +1,31 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./App.css";
 
 function App() {
   const [currentLogoIndex, setCurrentLogoIndex] = useState(0);
   const [isLogoVisible, setIsLogoVisible] = useState(true);
   const appContainerRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
-  const logos = [
-    "/logo/500logo_thin.png",
-    "/logo/500logo_thick.png",
-    "/logo/500logo_diff.png",
-    "/logo/500logo_empty.png",
-  ];
+  // 使用useMemo缓存logos数组，避免重复创建
+  const logos = useMemo(
+    () => [
+      "/logo/500logo_thin.png",
+      "/logo/500logo_thick.png",
+      "/logo/500logo_diff.png",
+      "/logo/500logo_empty.png",
+    ],
+    []
+  );
+
+  // 预加载所有logo图片，确保缓存到浏览器中
+  useEffect(() => {
+    logos.forEach((logoSrc) => {
+      const img = new Image();
+      img.src = logoSrc;
+    });
+  }, [logos]);
 
   const scrollToNext = () => {
     // 直接滚动到目标section
@@ -21,6 +35,7 @@ function App() {
     }
   };
 
+  // 移除logos.length依赖，避免不必要的重新渲染和图片重新请求
   useEffect(() => {
     const logoInterval = setInterval(() => {
       setIsLogoVisible(false);
@@ -31,7 +46,7 @@ function App() {
     }, 3000);
 
     return () => clearInterval(logoInterval);
-  }, [logos.length]);
+  }, []); // 空依赖数组，只在组件挂载时执行一次
 
   const scrollToTop = () => {
     const container = appContainerRef.current;
@@ -110,6 +125,12 @@ function App() {
           <p className="text-gray-300">内容待定...</p>
           <button className="back-to-top-btn" onClick={scrollToTop}>
             返回顶部
+          </button>
+          <button
+            className="credit-nav-btn"
+            onClick={() => navigate("/credit")}
+          >
+            制作团队
           </button>
         </div>
       </section>
