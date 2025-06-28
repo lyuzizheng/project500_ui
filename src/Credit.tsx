@@ -2,6 +2,13 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Credit.css";
 
+// 导入logo图片
+import logo_thin from "./assets/logo/500logo1.png";
+import logo_thick from "./assets/logo/500logo2.png";
+import logo_diff from "./assets/logo/500logo3.png";
+import logo_empty from "./assets/logo/500logo4.png";
+import bg3 from "./assets/logo/bg3.webp";
+
 function Credit() {
   const [currentLogoIndex, setCurrentLogoIndex] = useState(0);
   const [isLogoVisible, setIsLogoVisible] = useState(true);
@@ -12,10 +19,10 @@ function Credit() {
   // 使用useMemo缓存logos数组，避免重复创建
   const logos = useMemo(
     () => [
-      "/logo/500logo_thin.png",
-      "/logo/500logo_thick.png",
-      "/logo/500logo_diff.png",
-      "/logo/500logo_empty.png",
+      logo_thin,
+      logo_thick,
+      logo_diff,
+      logo_empty,
     ],
     []
   );
@@ -27,6 +34,16 @@ function Credit() {
       img.src = logoSrc;
     });
   }, [logos]);
+
+  // 设置背景图片
+  useEffect(() => {
+    const backgroundContainer = document.querySelector(
+      ".credit-background-container"
+    ) as HTMLElement;
+    if (backgroundContainer) {
+      backgroundContainer.style.backgroundImage = `url(${bg3})`;
+    }
+  }, []);
 
   // Logo轮播效果
   useEffect(() => {
@@ -116,7 +133,7 @@ function Credit() {
               }`}
             />
           </div>
-          <h1 className="credit-main-title">伍零零剧场</h1>
+          <h1 className="credit-main-title">感谢您体验伍零零剧场</h1>
           <h2 className="credit-subtitle">制作团队</h2>
           <div className="credit-next-arrow"></div>
         </div>

@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./App.css";
-import logoThin from "./assets/logo/500logo_thin.png";
-import logoThick from "./assets/logo/500logo_thick.png";
-import logoDiff from "./assets/logo/500logo_diff.png";
-import logoEmpty from "./assets/logo/500logo_empty.png";
+import logoThin from "./assets/logo/500logo1.png";
+import logoThick from "./assets/logo/500logo2.png";
+import logoDiff from "./assets/logo/500logo3.png";
+import logoEmpty from "./assets/logo/500logo4.png";
 
 function App() {
   const [currentLogoIndex, setCurrentLogoIndex] = useState(0);
