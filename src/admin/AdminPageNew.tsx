@@ -332,9 +332,10 @@ function AdminPageNew() {
              
              // A1题目的答案格式转换
              if (questionId === 'a1') {
-               if (answer === 'yes' || answer === true) {
+               const answerStr = String(answer).toLowerCase();
+               if (answerStr === 'yes' || answerStr === 'true' || answer === true) {
                  processedAnswer = '是';
-               } else if (answer === 'no' || answer === false) {
+               } else if (answerStr === 'no' || answerStr === 'false' || answer === false) {
                  processedAnswer = '否';
                } else {
                  processedAnswer = String(answer);
