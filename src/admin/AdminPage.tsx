@@ -16,9 +16,9 @@ interface Question {
 function AdminPage() {
   const { userId } = useParams<{ userId: string }>();
 
-  // 定义问题列表 - 基于游戏引擎API测试文档
+  // 定义问题列表 - 基于游戏引擎API测试文档第一部分
   const questions: Question[] = [
-    // 第一部分：基础信息（不计分）
+    // Q1 - 称呼 (不计分)
     {
       id: "q1",
       title: "称呼",
@@ -27,6 +27,7 @@ function AdminPage() {
       scoring: false,
       storageField: "username",
     },
+    // Q2 - 性别 (不计分)
     {
       id: "q2",
       title: "性别",
@@ -36,16 +37,7 @@ function AdminPage() {
       scoring: false,
       storageField: "gender",
     },
-    {
-      id: "p",
-      title: "MBTI",
-      description: "请填写您的MBTI类型",
-      type: "text",
-      scoring: false,
-      storageField: "mbti",
-    },
-
-    // 第二部分：计分题目
+    // A1 - 身份证前三位 (计分题)
     {
       id: "a1",
       title: "身份证前三位",
@@ -55,6 +47,7 @@ function AdminPage() {
       scoring: true,
       scoreRule: "是的+1分，不是-1分",
     },
+    // A2 - 出生年份 (计分题)
     {
       id: "a2",
       title: "出生年份",
@@ -63,81 +56,14 @@ function AdminPage() {
       scoring: true,
       scoreRule: "≥1997年+1分，<1997年不得分",
     },
-
-    // 第三部分：父母相关题目
+    // P - MBTI (不计分)
     {
-      id: "b1",
-      title: "父母是否来自重庆",
-      description: "父母是否来自重庆？",
-      type: "choice",
-      options: ["是+是", "是+否", "否+否"],
-      scoring: true,
-      scoreRule: "是+是：+1分，是+否：+0分，否+否：-1分",
-    },
-    {
-      id: "b2",
-      title: "父母是否来自主城九区",
-      description: "父母是否来自主城九区？",
-      type: "choice",
-      options: ["是+是", "是+否", "否+否"],
-      scoring: true,
-      scoreRule: "是+是：+1分，是+否：+0.5分，否+否：0分",
-    },
-    {
-      id: "b3",
-      title: "是重庆的一方是否来自主城九区",
-      description: "是重庆的一方是否来自主城九区？",
-      type: "boolean",
-      options: ["是", "否"],
-      scoring: true,
-      scoreRule: "是：+1分，否：+0.5分",
-    },
-    {
-      id: "b4",
-      title: "非重庆的一方是否来自四川",
-      description: "非重庆的一方是否来自四川？",
-      type: "boolean",
-      options: ["是", "否"],
-      scoring: true,
-      scoreRule: "是：+1分，否：+0.5分",
-    },
-    {
-      id: "b5",
-      title: "父母是否来自四川",
-      description: "父母是否来自四川？",
-      type: "choice",
-      options: ["是+是", "是+否", "否+否"],
-      scoring: true,
-      scoreRule: "是+是：+0.5分，是+否：+0分，否+否：-1分",
-    },
-
-    // 第四部分：个人经历题目
-    {
-      id: "c1",
-      title: "童年是否在重庆",
-      description: "童年是否在重庆？",
-      type: "boolean",
-      options: ["是", "否"],
-      scoring: true,
-      scoreRule: "是：+1分，否：-1分",
-    },
-    {
-      id: "c2",
-      title: "常居地是否为重庆",
-      description: "常居地是否为重庆？",
-      type: "boolean",
-      options: ["是", "否"],
-      scoring: true,
-      scoreRule: "是：+1分，否：-1分",
-    },
-    {
-      id: "c3",
-      title: "在重庆待的时长",
-      description: "在重庆待的时长（X年Y月）",
+      id: "p",
+      title: "MBTI",
+      description: "请填写您的MBTI类型",
       type: "text",
-      scoring: true,
-      scoreRule:
-        "根据时间长度进行实时排序，根据实时排名进行给分，最高分1分，最低分0分，允许并列",
+      scoring: false,
+      storageField: "mbti",
     },
   ];
 
@@ -206,7 +132,14 @@ function AdminPage() {
           body: JSON.stringify({
             user_id: userId,
             question_id: questionId,
-            answer: questionId === "a2" ? parseInt(answer) : answer,
+            answer:
+              questionId === "a2"
+                ? parseInt(answer)
+                : questionId === "a1" && answer === "是"
+                ? "yes"
+                : questionId === "a1" && answer === "否"
+                ? "no"
+                : answer,
           }),
         }
       );
@@ -331,7 +264,7 @@ function AdminPage() {
       style={{ backgroundColor: "#fefefe", minHeight: "100vh" }}
     >
       <div className="admin-header">
-        <h1>500游戏引擎测试问卷</h1>
+        <h1>500游戏引擎测试问卷 - 第一部分</h1>
         <p>用户ID: {userId}</p>
         <div className="score-section">
           <div className="score-display">
@@ -349,7 +282,10 @@ function AdminPage() {
           </div>
         </div>
         <p className="instruction">
-          请逐一回答以下问题，每题回答完成后点击对应的提交按钮
+          第一部分包含基础信息和身份认证题目，请逐一回答以下问题，每题回答完成后点击对应的提交按钮
+        </p>
+        <p className="section-info">
+          题目说明：Q1(称呼)、Q2(性别)、P(MBTI)为不计分题目；A1(身份证前三位)、A2(出生年份)为计分题目
         </p>
         <p className="api-info">API服务器: https://server500.actoria.top</p>
       </div>
