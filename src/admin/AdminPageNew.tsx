@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import UserStatus from './components/UserStatus';
+import { UserStatus } from './components/UserStatus';
+import { HealthCheck } from './components/HealthCheck';
 import QuestionSection from './components/QuestionSection';
 import type { Question } from './types/Question';
-import { getUserScore, submitAnswer } from './utils/api';
+import { getUserScore, submitAnswer, getUserAnswers } from './utils/api';
 import './AdminPage.css';
 import './components/components.css';
 
@@ -14,6 +15,8 @@ function AdminPageNew() {
   const [answers, setAnswers] = useState<{ [key: string]: string }>({});
   const [submittedQuestions, setSubmittedQuestions] = useState<Set<string>>(new Set());
   const [submittingQuestions, setSubmittingQuestions] = useState<Set<string>>(new Set());
+  const [apiKey, setApiKey] = useState<string>('');
+  const [hasLoadedHistory, setHasLoadedHistory] = useState<boolean>(false);
 
   // 定义所有题目
   const allQuestions: Question[] = [
@@ -108,7 +111,7 @@ function AdminPageNew() {
       scoreRule: "基础分：是+是：+0.5分，是+否：+0分，否+否：-1分；最终得分乘以D题直辖百分比",
     },
     
-    // 第三部分：个人经历题目
+    // 第二部分：个人经历题目
     {
       id: "c1",
       title: "童年是否在重庆",
@@ -135,25 +138,234 @@ function AdminPageNew() {
       scoring: true,
       scoreRule: "根据时间长度进行实时排序，根据实时排名进行给分，最高分1分，最低分0分，允许并列",
     },
+    
+    // 第三部分：重庆身份认同和文化测试
+    {
+      id: "d",
+      title: "重庆人身份认同的核心矛盾",
+      description: "维度选择：重庆人身份认同的核心矛盾",
+      type: "choice",
+      options: ["1(区县)", "2(直辖)", "3(赛博)"],
+      scoring: false,
+      scoreRule: "本题不直接计分，计算百分比分布作为其他题目的权重",
+    },
+    {
+      id: "e",
+      title: "重庆的中心",
+      description: "重庆的中心坐标选择（x和y都在1-10范围内）",
+      type: "coordinate",
+      scoring: true,
+      scoreRule: "和大多数人分布越近分数越高，最高分1分，最低分0分",
+    },
+    {
+      id: "f",
+      title: "绕口令",
+      description: "绕口令出错次数",
+      type: "number",
+      scoring: true,
+      scoreRule: "先判断重庆人群体出错分布，决定排序方式，然后排序给分",
+    },
+    {
+      id: "g",
+      title: "迷宫打卡",
+      description: "迷宫打卡地点数量（0-10）",
+      type: "number",
+      scoring: true,
+      scoreRule: "0处=0分，1处=0.1分，2处=0.2分，...，10处=1分；最终计分需要乘以d题的D3百分比",
+    },
+    
+    // 第四部分：切蛋糕和文化测试
+    {
+      id: "h1",
+      title: "切蛋糕 - 区县",
+      description: "切蛋糕 - 区县，填空得分",
+      type: "number",
+      scoring: true,
+      scoreRule: "根据所填得分进行实时排序，根据实时排名进行给分，最高分1分，最低分0分，最终得分乘以D题区县百分比",
+    },
+    {
+      id: "h2",
+      title: "切蛋糕 - 直辖",
+      description: "切蛋糕 - 直辖，填空得分",
+      type: "number",
+      scoring: true,
+      scoreRule: "根据所填得分进行实时排序，根据实时排名进行给分，最高分1分，最低分0分，最终得分乘以D题直辖百分比",
+    },
+    {
+      id: "i",
+      title: "乱劈柴",
+      description: "乱劈柴，填空使用重庆言子儿次数",
+      type: "number",
+      scoring: true,
+      scoreRule: "根据所填次数进行实时排序，根据实时排名进行给分，最高分1分，最低分0分，最终得分乘以D题赛博百分比",
+    },
+    {
+      id: "j",
+      title: "夜景图片",
+      description: "夜景图片，7选1",
+      type: "choice",
+      options: ["1", "2", "3", "4", "5", "6", "7"],
+      scoring: true,
+      scoreRule: "投票题，根据投票分布计算得分，越和大多数人相似分数越高，最终得分乘以D题赛博百分比",
+    },
+    {
+      id: "k",
+      title: "山火志愿对象",
+      description: "山火志愿对象，4选1",
+      type: "choice",
+      options: ["1(医疗队)", "2(摩托车队)", "3(油锯手队)", "4(不捐钱)"],
+      scoring: true,
+      scoreRule: "投票题，根据投票进行实时得票排名给分，最高分1分，最低分0分，最终得分乘以D题赛博百分比",
+    },
+    {
+      id: "r",
+      title: "选游戏",
+      description: "选择你想玩的游戏",
+      type: "choice",
+      options: ["脏话牌", "火锅油碟", "打麻将", "量身高", "社保年限", "消费", "游客量", "户口量"],
+      scoring: false,
+      scoreRule: "本题不计分，但统计各选项的选择百分比作为对应题目的权重",
+    },
+    {
+      id: "l",
+      title: "脏话牌",
+      description: "脏话牌，填空使用重庆脏话次数",
+      type: "number",
+      scoring: true,
+      scoreRule: "先判断次数=0和次数>0的人数分布，决定排序方式，然后排序给分，最高分1分，最低分0分，最终得分乘以R题脏话牌选择百分比",
+    },
+    
+    // 第五部分：火锅油碟、打麻将和数据统计
+    {
+      id: "m",
+      title: "火锅油碟",
+      description: "火锅油碟，多选投票（1-18号选项）",
+      type: "multi_choice",
+      options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18"],
+      scoring: true,
+      scoreRule: "根据各选项的实时得票分布进行排名给分，和选择最多的人越靠近得分越高，最终得分乘以R题火锅油碟选择百分比",
+    },
+    {
+      id: "n",
+      title: "打麻将",
+      description: "打麻将，填空番数（）番",
+      type: "number",
+      scoring: true,
+      scoreRule: "根据所填番数进行实时排序，根据实时排名进行给分，最终得分乘以R题打麻将选择百分比",
+    },
+    {
+      id: "o1",
+      title: "身高",
+      description: "身高，填空身高（）cm",
+      type: "number",
+      scoring: true,
+      scoreRule: "根据当前所有参与o1的人的数据计算实时平均数，与实时平均数越接近得分越高，最终得分乘以R题O系列选择百分比总和",
+    },
+    {
+      id: "o2",
+      title: "社保年限",
+      description: "社保年限，填空缴纳社保（）年（可以有小数）",
+      type: "number",
+      scoring: true,
+      scoreRule: "根据所填年数进行实时排序，根据实时排名进行给分，最终得分乘以R题O系列选择百分比总和",
+    },
+    {
+      id: "o3",
+      title: "消费",
+      description: "消费，填空今天在山城巷消费（）元",
+      type: "number",
+      scoring: true,
+      scoreRule: "根据所填消费金额进行实时排序，根据实时排名进行给分，最终得分乘以R题O系列选择百分比总和",
+    },
+    {
+      id: "o4",
+      title: "游客量",
+      description: "游客量，填空带来（）游客（整数）",
+      type: "number",
+      scoring: true,
+      scoreRule: "根据所填游客人数进行实时排序，根据实时排名进行给分，最终得分乘以R题O系列选择百分比总和",
+    },
+    {
+      id: "o5",
+      title: "户口量",
+      description: "户口量，填空带来（）人（整数）",
+      type: "number",
+      scoring: true,
+      scoreRule: "根据所填人数进行实时排序，根据实时排名进行给分，最终得分乘以R题O系列选择百分比总和",
+    },
   ];
 
   // 获取用户分数
   const fetchUserScore = async () => {
-    if (!userId) return;
-
+    if (!userId || !apiKey) return;
+    
     setLoadingScore(true);
     try {
-      const result = await getUserScore(userId);
-      if (result.code === 0) {
-        setUserScore(result.data?.total_score || 0);
+      const response = await getUserScore(userId);
+      if (response.code === 0 && response.data) {
+        setUserScore(response.data.total_score || 0);
       } else {
-        console.error('获取分数失败:', result.message);
+        console.error('获取分数失败:', response.message);
       }
     } catch (error) {
       console.error('获取分数出错:', error);
     } finally {
       setLoadingScore(false);
     }
+  };
+
+  // 加载用户历史答案
+  const loadUserHistory = async () => {
+    if (!userId || !apiKey || hasLoadedHistory) return;
+    
+    try {
+      const response = await getUserAnswers(userId);
+      if (response.code === 0 && response.data) {
+        const historyAnswers: { [key: string]: string } = {};
+        const submittedSet = new Set<string>();
+        
+        // 处理历史答案数据
+         Object.entries(response.data).forEach(([questionId, answer]) => {
+           if (answer !== null && answer !== undefined) {
+             // 处理特殊格式的答案
+             let processedAnswer: string;
+             
+             // A1题目的答案格式转换
+             if (questionId === 'a1') {
+               if (answer === 'yes' || answer === true) {
+                 processedAnswer = '是';
+               } else if (answer === 'no' || answer === false) {
+                 processedAnswer = '否';
+               } else {
+                 processedAnswer = String(answer);
+               }
+             } else {
+               processedAnswer = String(answer);
+             }
+             
+             historyAnswers[questionId] = processedAnswer;
+             submittedSet.add(questionId);
+           }
+         });
+        
+        setAnswers(historyAnswers);
+        setSubmittedQuestions(submittedSet);
+        setHasLoadedHistory(true);
+        
+        // 如果有历史答案，显示提示
+        if (Object.keys(historyAnswers).length > 0) {
+          console.log('已加载历史答案，共', Object.keys(historyAnswers).length, '题');
+        }
+      }
+    } catch (error) {
+      console.error('加载历史答案出错:', error);
+    }
+  };
+
+  // 处理API Key变化
+  const handleApiKeyChange = (newApiKey: string) => {
+    setApiKey(newApiKey);
+    setHasLoadedHistory(false); // 重置历史加载状态
   };
 
   // 处理答案变化
@@ -166,7 +378,7 @@ function AdminPageNew() {
 
   // 提交单个问题答案
   const handleQuestionSubmit = async (questionId: string) => {
-    if (!userId || !answers[questionId]) return;
+    if (!userId || !apiKey || !answers[questionId]) return;
 
     setSubmittingQuestions(prev => new Set([...prev, questionId]));
 
@@ -187,7 +399,7 @@ function AdminPageNew() {
       }
     } catch (error) {
       console.error('提交出错:', error);
-      alert('提交出错，请重试');
+      alert('提交出错，请检查网络连接或API Key');
     } finally {
       setSubmittingQuestions(prev => {
         const newSet = new Set(prev);
@@ -199,9 +411,11 @@ function AdminPageNew() {
 
   // 按部分分组题目
   const questionsBySection = {
-    section1: allQuestions.slice(0, 5),  // Q1, Q2, A1, A2, P
-    section2: allQuestions.slice(5, 10), // B1-B5
-    section3: allQuestions.slice(10, 13) // C1-C3
+    section1: allQuestions.slice(0, 5),   // Q1, Q2, A1, A2, P
+    section2: allQuestions.slice(5, 13),  // B1-B5, C1-C3
+    section3: allQuestions.slice(13, 17), // D, E, F, G
+    section4: allQuestions.slice(17, 24), // H1, H2, I, J, K, R, L
+    section5: allQuestions.slice(24, 31)  // M, N, O1-O5
   };
 
   // 渲染部分标题
@@ -236,10 +450,13 @@ function AdminPageNew() {
     };
   }, []);
 
-  // 初始加载分数
+  // 当API Key变化时，加载历史答案和分数
   useEffect(() => {
-    fetchUserScore();
-  }, [userId]);
+    if (apiKey && userId) {
+      loadUserHistory();
+      fetchUserScore();
+    }
+  }, [apiKey, userId]);
 
   if (!userId) {
     return (
@@ -265,7 +482,18 @@ function AdminPageNew() {
           userScore={userScore}
           loadingScore={loadingScore}
           onRefreshScore={fetchUserScore}
+          onApiKeyChange={handleApiKeyChange}
         />
+        
+        {/* 系统健康检查 */}
+        <HealthCheck />
+        
+        {/* 历史答案加载提示 */}
+        {hasLoadedHistory && submittedQuestions.size > 0 && (
+          <div className="history-notice">
+            <p>✅ 已加载历史答案，共 {submittedQuestions.size} 题已作答</p>
+          </div>
+        )}
       </div>
 
       <div className="admin-content">
@@ -281,7 +509,7 @@ function AdminPageNew() {
         />
 
         {/* 第二部分 */}
-        {renderSectionHeader('第二部分：父母相关题目', '关于父母来源地的题目，部分题目采用动态计分机制，最终得分会根据D题的统计结果进行调整', questionsBySection.section2)}
+        {renderSectionHeader('第二部分：父母相关和个人经历题目', '包含父母来源地题目(B1-B5)和个人经历题目(C1-C3)，部分题目采用动态计分机制', questionsBySection.section2)}
         <QuestionSection
           questions={questionsBySection.section2}
           answers={answers}
@@ -292,9 +520,31 @@ function AdminPageNew() {
         />
 
         {/* 第三部分 */}
-        {renderSectionHeader('第三部分：个人经历题目', '关于个人在重庆的生活经历，包括童年、常居地和居住时长', questionsBySection.section3)}
+        {renderSectionHeader('第三部分：重庆身份认同和文化测试', '包含重庆人身份认同的核心矛盾(D)、重庆中心坐标(E)、绕口令测试(F)、迷宫打卡(G)', questionsBySection.section3)}
         <QuestionSection
           questions={questionsBySection.section3}
+          answers={answers}
+          submittedQuestions={submittedQuestions}
+          submittingQuestions={submittingQuestions}
+          onAnswerChange={handleAnswerChange}
+          onQuestionSubmit={handleQuestionSubmit}
+        />
+
+        {/* 第四部分 */}
+        {renderSectionHeader('第四部分：重庆文化体验和游戏选择', '包含切蛋糕(H1-H2)、乱劈柴(I)、夜景图片(J)、山火志愿(K)、选游戏(R)、脏话牌(L)', questionsBySection.section4)}
+        <QuestionSection
+          questions={questionsBySection.section4}
+          answers={answers}
+          submittedQuestions={submittedQuestions}
+          submittingQuestions={submittingQuestions}
+          onAnswerChange={handleAnswerChange}
+          onQuestionSubmit={handleQuestionSubmit}
+        />
+
+        {/* 第五部分 */}
+        {renderSectionHeader('第五部分：重庆生活方式和个人数据', '包含火锅油碟(M)、打麻将(N)、身高(O1)、社保年限(O2)、消费(O3)、游客量(O4)、户口量(O5)', questionsBySection.section5)}
+        <QuestionSection
+          questions={questionsBySection.section5}
           answers={answers}
           submittedQuestions={submittedQuestions}
           submittingQuestions={submittingQuestions}

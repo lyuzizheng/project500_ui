@@ -2,7 +2,7 @@ export interface Question {
   id: string;
   title: string;
   description: string;
-  type: "text" | "choice" | "boolean" | "number";
+  type: "text" | "choice" | "boolean" | "number" | "coordinate" | "multi_choice" | "integer";
   options?: string[];
   scoring: boolean; // 是否计分
   scoreRule?: string; // 计分规则说明

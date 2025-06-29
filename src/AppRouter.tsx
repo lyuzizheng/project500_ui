@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import App from "./App.tsx";
 import Credit from "./Credit.tsx";
 import { AdminPage } from "./admin";

@@ -2,10 +2,60 @@
 
 服务器地址: <https://server500.actoria.top>
 
+## 重要更新说明
+
+### API认证
+所有API请求现在都需要在请求头中包含API Key：
+```
+X-API-Key: your_secret_api_key_here
+```
+
+### 超时设置
+- 服务器读取超时：5秒
+- 服务器写入超时：5秒
+- 请确保客户端请求在5秒内完成
+
+### 环境变量配置
+在`.env`文件中设置：
+```
+API_KEY=your_secret_api_key_here
+```
+
 ## 1. 基础健康检查
 
+### 1.1 简单健康检查
 ```bash
 curl -X GET https://server500.actoria.top/hello
+```
+
+### 1.2 系统健康检查（数据库、Redis等）
+```bash
+curl -X GET https://server500.actoria.top/api/health
+```
+
+**响应示例（健康状态）：**
+```json
+{
+  "code": 0,
+  "message": "系统健康",
+  "data": {
+    "status": "healthy",
+    "services": {
+      "postgres": "healthy",
+      "redis": "healthy"
+    },
+    "timestamp": "2024-01-01T12:00:00Z"
+  }
+}
+```
+
+**响应示例（不健康状态）：**
+```json
+{
+  "code": 5003,
+  "message": "系统不健康",
+  "data": null
+}
 ```
 
 ## 2. 题目列表和说明
@@ -77,6 +127,7 @@ curl -X GET https://server500.actoria.top/hello
 ```bash
 curl -X POST https://server500.actoria.top/api/answers \
   -H "Content-Type: application/json" \
+  -H "X-API-Key: your_secret_api_key_here" \
   -d '{
     "user_id": "user001",
     "question_id": "q1",
@@ -89,6 +140,7 @@ curl -X POST https://server500.actoria.top/api/answers \
 ```bash
 curl -X POST https://server500.actoria.top/api/answers \
   -H "Content-Type: application/json" \
+  -H "X-API-Key: your_secret_api_key_here" \
   -d '{
     "user_id": "user001",
     "question_id": "q2",
@@ -101,6 +153,7 @@ curl -X POST https://server500.actoria.top/api/answers \
 ```bash
 curl -X POST https://server500.actoria.top/api/answers \
   -H "Content-Type: application/json" \
+  -H "X-API-Key: your_secret_api_key_here" \
   -d '{
     "user_id": "user001",
     "question_id": "a1",

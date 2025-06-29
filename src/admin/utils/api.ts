@@ -2,6 +2,25 @@ import type { ApiResponse } from '../types/Question';
 
 const API_BASE_URL = 'https://server500.actoria.top';
 
+// 获取API Key
+function getApiKey(): string {
+  return localStorage.getItem('api_key') || '';
+}
+
+// 创建请求头
+function createHeaders(): HeadersInit {
+  const headers: HeadersInit = {
+    'Content-Type': 'application/json',
+  };
+  
+  const apiKey = getApiKey();
+  if (apiKey) {
+    headers['X-API-Key'] = apiKey;
+  }
+  
+  return headers;
+}
+
 // 提交答案
 export async function submitAnswer(
   userId: string,
@@ -24,9 +43,7 @@ export async function submitAnswer(
 
   const response = await fetch(`${API_BASE_URL}/api/answers`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: createHeaders(),
     body: JSON.stringify({
       user_id: userId,
       question_id: questionId,
@@ -39,12 +56,16 @@ export async function submitAnswer(
 
 // 获取用户分数
 export async function getUserScore(userId: string): Promise<ApiResponse> {
-  const response = await fetch(`${API_BASE_URL}/api/scores/${userId}`);
+  const response = await fetch(`${API_BASE_URL}/api/scores/${userId}`, {
+    headers: createHeaders(),
+  });
   return await response.json();
 }
 
 // 获取用户答案
 export async function getUserAnswers(userId: string): Promise<ApiResponse> {
-  const response = await fetch(`${API_BASE_URL}/api/answers/${userId}`);
+  const response = await fetch(`${API_BASE_URL}/api/answers/${userId}`, {
+    headers: createHeaders(),
+  });
   return await response.json();
 }

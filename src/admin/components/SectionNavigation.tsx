@@ -1,6 +1,5 @@
-import React from 'react';
-import type { SectionInfo } from '../types/Question';
-import './components.css';
+import type { SectionInfo } from "../types/Question";
+import "./components.css";
 
 interface SectionNavigationProps {
   sections: SectionInfo[];
@@ -22,10 +21,8 @@ function SectionNavigation({
             key={section.id}
             onClick={() => onSectionChange(section.id)}
             className={`nav-section-btn ${
-              currentSection === section.id ? 'active' : ''
-            } ${
-              section.completed ? 'completed' : ''
-            }`}
+              currentSection === section.id ? "active" : ""
+            } ${section.completed ? "completed" : ""}`}
           >
             <div className="section-title">{section.title}</div>
             <div className="section-info">

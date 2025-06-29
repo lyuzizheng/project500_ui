@@ -1,6 +1,5 @@
-import React from 'react';
-import type { Question } from '../types/Question';
-import './components.css';
+import type { Question } from "../types/Question";
+import "./components.css";
 
 interface QuestionSectionProps {
   questions: Question[];
@@ -38,16 +37,74 @@ function QuestionSection({
         );
 
       case "number":
+        if (question.id === "a2") {
+          return (
+            <input
+              type="number"
+              value={value}
+              onChange={(e) => onAnswerChange(question.id, e.target.value)}
+              placeholder="请输入年份，例如: 1998"
+              className="question-input"
+              min="1900"
+              max="2024"
+            />
+          );
+        } else {
+          // 对于F题和G题
+          const min = question.id === "g" ? 0 : undefined;
+          const max = question.id === "g" ? 10 : undefined;
+          return (
+            <input
+              type="number"
+              value={value}
+              onChange={(e) => onAnswerChange(question.id, e.target.value)}
+              placeholder={question.id === "f" ? "请输入出错次数" : "请输入打卡地点数量(0-10)"}
+              className="question-input"
+              min={min}
+              max={max}
+            />
+          );
+        }
+
+      case "coordinate":
+        const coords = value ? value.split(',') : ['', ''];
+        const x = coords[0] || '';
+        const y = coords[1] || '';
         return (
-          <input
-            type="number"
-            value={value}
-            onChange={(e) => onAnswerChange(question.id, e.target.value)}
-            placeholder="请输入年份，例如: 1998"
-            className="question-input"
-            min="1900"
-            max="2024"
-          />
+          <div className="coordinate-input">
+            <div className="coordinate-group">
+              <label>X坐标 (1-10):</label>
+              <input
+                type="number"
+                value={x}
+                onChange={(e) => {
+                  const newX = e.target.value;
+                  const newY = coords[1] || '';
+                  onAnswerChange(question.id, `${newX},${newY}`);
+                }}
+                placeholder="1-10"
+                className="coordinate-input-field"
+                min="1"
+                max="10"
+              />
+            </div>
+            <div className="coordinate-group">
+              <label>Y坐标 (1-10):</label>
+              <input
+                type="number"
+                value={y}
+                onChange={(e) => {
+                  const newY = e.target.value;
+                  const newX = coords[0] || '';
+                  onAnswerChange(question.id, `${newX},${newY}`);
+                }}
+                placeholder="1-10"
+                className="coordinate-input-field"
+                min="1"
+                max="10"
+              />
+            </div>
+          </div>
         );
 
       case "choice":
@@ -85,6 +142,42 @@ function QuestionSection({
           </div>
         );
 
+      case "multi_choice":
+        const selectedValues = value ? value.split(',') : [];
+        return (
+          <div className="multi-choice-group">
+            {question.options?.map((option, index) => (
+              <label key={index} className="checkbox-label">
+                <input
+                  type="checkbox"
+                  value={option}
+                  checked={selectedValues.includes(option)}
+                  onChange={(e) => {
+                    const newValues = e.target.checked
+                      ? [...selectedValues, option]
+                      : selectedValues.filter(v => v !== option);
+                    onAnswerChange(question.id, newValues.join(','));
+                  }}
+                  className="checkbox-input"
+                />
+                <span className="checkbox-text">{option}</span>
+              </label>
+            ))}
+          </div>
+        );
+
+      case "integer":
+        return (
+          <input
+            type="number"
+            value={value}
+            onChange={(e) => onAnswerChange(question.id, e.target.value)}
+            placeholder="请输入整数"
+            className="question-input"
+            step="1"
+          />
+        );
+
       default:
         return null;
     }
@@ -105,9 +198,7 @@ function QuestionSection({
         return (
           <div
             key={question.id}
-            className={`table-row ${
-              isSubmitted ? "submitted" : ""
-            } ${
+            className={`table-row ${isSubmitted ? "submitted" : ""} ${
               question.scoring ? "scoring-question" : "non-scoring-question"
             }`}
           >
@@ -122,7 +213,9 @@ function QuestionSection({
                   {question.description}
                 </div>
                 {question.scoreRule && (
-                  <div className="score-rule">计分规则: {question.scoreRule}</div>
+                  <div className="score-rule">
+                    计分规则: {question.scoreRule}
+                  </div>
                 )}
               </div>
             </div>
@@ -136,18 +229,10 @@ function QuestionSection({
                 onClick={() => onQuestionSubmit(question.id)}
                 disabled={isSubmitting || isSubmitted}
                 className={`submit-btn ${
-                  isSubmitted
-                    ? "submitted"
-                    : isSubmitting
-                    ? "submitting"
-                    : ""
+                  isSubmitted ? "submitted" : isSubmitting ? "submitting" : ""
                 }`}
               >
-                {isSubmitted
-                  ? "已提交"
-                  : isSubmitting
-                  ? "提交中..."
-                  : "提交"}
+                {isSubmitted ? "已提交" : isSubmitting ? "提交中..." : "提交"}
               </button>
               {isSubmitted && <span className="success-icon">✓</span>}
             </div>
