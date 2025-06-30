@@ -61,7 +61,7 @@ export async function submitAnswer(
 
 // 获取所有用户分数
 export async function getScores(): Promise<UserScore[]> {
-  const response = await fetch(`${getApiBaseUrl()}/api/scores`, {
+  const response = await fetch(`${getApiBaseUrl()}/api/final-scores`, {
     headers: createHeaders(),
   });
   const result = await response.json();

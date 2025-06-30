@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useApiConfig } from "../contexts/ApiConfigContext";
-import type { UserScore } from "../types/Question";
 import { getScores } from "../utils/api";
+import { ScoreChart } from "./ScoreChart";
 
 interface UserStatusProps {
   userId: string;
@@ -149,7 +149,9 @@ export const UserStatus: React.FC<UserStatusProps> = ({
           <div className="score-display">
             <span className="score-label">当前总分:</span>
             <span className="score-value">
-              {userScore !== null ? `${userScore.total_score}分` : "未获取"}
+              {userScore !== null && userScore.total_score !== undefined
+                ? `${userScore.total_score}分`
+                : "未获取"}
             </span>
             <button
               onClick={loadUserScore}
@@ -159,6 +161,13 @@ export const UserStatus: React.FC<UserStatusProps> = ({
               {loading ? "获取中..." : "刷新分数"}
             </button>
           </div>
+
+          {/* 坐标轴可视化 */}
+          {userScore &&
+            (userScore.x_axis_percent !== undefined ||
+              userScore.y_axis_percent !== undefined) && (
+              <ScoreChart userScore={userScore} />
+            )}
         </div>
 
         <div className="api-info">
