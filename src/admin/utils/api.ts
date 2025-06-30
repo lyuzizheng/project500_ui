@@ -1,23 +1,23 @@
-import type { ApiResponse } from '../types/Question';
+import type { ApiResponse } from "../types/Question";
 
-const API_BASE_URL = 'https://server500.actoria.top';
+const API_BASE_URL = "https://server500.actoria.top";
 
 // 获取API Key
 function getApiKey(): string {
-  return localStorage.getItem('api_key') || '';
+  return localStorage.getItem("api_key") || "";
 }
 
 // 创建请求头
 function createHeaders(): HeadersInit {
   const headers: HeadersInit = {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   };
-  
+
   const apiKey = getApiKey();
   if (apiKey) {
-    headers['X-API-Key'] = apiKey;
+    headers["X-API-Key"] = apiKey;
   }
-  
+
   return headers;
 }
 
@@ -29,20 +29,20 @@ export async function submitAnswer(
 ): Promise<ApiResponse> {
   // 处理特殊答案格式
   let processedAnswer = answer;
-  
+
   // A1题目的答案格式转换
-  if (questionId === 'a1') {
-    if (answer === '是') processedAnswer = 'yes';
-    else if (answer === '否') processedAnswer = 'no';
+  if (questionId === "a1") {
+    if (answer === "是") processedAnswer = "yes";
+    else if (answer === "否") processedAnswer = "no";
   }
-  
+
   // A2题目转换为数字
-  if (questionId === 'a2') {
+  if (questionId === "a2") {
     processedAnswer = parseInt(answer as string);
   }
 
   const response = await fetch(`${API_BASE_URL}/api/answers`, {
-    method: 'POST',
+    method: "POST",
     headers: createHeaders(),
     body: JSON.stringify({
       user_id: userId,

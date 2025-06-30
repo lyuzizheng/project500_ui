@@ -58,7 +58,11 @@ function QuestionSection({
               type="number"
               value={value}
               onChange={(e) => onAnswerChange(question.id, e.target.value)}
-              placeholder={question.id === "f" ? "请输入出错次数" : "请输入打卡地点数量(0-10)"}
+              placeholder={
+                question.id === "f"
+                  ? "请输入出错次数"
+                  : "请输入打卡地点数量(0-10)"
+              }
               className="question-input"
               min={min}
               max={max}
@@ -67,9 +71,9 @@ function QuestionSection({
         }
 
       case "coordinate":
-        const coords = value ? value.split(',') : ['', ''];
-        const x = coords[0] || '';
-        const y = coords[1] || '';
+        const coords = value ? value.split(",") : ["", ""];
+        const x = coords[0] || "";
+        const y = coords[1] || "";
         return (
           <div className="coordinate-input">
             <div className="coordinate-group">
@@ -79,7 +83,7 @@ function QuestionSection({
                 value={x}
                 onChange={(e) => {
                   const newX = e.target.value;
-                  const newY = coords[1] || '';
+                  const newY = coords[1] || "";
                   onAnswerChange(question.id, `${newX},${newY}`);
                 }}
                 placeholder="1-10"
@@ -95,7 +99,7 @@ function QuestionSection({
                 value={y}
                 onChange={(e) => {
                   const newY = e.target.value;
-                  const newX = coords[0] || '';
+                  const newX = coords[0] || "";
                   onAnswerChange(question.id, `${newX},${newY}`);
                 }}
                 placeholder="1-10"
@@ -143,7 +147,7 @@ function QuestionSection({
         );
 
       case "multi_choice":
-        const selectedValues = value ? value.split(',') : [];
+        const selectedValues = value ? value.split(",") : [];
         return (
           <div className="multi-choice-group">
             {question.options?.map((option, index) => (
@@ -155,8 +159,8 @@ function QuestionSection({
                   onChange={(e) => {
                     const newValues = e.target.checked
                       ? [...selectedValues, option]
-                      : selectedValues.filter(v => v !== option);
-                    onAnswerChange(question.id, newValues.join(','));
+                      : selectedValues.filter((v) => v !== option);
+                    onAnswerChange(question.id, newValues.join(","));
                   }}
                   className="checkbox-input"
                 />
