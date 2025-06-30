@@ -1,11 +1,16 @@
-import type { ApiResponse } from "../types/Question";
+import type { ApiResponse, UserScore } from "../types/Question";
 
-const API_BASE_URL = "https://server500.actoria.top";
+// 全局配置获取函数（用于非React组件）
+function getApiBaseUrl(): string {
+  return localStorage.getItem("api_base_url") || "https://server500.actoria.top";
+}
 
-// 获取API Key
 function getApiKey(): string {
   return localStorage.getItem("api_key") || "";
 }
+
+// 导出配置获取函数供外部使用
+export { getApiBaseUrl, getApiKey };
 
 // 创建请求头
 function createHeaders(): HeadersInit {
@@ -41,7 +46,7 @@ export async function submitAnswer(
     processedAnswer = parseInt(answer as string);
   }
 
-  const response = await fetch(`${API_BASE_URL}/api/answers`, {
+  const response = await fetch(`${getApiBaseUrl()}/api/answers`, {
     method: "POST",
     headers: createHeaders(),
     body: JSON.stringify({
@@ -54,9 +59,18 @@ export async function submitAnswer(
   return await response.json();
 }
 
+// 获取所有用户分数
+export async function getScores(): Promise<UserScore[]> {
+  const response = await fetch(`${getApiBaseUrl()}/api/scores`, {
+    headers: createHeaders(),
+  });
+  const result = await response.json();
+  return result.data || [];
+}
+
 // 获取用户分数
 export async function getUserScore(userId: string): Promise<ApiResponse> {
-  const response = await fetch(`${API_BASE_URL}/api/scores/${userId}`, {
+  const response = await fetch(`${getApiBaseUrl()}/api/scores/${userId}`, {
     headers: createHeaders(),
   });
   return await response.json();
@@ -64,7 +78,7 @@ export async function getUserScore(userId: string): Promise<ApiResponse> {
 
 // 获取用户答案
 export async function getUserAnswers(userId: string): Promise<ApiResponse> {
-  const response = await fetch(`${API_BASE_URL}/api/answers/${userId}`, {
+  const response = await fetch(`${getApiBaseUrl()}/api/answers/${userId}`, {
     headers: createHeaders(),
   });
   return await response.json();

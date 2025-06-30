@@ -24,6 +24,12 @@ export interface SectionInfo {
   completed: boolean;
 }
 
+export interface UserScore {
+  user_id: string;
+  total_score: number;
+  questionScores?: { [questionId: string]: number };
+}
+
 export interface ApiResponse {
   code: number;
   message: string;

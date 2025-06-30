@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { Question } from "../types/Question";
 import "./components.css";
 
@@ -18,6 +19,33 @@ function QuestionSection({
   onAnswerChange,
   onQuestionSubmit,
 }: QuestionSectionProps) {
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [confirmQuestionId, setConfirmQuestionId] = useState<string | null>(
+    null
+  );
+
+  const handleSubmitClick = (questionId: string) => {
+    const isSubmitted = submittedQuestions.has(questionId);
+    if (isSubmitted) {
+      setConfirmQuestionId(questionId);
+      setShowConfirmModal(true);
+    } else {
+      onQuestionSubmit(questionId);
+    }
+  };
+
+  const handleConfirmSubmit = () => {
+    if (confirmQuestionId) {
+      onQuestionSubmit(confirmQuestionId);
+    }
+    setShowConfirmModal(false);
+    setConfirmQuestionId(null);
+  };
+
+  const handleCancelSubmit = () => {
+    setShowConfirmModal(false);
+    setConfirmQuestionId(null);
+  };
   // 渲染不同类型的输入组件
   const renderQuestionInput = (question: Question) => {
     const value = answers[question.id] || "";
@@ -188,62 +216,88 @@ function QuestionSection({
   };
 
   return (
-    <div className="questions-table">
-      <div className="table-header">
-        <div className="header-cell question-header">题目信息</div>
-        <div className="header-cell answer-header">答案</div>
-        <div className="header-cell action-header">操作</div>
-      </div>
+    <>
+      <div className="question-list-container">
+        <div className="question-list-header">
+          <div className="header-item question-info-header">题目信息</div>
+          <div className="header-item answer-header">答案</div>
+          <div className="header-item action-header">操作</div>
+        </div>
+        <div className="question-list-body">
+          {questions.map((question) => {
+            const isSubmitting = submittingQuestions.has(question.id);
+            const isSubmitted = submittedQuestions.has(question.id);
 
-      {questions.map((question) => {
-        const isSubmitting = submittingQuestions.has(question.id);
-        const isSubmitted = submittedQuestions.has(question.id);
-
-        return (
-          <div
-            key={question.id}
-            className={`table-row ${isSubmitted ? "submitted" : ""} ${
-              question.scoring ? "scoring-question" : "non-scoring-question"
-            }`}
-          >
-            <div className="table-cell question-cell">
-              <div className="question-header-info">
-                <div className="question-id">ID: {question.id}</div>
-                <div className="question-title">{question.title}</div>
-                {question.scoring && (
-                  <span className="scoring-badge">计分题</span>
-                )}
-                <div className="question-description">
-                  {question.description}
-                </div>
-                {question.scoreRule && (
-                  <div className="score-rule">
-                    计分规则: {question.scoreRule}
-                  </div>
-                )}
-              </div>
-            </div>
-
-            <div className="table-cell answer-cell">
-              {renderQuestionInput(question)}
-            </div>
-
-            <div className="table-cell action-cell">
-              <button
-                onClick={() => onQuestionSubmit(question.id)}
-                disabled={isSubmitting || isSubmitted}
-                className={`submit-btn ${
-                  isSubmitted ? "submitted" : isSubmitting ? "submitting" : ""
+            return (
+              <div
+                key={question.id}
+                className={`question-item-row ${
+                  isSubmitted ? "answered" : "unanswered"
                 }`}
               >
-                {isSubmitted ? "已提交" : isSubmitting ? "提交中..." : "提交"}
+                <div className="item-col question-info-col">
+                  <div className="question-header">
+                    <div className="question-id">ID: {question.id}</div>
+                    <div
+                      className={`answer-status ${
+                        isSubmitted ? "completed" : "pending"
+                      }`}
+                    >
+                      {isSubmitted ? "✓ 已作答" : "○ 待作答"}
+                    </div>
+                  </div>
+                  <div className="question-title">{question.title}</div>
+                  <div className="question-description">
+                    {question.description}
+                  </div>
+                </div>
+                <div className="item-col answer-col">
+                  {renderQuestionInput(question)}
+                </div>
+                <div className="item-col action-col">
+                  <button
+                    onClick={() => handleSubmitClick(question.id)}
+                    disabled={isSubmitting}
+                    className={`submit-button ${
+                      isSubmitted ? "submitted" : "pending"
+                    } ${isSubmitting ? "submitting" : ""}`}
+                  >
+                    {isSubmitting
+                      ? "提交中..."
+                      : isSubmitted
+                      ? "重新提交"
+                      : "提交"}
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* 确认弹窗 */}
+      {showConfirmModal && (
+        <div className="confirm-modal-overlay">
+          <div className="confirm-modal">
+            <div className="confirm-modal-header">
+              <h3>确认重新提交</h3>
+            </div>
+            <div className="confirm-modal-body">
+              <p>您已经提交过这道题目的答案，确定要重新提交吗？</p>
+              <p className="warning-text">重新提交将覆盖之前的答案。</p>
+            </div>
+            <div className="confirm-modal-actions">
+              <button className="cancel-button" onClick={handleCancelSubmit}>
+                取消
               </button>
-              {isSubmitted && <span className="success-icon">✓</span>}
+              <button className="confirm-button" onClick={handleConfirmSubmit}>
+                确认提交
+              </button>
             </div>
           </div>
-        );
-      })}
-    </div>
+        </div>
+      )}
+    </>
   );
 }
 

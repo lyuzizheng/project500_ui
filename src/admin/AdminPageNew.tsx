@@ -5,13 +5,12 @@ import "./components/components.css";
 import { HealthCheck } from "./components/HealthCheck";
 import QuestionSection from "./components/QuestionSection";
 import { UserStatus } from "./components/UserStatus";
+import { ApiConfigProvider } from "./contexts/ApiConfigContext";
 import type { Question } from "./types/Question";
-import { getUserAnswers, getUserScore, submitAnswer } from "./utils/api";
+import { getUserAnswers, submitAnswer } from "./utils/api";
 
 function AdminPageNew() {
   const { userId } = useParams<{ userId: string }>();
-  const [userScore, setUserScore] = useState<number | null>(null);
-  const [loadingScore, setLoadingScore] = useState(false);
   const [answers, setAnswers] = useState<{ [key: string]: string }>({});
   const [submittedQuestions, setSubmittedQuestions] = useState<Set<string>>(
     new Set()
@@ -344,25 +343,6 @@ function AdminPageNew() {
     },
   ];
 
-  // 获取用户分数
-  const fetchUserScore = async () => {
-    if (!userId || !apiKey) return;
-
-    setLoadingScore(true);
-    try {
-      const response = await getUserScore(userId);
-      if (response.code === 0 && response.data) {
-        setUserScore(response.data.total_score || 0);
-      } else {
-        console.error("获取分数失败:", response.message);
-      }
-    } catch (error) {
-      console.error("获取分数出错:", error);
-    } finally {
-      setLoadingScore(false);
-    }
-  };
-
   // 加载用户历史答案
   const loadUserHistory = async () => {
     if (!userId || !apiKey || hasLoadedHistory) return;
@@ -453,19 +433,13 @@ function AdminPageNew() {
 
       if (result.code === 0) {
         setSubmittedQuestions((prev) => new Set([...prev, questionId]));
-
-        // 更新分数
-        if (result.data?.total_score !== undefined) {
-          setUserScore(result.data.total_score);
-        }
-
-        alert(`题目 ${questionId.toUpperCase()} 提交成功！`);
+        console.log(`题目 ${questionId.toUpperCase()} 提交成功！`);
       } else {
-        alert(`提交失败: ${result.message}`);
+        console.error(`提交失败: ${result.message}`);
       }
     } catch (error) {
       console.error("提交出错:", error);
-      alert("提交出错，请检查网络连接或API Key");
+      console.error("提交出错，请检查网络连接或API Key");
     } finally {
       setSubmittingQuestions((prev) => {
         const newSet = new Set(prev);
@@ -526,11 +500,10 @@ function AdminPageNew() {
     };
   }, []);
 
-  // 当API Key变化时，加载历史答案和分数
+  // 当API Key变化时，加载历史答案
   useEffect(() => {
     if (apiKey && userId) {
       loadUserHistory();
-      fetchUserScore();
     }
   }, [apiKey, userId]);
 
@@ -546,109 +519,106 @@ function AdminPageNew() {
   }
 
   return (
-    <div
-      className="admin-container"
-      style={{ backgroundColor: "#fefefe", minHeight: "100vh" }}
-    >
-      <div className="admin-header">
-        <h1>500游戏引擎测试问卷</h1>
-
-        <UserStatus
-          userId={userId}
-          userScore={userScore}
-          loadingScore={loadingScore}
-          onRefreshScore={fetchUserScore}
-          onApiKeyChange={handleApiKeyChange}
-        />
-
-        {/* 系统健康检查 */}
-        <HealthCheck />
-
-        {/* 历史答案加载提示 */}
-        {hasLoadedHistory && submittedQuestions.size > 0 && (
-          <div className="history-notice">
-            <p>✅ 已加载历史答案，共 {submittedQuestions.size} 题已作答</p>
+    <ApiConfigProvider>
+      <div
+        className="admin-container"
+        style={{ backgroundColor: "#fefefe", minHeight: "100vh" }}
+      >
+        <div className="admin-header">
+          <div className="header-top">
+            <h1>500游戏引擎测试问卷</h1>
+            {/* 系统健康检查 */}
+            <HealthCheck />
           </div>
-        )}
+
+          <UserStatus userId={userId} onApiKeyChange={handleApiKeyChange} />
+
+          {/* 历史答案加载提示 */}
+          {hasLoadedHistory && submittedQuestions.size > 0 && (
+            <div className="history-notice">
+              <p>✅ 已加载历史答案，共 {submittedQuestions.size} 题已作答</p>
+            </div>
+          )}
+        </div>
+
+        <div className="admin-content">
+          {/* 第一部分 */}
+          {renderSectionHeader(
+            "第一部分：基础信息和身份认证",
+            "包含基础信息和身份认证题目，Q1(称呼)、Q2(性别)、P(MBTI)为不计分题目；A1(身份证前三位)、A2(出生年份)为计分题目",
+            questionsBySection.section1
+          )}
+          <QuestionSection
+            questions={questionsBySection.section1}
+            answers={answers}
+            submittedQuestions={submittedQuestions}
+            submittingQuestions={submittingQuestions}
+            onAnswerChange={handleAnswerChange}
+            onQuestionSubmit={handleQuestionSubmit}
+          />
+
+          {/* 第二部分 */}
+          {renderSectionHeader(
+            "第二部分：父母相关和个人经历题目",
+            "包含父母来源地题目(B1-B5)和个人经历题目(C1-C3)，部分题目采用动态计分机制",
+            questionsBySection.section2
+          )}
+          <QuestionSection
+            questions={questionsBySection.section2}
+            answers={answers}
+            submittedQuestions={submittedQuestions}
+            submittingQuestions={submittingQuestions}
+            onAnswerChange={handleAnswerChange}
+            onQuestionSubmit={handleQuestionSubmit}
+          />
+
+          {/* 第三部分 */}
+          {renderSectionHeader(
+            "第三部分：重庆身份认同和文化测试",
+            "包含重庆人身份认同的核心矛盾(D)、重庆中心坐标(E)、绕口令测试(F)、迷宫打卡(G)",
+            questionsBySection.section3
+          )}
+          <QuestionSection
+            questions={questionsBySection.section3}
+            answers={answers}
+            submittedQuestions={submittedQuestions}
+            submittingQuestions={submittingQuestions}
+            onAnswerChange={handleAnswerChange}
+            onQuestionSubmit={handleQuestionSubmit}
+          />
+
+          {/* 第四部分 */}
+          {renderSectionHeader(
+            "第四部分：重庆文化体验和游戏选择",
+            "包含切蛋糕(H1-H2)、乱劈柴(I)、夜景图片(J)、山火志愿(K)、选游戏(R)、脏话牌(L)",
+            questionsBySection.section4
+          )}
+          <QuestionSection
+            questions={questionsBySection.section4}
+            answers={answers}
+            submittedQuestions={submittedQuestions}
+            submittingQuestions={submittingQuestions}
+            onAnswerChange={handleAnswerChange}
+            onQuestionSubmit={handleQuestionSubmit}
+          />
+
+          {/* 第五部分 */}
+          {renderSectionHeader(
+            "第五部分：重庆生活方式和个人数据",
+            "包含火锅油碟(M)、打麻将(N)、身高(O1)、社保年限(O2)、消费(O3)、游客量(O4)、户口量(O5)",
+            questionsBySection.section5
+          )}
+          <QuestionSection
+            questions={questionsBySection.section5}
+            answers={answers}
+            submittedQuestions={submittedQuestions}
+            submittingQuestions={submittingQuestions}
+            onAnswerChange={handleAnswerChange}
+            onQuestionSubmit={handleQuestionSubmit}
+          />
+        </div>
       </div>
-
-      <div className="admin-content">
-        {/* 第一部分 */}
-        {renderSectionHeader(
-          "第一部分：基础信息和身份认证",
-          "包含基础信息和身份认证题目，Q1(称呼)、Q2(性别)、P(MBTI)为不计分题目；A1(身份证前三位)、A2(出生年份)为计分题目",
-          questionsBySection.section1
-        )}
-        <QuestionSection
-          questions={questionsBySection.section1}
-          answers={answers}
-          submittedQuestions={submittedQuestions}
-          submittingQuestions={submittingQuestions}
-          onAnswerChange={handleAnswerChange}
-          onQuestionSubmit={handleQuestionSubmit}
-        />
-
-        {/* 第二部分 */}
-        {renderSectionHeader(
-          "第二部分：父母相关和个人经历题目",
-          "包含父母来源地题目(B1-B5)和个人经历题目(C1-C3)，部分题目采用动态计分机制",
-          questionsBySection.section2
-        )}
-        <QuestionSection
-          questions={questionsBySection.section2}
-          answers={answers}
-          submittedQuestions={submittedQuestions}
-          submittingQuestions={submittingQuestions}
-          onAnswerChange={handleAnswerChange}
-          onQuestionSubmit={handleQuestionSubmit}
-        />
-
-        {/* 第三部分 */}
-        {renderSectionHeader(
-          "第三部分：重庆身份认同和文化测试",
-          "包含重庆人身份认同的核心矛盾(D)、重庆中心坐标(E)、绕口令测试(F)、迷宫打卡(G)",
-          questionsBySection.section3
-        )}
-        <QuestionSection
-          questions={questionsBySection.section3}
-          answers={answers}
-          submittedQuestions={submittedQuestions}
-          submittingQuestions={submittingQuestions}
-          onAnswerChange={handleAnswerChange}
-          onQuestionSubmit={handleQuestionSubmit}
-        />
-
-        {/* 第四部分 */}
-        {renderSectionHeader(
-          "第四部分：重庆文化体验和游戏选择",
-          "包含切蛋糕(H1-H2)、乱劈柴(I)、夜景图片(J)、山火志愿(K)、选游戏(R)、脏话牌(L)",
-          questionsBySection.section4
-        )}
-        <QuestionSection
-          questions={questionsBySection.section4}
-          answers={answers}
-          submittedQuestions={submittedQuestions}
-          submittingQuestions={submittingQuestions}
-          onAnswerChange={handleAnswerChange}
-          onQuestionSubmit={handleQuestionSubmit}
-        />
-
-        {/* 第五部分 */}
-        {renderSectionHeader(
-          "第五部分：重庆生活方式和个人数据",
-          "包含火锅油碟(M)、打麻将(N)、身高(O1)、社保年限(O2)、消费(O3)、游客量(O4)、户口量(O5)",
-          questionsBySection.section5
-        )}
-        <QuestionSection
-          questions={questionsBySection.section5}
-          answers={answers}
-          submittedQuestions={submittedQuestions}
-          submittingQuestions={submittingQuestions}
-          onAnswerChange={handleAnswerChange}
-          onQuestionSubmit={handleQuestionSubmit}
-        />
-      </div>
-    </div>
+    </ApiConfigProvider>
   );
 }
 

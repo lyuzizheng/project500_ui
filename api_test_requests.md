@@ -223,6 +223,45 @@ curl -X GET https://server500.actoria.top/api/answers/user001
 curl -X GET https://server500.actoria.top/api/answers/user002
 ```
 
+### 4.3 清除所有答案数据
+
+**⚠️ 危险操作：此操作将清除所有用户的答案和分数数据**
+
+```bash
+curl -X DELETE https://server500.actoria.top/api/answers/clear \
+  -H "X-API-Key: your_secret_api_key_here"
+```
+
+**响应示例（成功）：**
+```json
+{
+  "code": 0,
+  "message": "所有答案数据已成功清除",
+  "data": {
+    "cleared_data": ["内存数据", "Redis缓存", "PostgreSQL数据"],
+    "timestamp": "2024-01-01T12:00:00Z"
+  }
+}
+```
+
+**响应示例（错误）：**
+```json
+{
+  "code": 5000,
+  "message": "清除所有答案时出错: 具体错误信息",
+  "data": null
+}
+```
+
+**说明：**
+- 此操作需要DELETE方法
+- 需要API Key认证
+- 将清除以下数据：
+  - 内存中的所有问题答案和分数
+  - Redis缓存中的所有答案、分数和统计数据
+  - PostgreSQL数据库中用户记录的答案和分数字段
+- 操作不可逆，请谨慎使用
+
 ## 5. 查询分数API测试
 
 ### 5.1 获取所有用户分数
