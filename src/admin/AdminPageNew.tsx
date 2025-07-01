@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./AdminPage.css";
 import { ClearAllAnswersButton } from "./components/ClearAllAnswersButton";
+import { ClearUserAnswersButton } from "./components/ClearUserAnswersButton";
 import "./components/components.css";
 import { HealthCheck } from "./components/HealthCheck";
 import QuestionSection from "./components/QuestionSection";
@@ -610,14 +611,24 @@ function AdminPageNew() {
           />
         </div>
 
-        <ClearAllAnswersButton
-          onClearSuccess={() => {
+        {/* Clear Answers Buttons */}
+        <div className="clear-buttons-section">
+          <ClearUserAnswersButton 
+            userId={userId || ""} 
+            onClearSuccess={() => {
+              // 清除成功后重新加载用户历史
+              if (apiKey && userId) {
+                loadUserHistory();
+              }
+            }} 
+          />
+          <ClearAllAnswersButton onClearSuccess={() => {
             // 清除成功后重新加载用户历史
             if (apiKey && userId) {
               loadUserHistory();
             }
-          }}
-        />
+          }} />
+        </div>
       </div>
     </ApiConfigProvider>
   );
