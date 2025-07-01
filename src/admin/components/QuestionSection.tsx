@@ -46,27 +46,27 @@ function QuestionSection({
     setShowConfirmModal(false);
     setConfirmQuestionId(null);
   };
-  
+
   const shouldShowQuestion = (question: Question) => {
     // 获取 b1 的答案和提交状态
     const b1Answer = answers["b1"];
     const b1Submitted = submittedQuestions.has("b1");
-    
+
     // 如果是 b2，只有当 b1 提交且答案为"是+是"时才显示
     if (question.id === "b2") {
       return b1Submitted && b1Answer === "是+是";
     }
-    
+
     // 如果是 b3 或 b4，只有当 b1 提交且答案为"是+否"时才显示
     if (question.id === "b3" || question.id === "b4") {
       return b1Submitted && b1Answer === "是+否";
     }
-    
+
     // 如果是 b5，只有当 b1 提交且答案为"否+否"时才显示
     if (question.id === "b5") {
       return b1Submitted && b1Answer === "否+否";
     }
-    
+
     // 其他问题都正常显示
     return true;
   };
@@ -104,7 +104,7 @@ function QuestionSection({
         } else {
           // 为不同题目设置合适的min、max和placeholder
           let min, max, placeholder;
-          
+
           switch (question.id) {
             case "f":
               min = 0;
@@ -140,7 +140,7 @@ function QuestionSection({
             default:
               placeholder = "请输入数字";
           }
-          
+
           return (
             <input
               type="number"
@@ -156,41 +156,79 @@ function QuestionSection({
 
       case "coordinate": {
         const coords = value ? value.split(",") : ["", ""];
-        const x = coords[0] || "";
-        const y = coords[1] || "";
+        const selectedX = coords[0] || "";
+        const selectedY = coords[1] || "";
+
         return (
-          <div className="coordinate-input">
-            <div className="coordinate-group">
-              <label>X坐标 (1-10):</label>
-              <input
-                type="number"
-                value={x}
-                onChange={(e) => {
-                  const newX = e.target.value;
-                  const newY = coords[1] || "";
-                  onAnswerChange(question.id, `${newX},${newY}`);
-                }}
-                placeholder="1-10"
-                className="coordinate-input-field"
-                min="1"
-                max="10"
-              />
+          <div className="coordinate-grid-container">
+            <div className="coordinate-grid-header">
+              <span>选择坐标位置 (X: 1-10, Y: 1-10)</span>
+              {value && (
+                <span className="selected-coordinate">
+                  已选择: ({selectedX}, {selectedY})
+                </span>
+              )}
             </div>
-            <div className="coordinate-group">
-              <label>Y坐标 (1-10):</label>
-              <input
-                type="number"
-                value={y}
-                onChange={(e) => {
-                  const newY = e.target.value;
-                  const newX = coords[0] || "";
-                  onAnswerChange(question.id, `${newX},${newY}`);
-                }}
-                placeholder="1-10"
-                className="coordinate-input-field"
-                min="1"
-                max="10"
-              />
+            <div className="coordinate-grid">
+              {/* Y轴标签 */}
+              <div className="y-axis-labels">
+                <div className="axis-label-corner"></div>
+                {Array.from({ length: 10 }, (_, i) => (
+                  <div key={i} className="y-axis-label">
+                    {10 - i}
+                  </div>
+                ))}
+              </div>
+
+              {/* 网格内容 */}
+              <div className="grid-content">
+                {/* X轴标签 */}
+                <div className="x-axis-labels">
+                  {Array.from({ length: 10 }, (_, i) => (
+                    <div key={i} className="x-axis-label">
+                      {i + 1}
+                    </div>
+                  ))}
+                </div>
+
+                {/* 10x10网格 */}
+                <div className="grid-cells">
+                  {Array.from({ length: 10 }, (_, y) => (
+                    <div key={y} className="grid-row">
+                      {Array.from({ length: 10 }, (_, x) => {
+                        const gridX = x + 1;
+                        const gridY = 10 - y;
+                        const isSelected =
+                          selectedX === gridX.toString() &&
+                          selectedY === gridY.toString();
+
+                        return (
+                          <label
+                            key={x}
+                            className={`grid-cell ${
+                              isSelected ? "selected" : ""
+                            }`}
+                          >
+                            <input
+                              type="radio"
+                              name={`coordinate-${question.id}`}
+                              value={`${gridX},${gridY}`}
+                              checked={isSelected}
+                              onChange={(e) =>
+                                onAnswerChange(question.id, e.target.value)
+                              }
+                              className="grid-radio"
+                            />
+                            <span className="grid-cell-content">
+                              {gridX},{gridY}
+                            </span>
+                          </label>
+                        );
+                      })}
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         );
@@ -201,13 +239,13 @@ function QuestionSection({
         let displayValue = value;
         if (question.id === "r" && value) {
           // 如果当前值是数字，找到对应的完整选项
-          const matchingOption = question.options?.find(option => {
+          const matchingOption = question.options?.find((option) => {
             const match = option.match(/^(\d+)/);
             return match && match[1] === value;
           });
           displayValue = matchingOption || value;
         }
-        
+
         return (
           <select
             value={displayValue}
@@ -289,7 +327,7 @@ function QuestionSection({
           default:
             placeholder = "请输入整数";
         }
-        
+
         return (
           <input
             type="number"

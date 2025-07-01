@@ -230,20 +230,6 @@ function AdminPageNew() {
         "投票题，根据投票进行实时得票排名给分，最高分1分，最低分0分，最终得分乘以D题赛博百分比",
     },
     {
-      id: "r",
-      title: "选游戏",
-      description: "选择你想玩的游戏",
-      type: "choice",
-      options: [
-        "1(脏话牌)",
-        "2(火锅油碟)",
-        "3(打麻将)",
-        "4(量身高)",
-      ],
-      scoring: false,
-      scoreRule: "本题不计分，但统计各选项的选择百分比作为对应题目的权重",
-    },
-    {
       id: "l",
       title: "脏话牌",
       description: "脏话牌，填空使用重庆脏话次数",
@@ -336,6 +322,20 @@ function AdminPageNew() {
       scoring: true,
       scoreRule:
         "根据所填人数进行实时排序，根据实时排名进行给分，最终得分乘以R题O系列选择百分比总和",
+    },
+    {
+      id: "r",
+      title: "选游戏",
+      description: "选择你想玩的游戏",
+      type: "choice",
+      options: [
+        "1(脏话牌)",
+        "2(火锅油碟)",
+        "3(打麻将)",
+        "4(量身高)",
+      ],
+      scoring: false,
+      scoreRule: "本题不计分，但统计各选项的选择百分比作为对应题目的权重",
     },
   ];
 
