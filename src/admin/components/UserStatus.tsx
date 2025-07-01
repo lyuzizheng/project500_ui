@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useApiConfig } from "../contexts/ApiConfigContext";
-import { getScores, getUserScore } from "../utils/api";
+import type { UserScore } from "../types/Question";
+import { getUserScore } from "../utils/api";
 import { ScoreChart } from "./ScoreChart";
 
 interface UserStatusProps {
@@ -15,13 +16,14 @@ export const UserStatus: React.FC<UserStatusProps> = ({
   onApiBaseUrlChange,
 }) => {
   const { config, updateApiKey, updateApiBaseUrl } = useApiConfig();
-  const [userScore, setUserScore] = useState<any>(null);
+  const [userScore, setUserScore] = useState<UserScore | null>(null);
   const [loading, setLoading] = useState(false);
   const [, setError] = useState<string | null>(null);
   const [showApiKeyInput, setShowApiKeyInput] = useState(false);
   const [showApiUrlInput, setShowApiUrlInput] = useState(false);
   const [tempApiKey, setTempApiKey] = useState("");
   const [tempApiBaseUrl, setTempApiBaseUrl] = useState("");
+
 
   // 初始化临时状态和检查API Key
   useEffect(() => {
@@ -83,6 +85,8 @@ export const UserStatus: React.FC<UserStatusProps> = ({
     loadUserScore();
   }, [config.apiKey, userId]);
 
+
+
   // 初始化时通知父组件API Key
   useEffect(() => {
     if (config.apiKey) {
@@ -136,10 +140,17 @@ export const UserStatus: React.FC<UserStatusProps> = ({
         </div>
       )}
 
+
+
       <div className="user-status">
         <div className="user-info">
-          <h2>用户信息</h2>
-          <p className="user-id">用户ID: {userId}</p>
+          <div className="user-info-header">
+            <div>
+              <h2>用户信息</h2>
+              <p className="user-id">用户ID: {userId}</p>
+            </div>
+
+          </div>
         </div>
 
         <div className="score-section">

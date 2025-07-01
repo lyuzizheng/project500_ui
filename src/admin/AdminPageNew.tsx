@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./AdminPage.css";
+import { ClearAllAnswersButton } from "./components/ClearAllAnswersButton";
 import "./components/components.css";
 import { HealthCheck } from "./components/HealthCheck";
 import QuestionSection from "./components/QuestionSection";
@@ -328,12 +329,7 @@ function AdminPageNew() {
       title: "选游戏",
       description: "选择你想玩的游戏",
       type: "choice",
-      options: [
-        "1(脏话牌)",
-        "2(火锅油碟)",
-        "3(打麻将)",
-        "4(量身高)",
-      ],
+      options: ["1(脏话牌)", "2(火锅油碟)", "3(打麻将)", "4(量身高)"],
       scoring: false,
       scoreRule: "本题不计分，但统计各选项的选择百分比作为对应题目的权重",
     },
@@ -613,6 +609,15 @@ function AdminPageNew() {
             onQuestionSubmit={handleQuestionSubmit}
           />
         </div>
+
+        <ClearAllAnswersButton
+          onClearSuccess={() => {
+            // 清除成功后重新加载用户历史
+            if (apiKey && userId) {
+              loadUserHistory();
+            }
+          }}
+        />
       </div>
     </ApiConfigProvider>
   );
