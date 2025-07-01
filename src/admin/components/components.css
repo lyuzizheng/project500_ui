@@ -689,6 +689,11 @@
   color: #666;
 }
 
+.api-info p {
+  margin: 0;
+  flex: 1;
+}
+
 .change-api-key-btn {
   background: #6c757d;
   color: white;

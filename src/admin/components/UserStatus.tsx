@@ -183,7 +183,7 @@ export const UserStatus: React.FC<UserStatusProps> = ({
             style={{
               display: "flex",
               alignItems: "center",
-              gap: "10px",
+              justifyContent: "space-between",
               marginBottom: "10px",
             }}
           >
@@ -192,7 +192,7 @@ export const UserStatus: React.FC<UserStatusProps> = ({
               更改服务器
             </button>
           </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "10px" }}>
             <p>
               API Key:{" "}
               {config.apiKey ? `${config.apiKey.substring(0, 8)}...` : "未设置"}
