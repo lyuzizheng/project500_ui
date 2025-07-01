@@ -28,7 +28,7 @@ interface ApiConfigProviderProps {
 
 export const ApiConfigProvider: React.FC<ApiConfigProviderProps> = ({ children }) => {
   const [config, setConfig] = useState<ApiConfig>({
-    apiBaseUrl: localStorage.getItem('api_base_url') || 'https://server500.actoria.top',
+    apiBaseUrl: localStorage.getItem('api_base_url') || 'https://chongqing.brabalawuka.cc',
     apiKey: localStorage.getItem('api_key') || ''
   });
 

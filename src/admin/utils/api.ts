@@ -3,7 +3,7 @@ import type { ApiResponse, UserScore } from "../types/Question";
 // 全局配置获取函数（用于非React组件）
 function getApiBaseUrl(): string {
   return (
-    localStorage.getItem("api_base_url") || "https://server500.actoria.top"
+    localStorage.getItem("api_base_url") || "https://chongqing.brabalawuka.cc"
   );
 }
 
