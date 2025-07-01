@@ -46,6 +46,30 @@ function QuestionSection({
     setShowConfirmModal(false);
     setConfirmQuestionId(null);
   };
+  
+  const shouldShowQuestion = (question: Question) => {
+    // 获取 b1 的答案和提交状态
+    const b1Answer = answers["b1"];
+    const b1Submitted = submittedQuestions.has("b1");
+    
+    // 如果是 b2，只有当 b1 提交且答案为"是+是"时才显示
+    if (question.id === "b2") {
+      return b1Submitted && b1Answer === "是+是";
+    }
+    
+    // 如果是 b3 或 b4，只有当 b1 提交且答案为"是+否"时才显示
+    if (question.id === "b3" || question.id === "b4") {
+      return b1Submitted && b1Answer === "是+否";
+    }
+    
+    // 如果是 b5，只有当 b1 提交且答案为"否+否"时才显示
+    if (question.id === "b5") {
+      return b1Submitted && b1Answer === "否+否";
+    }
+    
+    // 其他问题都正常显示
+    return true;
+  };
   // 渲染不同类型的输入组件
   const renderQuestionInput = (question: Question) => {
     const value = answers[question.id] || "";
@@ -78,19 +102,51 @@ function QuestionSection({
             />
           );
         } else {
-          // 对于F题和G题
-          const min = question.id === "g" ? 0 : undefined;
-          const max = question.id === "g" ? 10 : undefined;
+          // 为不同题目设置合适的min、max和placeholder
+          let min, max, placeholder;
+          
+          switch (question.id) {
+            case "f":
+              min = 0;
+              placeholder = "请输入出错次数";
+              break;
+            case "g":
+              min = 0;
+              max = 10;
+              placeholder = "请输入打卡地点数量(0-10)";
+              break;
+            case "h1":
+            case "h2":
+              placeholder = "请输入使用次数";
+              break;
+            case "i":
+              placeholder = "请输入使用重庆言子儿次数";
+              break;
+            case "l":
+              placeholder = "请输入使用重庆脏话次数";
+              break;
+            case "n":
+              placeholder = "请输入番数";
+              break;
+            case "o1":
+              placeholder = "请输入身高(cm)";
+              break;
+            case "o2":
+              placeholder = "请输入社保年限(年)";
+              break;
+            case "o3":
+              placeholder = "请输入消费金额(元)";
+              break;
+            default:
+              placeholder = "请输入数字";
+          }
+          
           return (
             <input
               type="number"
               value={value}
               onChange={(e) => onAnswerChange(question.id, e.target.value)}
-              placeholder={
-                question.id === "f"
-                  ? "请输入出错次数"
-                  : "请输入打卡地点数量(0-10)"
-              }
+              placeholder={placeholder}
               className="question-input"
               min={min}
               max={max}
@@ -98,7 +154,7 @@ function QuestionSection({
           );
         }
 
-      case "coordinate":
+      case "coordinate": {
         const coords = value ? value.split(",") : ["", ""];
         const x = coords[0] || "";
         const y = coords[1] || "";
@@ -138,12 +194,33 @@ function QuestionSection({
             </div>
           </div>
         );
+      }
 
-      case "choice":
+      case "choice": {
+        // 对于R题，需要特殊处理选中状态
+        let displayValue = value;
+        if (question.id === "r" && value) {
+          // 如果当前值是数字，找到对应的完整选项
+          const matchingOption = question.options?.find(option => {
+            const match = option.match(/^(\d+)/);
+            return match && match[1] === value;
+          });
+          displayValue = matchingOption || value;
+        }
+        
         return (
           <select
-            value={value}
-            onChange={(e) => onAnswerChange(question.id, e.target.value)}
+            value={displayValue}
+            onChange={(e) => {
+              // 对于R题，提取数字部分作为值
+              if (question.id === "r") {
+                const match = e.target.value.match(/^(\d+)/);
+                const numericValue = match ? match[1] : e.target.value;
+                onAnswerChange(question.id, numericValue);
+              } else {
+                onAnswerChange(question.id, e.target.value);
+              }
+            }}
             className="question-select"
           >
             <option value="">请选择...</option>
@@ -154,6 +231,7 @@ function QuestionSection({
             ))}
           </select>
         );
+      }
 
       case "boolean":
         return (
@@ -174,7 +252,7 @@ function QuestionSection({
           </div>
         );
 
-      case "multi_choice":
+      case "multi_choice": {
         const selectedValues = value ? value.split(",") : [];
         return (
           <div className="multi-choice-group">
@@ -197,18 +275,32 @@ function QuestionSection({
             ))}
           </div>
         );
+      }
 
-      case "integer":
+      case "integer": {
+        let placeholder;
+        switch (question.id) {
+          case "o4":
+            placeholder = "请输入游客数量(整数)";
+            break;
+          case "o5":
+            placeholder = "请输入人数(整数)";
+            break;
+          default:
+            placeholder = "请输入整数";
+        }
+        
         return (
           <input
             type="number"
             value={value}
             onChange={(e) => onAnswerChange(question.id, e.target.value)}
-            placeholder="请输入整数"
+            placeholder={placeholder}
             className="question-input"
             step="1"
           />
         );
+      }
 
       default:
         return null;
@@ -224,7 +316,7 @@ function QuestionSection({
           <div className="header-item action-header">操作</div>
         </div>
         <div className="question-list-body">
-          {questions.map((question) => {
+          {questions.filter(shouldShowQuestion).map((question) => {
             const isSubmitting = submittingQuestions.has(question.id);
             const isSubmitted = submittedQuestions.has(question.id);
 

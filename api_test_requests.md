@@ -1543,13 +1543,13 @@ curl -X POST https://server500.actoria.top/api/answers \
 - **题目ID**: r
 - **类型**: choice
 - **说明**: 选择你想玩的游戏
-- **选项**: ["脏话牌", "火锅油碟", "打麻将", "量身高", "社保年限", "消费", "游客量", "户口量"]
+- **选项**: ["脏话牌", "火锅油碟", "打麻将", "量身高"]
 - **计分**: 本题不计分，但统计各选项的选择百分比作为对应题目的权重
 - **权重分配**:
   - r1_percentage: 脏话牌选择百分比，影响L题最终得分
   - r2_percentage: 火锅油碟选择百分比，影响M题最终得分
   - r3_percentage: 打麻将选择百分比，影响N题最终得分
-  - r4_percentage: 量身高+社保年限+消费+游客量+户口量选择百分比总和，影响O1-O5题最终得分
+  - r4_percentage: 量身高选择百分比，影响O1-O2题最终得分
 
 ```bash
 # 提交R答案 - 选择脏话牌
@@ -1558,7 +1558,7 @@ curl -X POST https://server500.actoria.top/api/answers \
   -d '{
     "user_id": "test_r_user1",
     "question_id": "r",
-    "answer": "脏话牌"
+    "answer": "1"  ## 脏话牌
   }'
 
 # 提交R答案 - 选择火锅油碟
@@ -1567,7 +1567,7 @@ curl -X POST https://server500.actoria.top/api/answers \
   -d '{
     "user_id": "test_r_user2",
     "question_id": "r",
-    "answer": "火锅油碟"
+    "answer": "2" // 火锅油碟
   }'
 
 # 提交R答案 - 选择打麻将
@@ -1576,7 +1576,7 @@ curl -X POST https://server500.actoria.top/api/answers \
   -d '{
     "user_id": "test_r_user3",
     "question_id": "r",
-    "answer": "打麻将"
+    "answer": "3" // 打麻将
   }'
 
 # 提交R答案 - 选择量身高
@@ -1585,7 +1585,7 @@ curl -X POST https://server500.actoria.top/api/answers \
   -d '{
     "user_id": "test_r_user4",
     "question_id": "r",
-    "answer": "量身高"
+    "answer": "4" // 量身高
   }'
 ```
 

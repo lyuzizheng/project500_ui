@@ -69,11 +69,12 @@ export async function getScores(): Promise<UserScore[]> {
 }
 
 // 获取用户分数
-export async function getUserScore(userId: string): Promise<ApiResponse> {
+export async function getUserScore(userId: string): Promise<UserScore> {
   const response = await fetch(`${getApiBaseUrl()}/api/scores/${userId}`, {
     headers: createHeaders(),
   });
-  return await response.json();
+  const result = await response.json();
+  return result.data.final_score || {};
 }
 
 // 获取用户答案

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useApiConfig } from "../contexts/ApiConfigContext";
-import { getScores } from "../utils/api";
+import { getScores, getUserScore } from "../utils/api";
 import { ScoreChart } from "./ScoreChart";
 
 interface UserStatusProps {
@@ -68,11 +68,8 @@ export const UserStatus: React.FC<UserStatusProps> = ({
     setLoading(true);
     setError(null);
     try {
-      const scores = await getScores();
-      const userScoreData = scores.find(
-        (score: any) => score.user_id === userId
-      );
-      setUserScore(userScoreData || null);
+      const scores = await getUserScore(userId);
+      setUserScore(scores || null);
     } catch (err) {
       setError("加载分数失败");
       console.error("Error loading user score:", err);
