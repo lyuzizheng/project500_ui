@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./App.css";
 import logoThin from "./assets/logo/500logo1.png";
 import logoThick from "./assets/logo/500logo2.png";
@@ -7,10 +7,19 @@ import logoDiff from "./assets/logo/500logo3.png";
 import logoEmpty from "./assets/logo/500logo4.png";
 
 function App() {
+  const { userId, apiKey } = useParams<{ userId?: string; apiKey?: string }>();
   const [currentLogoIndex, setCurrentLogoIndex] = useState(0);
   const [isLogoVisible, setIsLogoVisible] = useState(true);
   const appContainerRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+
+  // 防止用户修改URL中的userId
+  useEffect(() => {
+    if (userId && !userId.match(/^L\d{4}$/)) {
+      // 如果userId格式不正确，重定向到首页
+      window.location.href = "/";
+    }
+  }, [userId]);
 
   // 使用useMemo缓存logos数组，避免重复创建
   const logos = useMemo(
