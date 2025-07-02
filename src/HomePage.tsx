@@ -12,15 +12,7 @@ function HomePage() {
   const [isLogoVisible, setIsLogoVisible] = useState(true);
 
   // 使用useMemo缓存logos数组，避免重复创建
-  const logos = useMemo(
-    () => [
-      logoThin,
-      logoThick,
-      logoDiff,
-      logoEmpty,
-    ],
-    []
-  );
+  const logos = useMemo(() => [logoThin, logoThick, logoDiff, logoEmpty], []);
 
   // 预加载所有logo图片，确保缓存到浏览器中
   useEffect(() => {

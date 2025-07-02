@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useApiConfig } from "../contexts/ApiConfigContext";
 import type { UserScore } from "../types/Question";
-import { getUserScore } from "../utils/api";
+import { getUserScore } from "../../utils/api";
 import { ScoreChart } from "./ScoreChart";
 
 interface UserStatusProps {

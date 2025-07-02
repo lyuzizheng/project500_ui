@@ -1,13 +1,15 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./App.css";
-import logoThin from "./assets/logo/500logo1.png";
-import logoThick from "./assets/logo/500logo2.png";
-import logoDiff from "./assets/logo/500logo3.png";
-import logoEmpty from "./assets/logo/500logo4.png";
+import "./UserScoreChart.css";
+import logoThin from "../assets/logo/500logo1.png";
+import logoThick from "../assets/logo/500logo2.png";
+import logoDiff from "../assets/logo/500logo3.png";
+import logoEmpty from "../assets/logo/500logo4.png";
+import UserScoreChart from "./UserScoreChart";
 
 function App() {
-  const { userId, apiKey } = useParams<{ userId?: string; apiKey?: string }>();
+  const { userId } = useParams<{ userId?: string; apiKey?: string }>();
   const [currentLogoIndex, setCurrentLogoIndex] = useState(0);
   const [isLogoVisible, setIsLogoVisible] = useState(true);
   const appContainerRef = useRef<HTMLDivElement>(null);
@@ -22,15 +24,7 @@ function App() {
   }, [userId]);
 
   // 使用useMemo缓存logos数组，避免重复创建
-  const logos = useMemo(
-    () => [
-      logoThin,
-      logoThick,
-      logoDiff,
-      logoEmpty,
-    ],
-    []
-  );
+  const logos = useMemo(() => [logoThin, logoThick, logoDiff, logoEmpty], []);
 
   // 预加载所有logo图片，确保缓存到浏览器中
   useEffect(() => {
@@ -134,17 +128,29 @@ function App() {
       {/* 第二个界面 */}
       <section id="section-1" className="section second-section">
         <div className="second-content">
-          <h2 className="text-white text-2xl">评分界面</h2>
-          <p className="text-gray-300">内容待定...</p>
-          <button className="back-to-top-btn" onClick={scrollToTop}>
-            返回顶部
-          </button>
-          <button
-            className="credit-nav-btn"
-            onClick={() => navigate("/credit")}
-          >
-            制作团队
-          </button>
+          {/* 用户坐标轴图表 */}
+          <UserScoreChart 
+            userScore={{
+              x_axis_raw: 75,
+              y_axis_raw: 60,
+              x_axis_percent: 65,
+              y_axis_percent: 70,
+              x_axis_mapped: 30,
+              y_axis_mapped: 40
+            }}
+          />
+          
+          <div className="action-buttons">
+            <button className="back-to-top-btn" onClick={scrollToTop}>
+              返回顶部
+            </button>
+            <button
+              className="credit-nav-btn"
+              onClick={() => navigate("/credit")}
+            >
+              制作团队
+            </button>
+          </div>
         </div>
       </section>
     </div>

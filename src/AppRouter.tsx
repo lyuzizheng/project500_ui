@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import App from "./App.tsx";
-import HomePage from "./HomePage.tsx";
-import Credit from "./Credit.tsx";
 import AdminPageNew from "./admin/AdminPageNew";
+import HomePage from "./HomePage.tsx";
+import App from "./user/App.tsx";
+import Credit from "./user/Credit.tsx";
 
 function AppRouter() {
   return (

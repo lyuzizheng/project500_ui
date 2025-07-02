@@ -1,0 +1,301 @@
+/* 用户坐标轴图表样式 */
+.user-score-chart-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: transparent;
+  border-radius: 0px;
+  box-shadow: none;
+  backdrop-filter: none;
+  border: none;
+}
+
+/* 图表头部 */
+.chart-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.chart-title {
+  font-family: 'LXGW WenKai', 'KaiTi', '楷体', 'STKaiti', 'DFKai-SB', '华文楷体', 'FangSong', serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.chart-subtitle {
+  font-family: 'LXGW WenKai', 'KaiTi', '楷体', 'STKaiti', 'DFKai-SB', '华文楷体', 'FangSong', serif;
+  font-size: 1.2rem;
+  color: #64748b;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* 图表容器 */
+.chart-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.user-score-chart {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.user-score-chart:hover {
+  transform: scale(1.02);
+}
+
+/* 坐标轴说明 */
+.axis-explanation {
+  margin-bottom: 2rem;
+}
+
+.axis-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.axis-item {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.axis-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.axis-title {
+  font-family: 'LXGW WenKai', 'KaiTi', '楷体', 'STKaiti', 'DFKai-SB', '华文楷体', 'FangSong', serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.axis-title::before {
+  content: '📊';
+  font-size: 1.2rem;
+}
+
+.axis-description {
+  font-family: 'LXGW WenKai', 'KaiTi', '楷体', 'STKaiti', 'DFKai-SB', '华文楷体', 'FangSong', serif;
+  font-size: 1rem;
+  color: #64748b;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* 用户位置说明 */
+.user-position {
+  display: flex;
+  justify-content: center;
+}
+
+.position-card {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(251, 191, 36, 0.3);
+  color: white;
+  max-width: 500px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.position-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+}
+
+.position-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.position-icon {
+  font-size: 2rem;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.position-title {
+  font-family: 'LXGW WenKai', 'KaiTi', '楷体', 'STKaiti', 'DFKai-SB', '华文楷体', 'FangSong', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.position-content {
+  position: relative;
+  z-index: 1;
+}
+
+.coordinate-display {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.coordinate-label {
+  font-family: 'LXGW WenKai', 'KaiTi', '楷体', 'STKaiti', 'DFKai-SB', '华文楷体', 'FangSong', serif;
+  font-weight: 600;
+}
+
+.coordinate-value {
+  font-family: 'Courier New', monospace;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.3rem 0.8rem;
+  border-radius: 8px;
+  backdrop-filter: blur(5px);
+}
+
+.position-description {
+  font-family: 'LXGW WenKai', 'KaiTi', '楷体', 'STKaiti', 'DFKai-SB', '华文楷体', 'FangSong', serif;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.position-description p {
+  margin: 0;
+}
+
+.highlight {
+  background: rgba(255, 255, 255, 0.3);
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  font-weight: 700;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .user-score-chart-container {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+  
+  .chart-title {
+    font-size: 2rem;
+  }
+  
+  .chart-subtitle {
+    font-size: 1rem;
+  }
+  
+  .axis-info {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .axis-item {
+    padding: 1rem;
+  }
+  
+  .axis-title {
+    font-size: 1.1rem;
+  }
+  
+  .axis-description {
+    font-size: 0.9rem;
+  }
+  
+  .position-card {
+    padding: 1.5rem;
+  }
+  
+  .position-title {
+    font-size: 1.5rem;
+  }
+  
+  .coordinate-display {
+    font-size: 1rem;
+  }
+  
+  .position-description {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .user-score-chart-container {
+    padding: 1rem;
+  }
+  
+  .chart-title {
+    font-size: 1.8rem;
+  }
+  
+  .chart-wrapper {
+    padding: 0.5rem;
+  }
+  
+  .user-score-chart {
+    width: 280px;
+    height: 280px;
+  }
+  
+  .position-card {
+    padding: 1rem;
+  }
+  
+  .position-title {
+    font-size: 1.3rem;
+  }
+}

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { getUserAnswers, submitAnswer } from "../utils/api";
 import "./AdminPage.css";
 import { ClearAllAnswersButton } from "./components/ClearAllAnswersButton";
 import { ClearUserAnswersButton } from "./components/ClearUserAnswersButton";
@@ -9,7 +10,6 @@ import QuestionSection from "./components/QuestionSection";
 import { UserStatus } from "./components/UserStatus";
 import { ApiConfigProvider } from "./contexts/ApiConfigContext";
 import type { Question } from "./types/Question";
-import { getUserAnswers, submitAnswer } from "./utils/api";
 
 function AdminPageNew() {
   const { userId } = useParams<{ userId: string }>();
@@ -613,21 +613,23 @@ function AdminPageNew() {
 
         {/* Clear Answers Buttons */}
         <div className="clear-buttons-section">
-          <ClearUserAnswersButton 
-            userId={userId || ""} 
+          <ClearUserAnswersButton
+            userId={userId || ""}
             onClearSuccess={() => {
               // 清除成功后重新加载用户历史
               if (apiKey && userId) {
                 loadUserHistory();
               }
-            }} 
+            }}
           />
-          <ClearAllAnswersButton onClearSuccess={() => {
-            // 清除成功后重新加载用户历史
-            if (apiKey && userId) {
-              loadUserHistory();
-            }
-          }} />
+          <ClearAllAnswersButton
+            onClearSuccess={() => {
+              // 清除成功后重新加载用户历史
+              if (apiKey && userId) {
+                loadUserHistory();
+              }
+            }}
+          />
         </div>
       </div>
     </ApiConfigProvider>
