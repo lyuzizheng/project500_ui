@@ -77,6 +77,22 @@ function App() {
     }
   };
 
+  // 加载Commento评论系统
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://commento.brabalawuka.cc/js/commento.js';
+    script.defer = true;
+    document.head.appendChild(script);
+
+    return () => {
+      // 清理脚本
+      const existingScript = document.querySelector('script[src="https://commento.brabalawuka.cc/js/commento.js"]');
+      if (existingScript) {
+        document.head.removeChild(existingScript);
+      }
+    };
+  }, []);
+
   // 添加滚动监听器来同步状态和视差效果
   useEffect(() => {
     const container = appContainerRef.current;
@@ -163,6 +179,12 @@ function App() {
               <p>暂无数据</p>
             </div>
           )}
+
+          {/* 匿名留言板 */}
+          <div className="comment-section">
+            <h2 className="comment-title">匿名留言板</h2>
+            <div id="commento"></div>
+          </div>
 
           <div className="action-buttons">
             <button className="back-to-top-btn" onClick={scrollToTop}>
