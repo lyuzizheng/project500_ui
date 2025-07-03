@@ -2,6 +2,7 @@ import React from "react";
 
 interface UserScoreChartProps {
   userScore?: {
+    user_id?: string;
     x_axis_raw?: number;
     y_axis_raw?: number;
     x_axis_percent?: number;

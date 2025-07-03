@@ -7,6 +7,7 @@ import logoEmpty from "../assets/logo/500logo4.png";
 import "./App.css";
 import UserScoreChart from "./UserScoreChart";
 import "./UserScoreChart.css";
+import { useUserData } from "./hooks/useUserData";
 
 function App() {
   const { userId, apiKey } = useParams<{ userId?: string; apiKey?: string }>();
@@ -14,6 +15,9 @@ function App() {
   const [isLogoVisible, setIsLogoVisible] = useState(true);
   const appContainerRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+
+  // 使用新的hook获取用户数据
+  const { userScore, loading, error, refetch } = useUserData(userId, apiKey);
 
   // 保存当前用户路由到localStorage
   useEffect(() => {
@@ -137,16 +141,28 @@ function App() {
       <section id="section-1" className="section second-section">
         <div className="second-content">
           {/* 用户坐标轴图表 */}
-          <UserScoreChart
-            userScore={{
-              x_axis_raw: 75,
-              y_axis_raw: 60,
-              x_axis_percent: 65,
-              y_axis_percent: 70,
-              x_axis_mapped: 30,
-              y_axis_mapped: 40,
-            }}
-          />
+          {loading ? (
+            <div className="loading-container">
+              <div className="loading-spinner"></div>
+              <p className="loading-text">正在获取您的重庆人身份数据...</p>
+            </div>
+          ) : error ? (
+            <div className="error-container">
+              <div className="error-message">
+                <h3>获取数据失败</h3>
+                <p>{error}</p>
+                <button className="retry-btn" onClick={refetch}>
+                  重试
+                </button>
+              </div>
+            </div>
+          ) : userScore ? (
+            <UserScoreChart userScore={userScore} />
+          ) : (
+            <div className="no-data-container">
+              <p>暂无数据</p>
+            </div>
+          )}
 
           <div className="action-buttons">
             <button className="back-to-top-btn" onClick={scrollToTop}>
