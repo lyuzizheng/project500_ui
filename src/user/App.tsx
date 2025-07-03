@@ -181,10 +181,8 @@ function App() {
           )}
 
           {/* 匿名留言板 */}
-          <div className="comment-section">
-            <h2 className="comment-title">匿名留言板</h2>
-            <div id="commento"></div>
-          </div>
+          <h2 className="comment-title">匿名留言板</h2>
+          <div id="commento"></div>
 
           <div className="action-buttons">
             <button className="back-to-top-btn" onClick={scrollToTop}>
