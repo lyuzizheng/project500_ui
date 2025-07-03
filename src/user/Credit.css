@@ -142,7 +142,7 @@
 }
 
 .credit-logo-container {
-  margin-bottom: 1rem;
+  margin-bottom: 0rem;
 }
 
 .credit-logo {
@@ -161,7 +161,7 @@
   filter: brightness(1.1) contrast(1.1);
   animation: logoGlow 4s ease-in-out infinite alternate;
   transition: opacity 1s ease-in-out;
-  margin: 2rem 0;
+ 
 }
 
 .logo-visible {
@@ -304,6 +304,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-top: 2rem;
   height: 100%;
 }
 
@@ -314,7 +315,7 @@
   color: #000000;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   letter-spacing: 0.02em;
   line-height: 1.3;
   animation: finalTitleGlow 3s ease-in-out infinite alternate;
@@ -326,7 +327,7 @@
   gap: 1rem;
   justify-content: center;
   align-items: center;
-  margin-top: 2rem;
+  margin-top: 4rem;
   flex-wrap: wrap;
 }
 
@@ -448,6 +449,81 @@
   }
 }
 
+/* 开发者名字特效 */
+.developer-name-special {
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #000000;
+  font-weight: 600;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.developer-name-special::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 8px solid rgba(0, 0, 0, 0.6);
+  animation: arrowBounceUp 2s ease-in-out infinite;
+  transition: all 0.3s ease;
+}
+
+.developer-name-special:hover::before {
+  opacity: 1;
+  animation: vintageShimmer 1.5s ease-in-out infinite;
+}
+
+.developer-name-special:hover {
+  color: #1a1a1a;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  transform: translateY(-1px);
+}
+
+.developer-name-special:hover::after {
+  border-bottom-color: rgba(0, 0, 0, 0.9);
+  transform: translateX(-50%) translateY(-2px);
+}
+
+.click-hint {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 3rem;
+  font-size: 0.7rem;
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: 400;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+  white-space: nowrap;
+  z-index: 11;
+}
+
+.developer-name-special:hover + .click-hint {
+  opacity: 1;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+
+
+@keyframes breathe {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
 /* 移动端适配 */
 @media (max-width: 768px) {
   .credit-content {
@@ -544,6 +620,95 @@
     margin-top: 1.5rem;
   }
 }
+
+/* Actoria 公众号样式 */
+.actoria-section {
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.actoria-logo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.actoria-logo:hover {
+  transform: scale(1.05);
+}
+
+.actoria-text {
+  font-family: 'LXGW WenKai', 'KaiTi', '楷体', 'STKaiti', 'DFKai-SB', '华文楷体', 'FangSong', serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #000000;
+  margin: 1rem 0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+
+
+.actoria-title {
+  font-family: 'LXGW WenKai', 'KaiTi', '楷体', 'STKaiti', 'DFKai-SB', '华文楷体', 'FangSong', serif;
+  color: #000000;
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: all 0.3s ease;
+  display: block;
+  margin: 1rem auto 0 auto;
+  cursor: pointer;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.actoria-title:hover {
+  color: #333333;
+  text-decoration-thickness: 2px;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+   .actoria-section {
+     margin: 1rem 0;
+   }
+   
+   .actoria-logo {
+     width: 100px;
+     height: 100px;
+   }
+   
+   .actoria-text {
+     font-size: 1.2rem;
+   }
+   
+   .actoria-title {
+     font-size: 1.2rem;
+   }
+ }
+ 
+ @media (max-width: 480px) {
+   .actoria-section {
+     margin: 1rem 0;
+   }
+   
+   .actoria-logo {
+     width: 80px;
+     height: 80px;
+   }
+   
+   .actoria-text {
+     font-size: 1.1rem;
+   }
+   
+   .actoria-title {
+     font-size: 1.1rem;
+   }
+ }
 
 @media (max-width: 360px) {
   .credit-main-title {

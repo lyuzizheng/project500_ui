@@ -7,7 +7,7 @@ import logoDiff from "./assets/logo/500logo3.png";
 import logoEmpty from "./assets/logo/500logo4.png";
 
 function HomePage() {
-  const { userId, apiKey } = useParams<{ userId?: string; apiKey?: string }>();
+  const { userId } = useParams<{ userId?: string; apiKey?: string }>();
   const [currentLogoIndex, setCurrentLogoIndex] = useState(0);
   const [isLogoVisible, setIsLogoVisible] = useState(true);
 
@@ -21,6 +21,11 @@ function HomePage() {
       img.src = logoSrc;
     });
   }, [logos]);
+
+  // 清除保存的用户路由，确保从主页进入时显示正确的导航
+  useEffect(() => {
+    localStorage.removeItem('userRoute');
+  }, []);
 
   // 防止用户修改URL中的userId
   useEffect(() => {

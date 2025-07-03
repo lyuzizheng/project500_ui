@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./Credit.css";
 
 // 导入logo图片
+import actoriaLogo from "../assets/actoria.jpg";
 import logo_thin from "../assets/logo/500logo1.png";
 import logo_thick from "../assets/logo/500logo2.png";
 import logo_diff from "../assets/logo/500logo3.png";
@@ -12,9 +13,16 @@ import bg3 from "../assets/logo/bg3.webp";
 function Credit() {
   const [currentLogoIndex, setCurrentLogoIndex] = useState(0);
   const [isLogoVisible, setIsLogoVisible] = useState(true);
+  const [hasUserRoute, setHasUserRoute] = useState(false);
   const creditContainerRef = useRef<HTMLDivElement>(null);
   const sectionRefs = useRef<(HTMLElement | null)[]>([]);
   const navigate = useNavigate();
+
+  // 检查是否有保存的用户路由
+  useEffect(() => {
+    const savedUserRoute = localStorage.getItem("userRoute");
+    setHasUserRoute(!!savedUserRoute);
+  }, []);
 
   // 使用useMemo缓存logos数组，避免重复创建
   const logos = useMemo(
@@ -168,7 +176,7 @@ function Credit() {
             }}
           ></div>
           <div className="credit-group">
-            <h3 className="credit-group-title">核心创作团队</h3>
+            <h3 className="credit-group-title">伍零零 团队</h3>
             <div className="credit-text-block">
               <p className="credit-line">
                 Eelly 发起，「伍零零」创作小组共创项目
@@ -181,12 +189,15 @@ function Credit() {
                 <span className="credit-role">导演</span> Eelly
               </p>
               <p className="credit-line">
-                <span className="credit-role">文本共创</span> 廖茁雅（鸭鸭）
-                桉琦 桂菘 Eelly
+                <span className="credit-role">副导演</span> 廖茁雅（鸭鸭）
               </p>
               <p className="credit-line">
-                <span className="credit-role">戏剧构作</span> 廖茁雅（鸭鸭）
-                桉琦 桂菘
+                <span className="credit-role">文本共创</span> 廖茁雅（鸭鸭）桉琦
+                桂菘 Eelly
+              </p>
+              <p className="credit-line">
+                <span className="credit-role">戏剧构作</span> 廖茁雅（鸭鸭）桉琦
+                桂菘
               </p>
             </div>
           </div>
@@ -212,7 +223,7 @@ function Credit() {
           <div className="credit-group">
             <h3 className="credit-group-title">演员阵容</h3>
             <div className="credit-text-block">
-              <p className="credit-line">刘桂菘 周语桐 张佳玮 崔哲灵 蔡佳圻</p>
+              <p className="credit-line">刘桂菘 周语桐 张佳玮 蔡佳圻</p>
             </div>
           </div>
           <div className="credit-next-arrow"></div>
@@ -241,18 +252,31 @@ function Credit() {
                 <span className="credit-role">制作舞台监督</span> 桂菘
               </p>
               <p className="credit-line">
-                <span className="credit-role">执行舞台监督</span> 小白
+                <span className="credit-role">执行舞台监督</span> 桉琦
+                廖茁雅（鸭鸭）
               </p>
               <p className="credit-line">
-                <span className="credit-role">宣传</span> 桉琦 廖茁雅（鸭鸭）
-                Konni
+                <span className="credit-role">宣传</span> 桉琦
+                廖茁雅（鸭鸭）Konni
               </p>
               <p className="credit-line">
                 <span className="credit-role">前期工作坊带领</span> 桉琦
               </p>
               <br />
               <p className="credit-line">
-                <span className="credit-role">技术开发</span> 子正 Asuka
+                <span className="credit-role">技术开发</span>
+                <span
+                  className="developer-name-special"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    window.open(
+                      "https://www.xiaohongshu.com/user/profile/601abc4600000000010039ee?xsec_token=YBbqrhdlZAwW0e4DGkuCTCL23xlps0s_RAnNgiUFro-oc=&xsec_source=app_share&xhsshare=CopyLink&appuid=601abc4600000000010039ee&apptime=1751555990&share_id=215b93719cb64973b1e101283d783b74",
+                      "_blank"
+                    );
+                  }}
+                >
+                  子正
+                </span>
               </p>
             </div>
           </div>
@@ -325,11 +349,15 @@ function Credit() {
             <h3 className="credit-group-title">其他制作</h3>
             <div className="credit-text-block">
               <p className="credit-line">
-                <span className="credit-role">影像制作</span> 廖茁雅（鸭鸭）
-                Eelly
+                <span className="credit-role">影像制作</span>{" "}
+                廖茁雅（鸭鸭）Eelly
               </p>
               <p className="credit-line">
-                <span className="credit-role">现场执行</span> 宁晓葳
+                <span className="credit-role">灯光设计</span> 桉琦
+              </p>
+              <br />
+              <p className="credit-line">
+                <span className="credit-role">现场执行</span> 小崴 Aven
               </p>
               <br />
               <p className="credit-line">
@@ -419,7 +447,8 @@ function Credit() {
                 玫瑰小狗 Kai 老周 zy 轶琨 王 小陆 晓宇 阳女士 Brabalawuka 国王👸
                 铁牛 Raven 橘子 SEAN 派派 33 思佳 yue 搞笑男 李丹 aduan 阿毛
                 逐夏 鲜花饼 二娃 510 娃娃鱼 HJj 你老汉 e 凡人 豆包 CQUer 雪粉华
-                Pat 张先生 Mads 霜儿 小巫 徐徐 光英 阿杰
+                Pat 张先生 Mads 霜儿 小巫 徐徐 光英 阿杰 陈伊茜 Cloudia
+                (小神仙版) Shine 嫣嫣 翅翅 Foam
               </p>
             </div>
             <p className="credit-thanks">谢谢你们对公共讨论的热情！</p>
@@ -449,11 +478,18 @@ function Credit() {
               <p className="credit-line">李英男</p>
               <p className="credit-line">王子滔</p>
               <p className="credit-line">白老师</p>
-              <br />
-              <p className="credit-line">谢谢文本中的原型人物</p>
-              <p className="credit-line">鸭鸭他们同学</p>
-              <p className="credit-line">鸭鸭表妹</p>
+              <p className="credit-line">王思引</p>
               <p className="credit-line">山东青岛朋友</p>
+              <p className="credit-line">炸鱼</p>
+              <p className="credit-line">张煊</p>
+              <p className="credit-line">张涵丰</p>
+              <p className="credit-line">Asuka</p>
+              <p className="credit-line">即刻艺术工作室</p>
+              <p className="credit-line">B站：吃瓜南</p>
+              <p className="credit-line">视频号：红都快讯</p>
+              <p className="credit-line">豆包AI</p>
+              <p className="credit-line">即梦AI</p>
+              <p className="credit-line">DeepSeek</p>
             </div>
           </div>
           <div className="credit-next-arrow"></div>
@@ -488,13 +524,41 @@ function Credit() {
                 }`}
               />
             </div>
+
+            {/* Actoria 公众号信息 */}
+            <div className="actoria-section">
+              <img src={actoriaLogo} alt="Actoria" className="actoria-logo" />
+              <div
+                onClick={() =>
+                  window.open(
+                    "https://mp.weixin.qq.com/s/Vf2djaotqI1Qo4ulO0Y8Lg",
+                    "_blank"
+                  )
+                }
+                className="actoria-title"
+              >
+                点击继续了解 actoria 公众号
+              </div>
+            </div>
+
             <div className="credit-button-group">
               <button className="credit-back-to-top-btn" onClick={scrollToTop}>
                 返回顶部
               </button>
-              <button className="credit-home-btn" onClick={() => navigate("/")}>
-                返回主页
-              </button>
+              {hasUserRoute && (
+                <button
+                  className="credit-home-btn"
+                  onClick={() => {
+                    // 检查localStorage中是否有用户路由信息
+                    const savedUserRoute = localStorage.getItem("userRoute");
+                    if (savedUserRoute) {
+                      navigate(savedUserRoute);
+                    }
+                  }}
+                >
+                  返回结果
+                </button>
+              )}
             </div>
           </div>
         </div>

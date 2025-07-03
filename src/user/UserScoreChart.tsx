@@ -18,8 +18,8 @@ export const UserScoreChart: React.FC<UserScoreChartProps> = ({
   const { x_axis_percent = 50, y_axis_percent = 50 } = userScore || {};
 
   // 坐标轴配置
-  const chartSize = 320;
-  const padding = 40;
+  const chartSize = 300;
+  const padding = 8;
   const axisLength = chartSize - 2 * padding;
 
   // 计算点的位置（基于百分比，范围-100到100）
@@ -33,42 +33,47 @@ export const UserScoreChart: React.FC<UserScoreChartProps> = ({
     <div className="user-score-chart-container">
       <div className="chart-header">
         <h2 className="chart-title">您的重庆人身份坐标</h2>
-        <p className="chart-subtitle">
-          基于您的回答，我们为您绘制了专属的身份坐标图
-        </p>
+        <p className="chart-subtitle">基于您的体验我们为您绘制了身份坐标图</p>
       </div>
 
       {/* SVG 坐标轴图表 */}
       <div className="chart-wrapper">
-        <svg width={chartSize} height={chartSize} className="user-score-chart">
+        <svg
+          width="100%"
+          height="100%"
+          viewBox={`0 0 ${chartSize} ${chartSize}`}
+          className="user-score-chart"
+        >
           {/* 渐变定义 */}
           <defs>
             {/* 背景渐变 */}
             <radialGradient id="backgroundGradient" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#f8fafc" />
-              <stop offset="100%" stopColor="#e2e8f0" />
+              <stop offset="0%" stopColor="#f5f1eb" />
+              <stop offset="100%" stopColor="#e8ddd0" />
             </radialGradient>
 
             {/* 网格图案 */}
             <pattern
               id="userGrid"
-              width="32"
-              height="32"
+              width={axisLength / 10}
+              height={axisLength / 10}
               patternUnits="userSpaceOnUse"
+              x={padding}
+              y={padding}
             >
               <path
-                d="M 32 0 L 0 0 0 32"
+                d={`M ${axisLength / 10} 0 L 0 0 0 ${axisLength / 10}`}
                 fill="none"
-                stroke="#cbd5e1"
+                stroke="#c4b59a"
                 strokeWidth="0.5"
-                opacity="0.6"
+                opacity="0.5"
               />
             </pattern>
 
             {/* 用户点的渐变 */}
             <radialGradient id="userPointGradient" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#fbbf24" />
-              <stop offset="100%" stopColor="#f59e0b" />
+              <stop offset="0%" stopColor="#d4a574" />
+              <stop offset="100%" stopColor="#b8956a" />
             </radialGradient>
 
             {/* 用户点的阴影 */}
@@ -85,7 +90,15 @@ export const UserScoreChart: React.FC<UserScoreChartProps> = ({
 
           {/* 背景 */}
           <rect width="100%" height="100%" fill="url(#backgroundGradient)" />
-          <rect width="100%" height="100%" fill="url(#userGrid)" />
+
+          {/* 网格区域 - 只在坐标轴区域显示 */}
+          <rect
+            x={padding}
+            y={padding}
+            width={axisLength}
+            height={axisLength}
+            fill="url(#userGrid)"
+          />
 
           {/* 象限背景色 */}
           <rect
@@ -93,230 +106,253 @@ export const UserScoreChart: React.FC<UserScoreChartProps> = ({
             y={padding}
             width={axisLength / 2}
             height={axisLength / 2}
-            fill="rgba(34, 197, 94, 0.05)"
+            fill="#f0e6d2"
+            opacity="0.1"
           />
           <rect
             x={padding + axisLength / 2}
             y={padding}
             width={axisLength / 2}
             height={axisLength / 2}
-            fill="rgba(59, 130, 246, 0.05)"
+            fill="#e8ddd0"
+            opacity="0.1"
           />
           <rect
             x={padding}
             y={padding + axisLength / 2}
             width={axisLength / 2}
             height={axisLength / 2}
-            fill="rgba(168, 85, 247, 0.05)"
+            fill="#ede2d0"
+            opacity="0.1"
           />
           <rect
             x={padding + axisLength / 2}
             y={padding + axisLength / 2}
             width={axisLength / 2}
             height={axisLength / 2}
-            fill="rgba(239, 68, 68, 0.05)"
+            fill="#e6dac8"
+            opacity="0.1"
           />
 
-          {/* X轴 */}
-          <line
-            x1={padding}
-            y1={chartSize - padding}
-            x2={chartSize - padding}
-            y2={chartSize - padding}
-            stroke="#475569"
-            strokeWidth="3"
-          />
-
-          {/* X轴箭头 */}
-          <polygon
-            points={`${chartSize - padding + 8},${chartSize - padding} ${
-              chartSize - padding - 4
-            },${chartSize - padding - 4} ${chartSize - padding - 4},${
-              chartSize - padding + 4
-            }`}
-            fill="#475569"
-          />
-
-          {/* Y轴 */}
-          <line
-            x1={padding}
-            y1={padding}
-            x2={padding}
-            y2={chartSize - padding}
-            stroke="#475569"
-            strokeWidth="3"
-          />
-
-          {/* Y轴箭头 */}
-          <polygon
-            points={`${padding},${padding - 8} ${padding - 4},${padding + 4} ${
-              padding + 4
-            },${padding + 4}`}
-            fill="#475569"
-          />
-
-          {/* 中心线 */}
-          <line
-            x1={chartSize / 2}
-            y1={padding}
-            x2={chartSize / 2}
-            y2={chartSize - padding}
-            stroke="#64748b"
-            strokeWidth="2"
-            strokeDasharray="8,4"
-            opacity="0.7"
-          />
+          {/* X轴 - 水平穿过中心 */}
           <line
             x1={padding}
             y1={chartSize / 2}
             x2={chartSize - padding}
             y2={chartSize / 2}
-            stroke="#64748b"
-            strokeWidth="2"
-            strokeDasharray="8,4"
-            opacity="0.7"
+            stroke="#a0845c"
+            strokeWidth="2.5"
           />
+
+          {/* X轴左箭头 */}
+          <polygon
+            points={`${padding - 8},${chartSize / 2} ${padding + 4},${
+              chartSize / 2 - 4
+            } ${padding + 4},${chartSize / 2 + 4}`}
+            fill="#a0845c"
+          />
+
+          {/* X轴右箭头 */}
+          <polygon
+            points={`${chartSize - padding + 8},${chartSize / 2} ${
+              chartSize - padding - 4
+            },${chartSize / 2 - 4} ${chartSize - padding - 4},${
+              chartSize / 2 + 4
+            }`}
+            fill="#a0845c"
+          />
+
+          {/* Y轴 - 垂直穿过中心 */}
+          <line
+            x1={chartSize / 2}
+            y1={padding}
+            x2={chartSize / 2}
+            y2={chartSize - padding}
+            stroke="#a0845c"
+            strokeWidth="2.5"
+          />
+
+          {/* Y轴上箭头 */}
+          <polygon
+            points={`${chartSize / 2},${padding - 8} ${chartSize / 2 - 4},${
+              padding + 4
+            } ${chartSize / 2 + 4},${padding + 4}`}
+            fill="#a0845c"
+          />
+
+          {/* Y轴下箭头 */}
+          <polygon
+            points={`${chartSize / 2},${chartSize - padding + 8} ${
+              chartSize / 2 - 4
+            },${chartSize - padding - 4} ${chartSize / 2 + 4},${
+              chartSize - padding - 4
+            }`}
+            fill="#a0845c"
+          />
+
+          {/* 轴标签 */}
+          <text
+            x={chartSize - 15}
+            y={chartSize / 2 - 10}
+            fontSize="12"
+            fill="#8b7355"
+            textAnchor="end"
+            fontWeight="500"
+            fontFamily="'LXGW WenKai', 'KaiTi', '楷体', serif"
+          >
+            实际重庆人
+          </text>
+          <text
+            x={chartSize / 2 - 10}
+            y={padding + 10}
+            fontSize="12"
+            fill="#8b7355"
+            textAnchor="end"
+            fontWeight="500"
+            fontFamily="'LXGW WenKai', 'KaiTi', '楷体', serif"
+          >
+            精神重庆人
+          </text>
+
+          {/* 象限标签 */}
+          <text
+            x={chartSize / 2 + axisLength / 4}
+            y={chartSize / 2 - axisLength / 4 + 5}
+            fontSize="10"
+            fill="#9d8a6b"
+            textAnchor="middle"
+            fontWeight="400"
+            fontFamily="'LXGW WenKai', 'KaiTi', '楷体', serif"
+          >
+            实际重庆人
+          </text>
+          <text
+            x={chartSize / 2 + axisLength / 4}
+            y={chartSize / 2 - axisLength / 4 + 18}
+            fontSize="10"
+            fill="#9d8a6b"
+            textAnchor="middle"
+            fontWeight="400"
+            fontFamily="'LXGW WenKai', 'KaiTi', '楷体', serif"
+          >
+            精神重庆人
+          </text>
+
+          <text
+            x={chartSize / 2 - axisLength / 4}
+            y={chartSize / 2 - axisLength / 4 + 5}
+            fontSize="10"
+            fill="#9d8a6b"
+            textAnchor="middle"
+            fontWeight="400"
+            fontFamily="'LXGW WenKai', 'KaiTi', '楷体', serif"
+          >
+            实际非重庆人
+          </text>
+          <text
+            x={chartSize / 2 - axisLength / 4}
+            y={chartSize / 2 - axisLength / 4 + 18}
+            fontSize="10"
+            fill="#9d8a6b"
+            textAnchor="middle"
+            fontWeight="400"
+            fontFamily="'LXGW WenKai', 'KaiTi', '楷体', serif"
+          >
+            精神重庆人
+          </text>
+
+          <text
+            x={chartSize / 2 - axisLength / 4}
+            y={chartSize / 2 + axisLength / 4 + 5}
+            fontSize="10"
+            fill="#9d8a6b"
+            textAnchor="middle"
+            fontWeight="400"
+            fontFamily="'LXGW WenKai', 'KaiTi', '楷体', serif"
+          >
+            实际非重庆人
+          </text>
+          <text
+            x={chartSize / 2 - axisLength / 4}
+            y={chartSize / 2 + axisLength / 4 + 18}
+            fontSize="10"
+            fill="#9d8a6b"
+            textAnchor="middle"
+            fontWeight="400"
+            fontFamily="'LXGW WenKai', 'KaiTi', '楷体', serif"
+          >
+            精神非重庆人
+          </text>
+
+          <text
+            x={chartSize / 2 + axisLength / 4}
+            y={chartSize / 2 + axisLength / 4 + 5}
+            fontSize="10"
+            fill="#9d8a6b"
+            textAnchor="middle"
+            fontWeight="400"
+            fontFamily="'LXGW WenKai', 'KaiTi', '楷体', serif"
+          >
+            实际重庆人
+          </text>
+          <text
+            x={chartSize / 2 + axisLength / 4}
+            y={chartSize / 2 + axisLength / 4 + 18}
+            fontSize="10"
+            fill="#9d8a6b"
+            textAnchor="middle"
+            fontWeight="400"
+            fontFamily="'LXGW WenKai', 'KaiTi', '楷体', serif"
+          >
+            精神非重庆人
+          </text>
 
           {/* 用户得分点 */}
           <circle
             cx={pointX}
             cy={pointY}
-            r="12"
+            r="6"
             fill="url(#userPointGradient)"
-            stroke="#d97706"
-            strokeWidth="3"
-            filter="url(#userPointShadow)"
+            stroke="#ffffff"
+            strokeWidth="1.5"
+            filter="url(#dropShadow)"
           />
 
           {/* 用户点的脉冲动画环 */}
           <circle
             cx={pointX}
             cy={pointY}
-            r="12"
+            r="8"
             fill="none"
-            stroke="#fbbf24"
-            strokeWidth="2"
-            opacity="0.6"
+            stroke="#d4a574"
+            strokeWidth="1.5"
+            opacity="0.5"
           >
             <animate
               attributeName="r"
-              values="12;20;12"
-              dur="2s"
+              values="6;12;6"
+              dur="3s"
               repeatCount="indefinite"
             />
             <animate
               attributeName="opacity"
-              values="0.6;0;0.6"
-              dur="2s"
+              values="0.5;0.1;0.5"
+              dur="3s"
               repeatCount="indefinite"
             />
           </circle>
-
-          {/* 坐标刻度和标签 */}
-          {/* X轴刻度 */}
-          <text
-            x={padding}
-            y={chartSize - padding + 20}
-            fontSize="14"
-            fill="#64748b"
-            textAnchor="middle"
-            fontWeight="500"
-          >
-            -100
-          </text>
-          <text
-            x={chartSize / 2}
-            y={chartSize - padding + 20}
-            fontSize="14"
-            fill="#64748b"
-            textAnchor="middle"
-            fontWeight="500"
-          >
-            0
-          </text>
-          <text
-            x={chartSize - padding}
-            y={chartSize - padding + 20}
-            fontSize="14"
-            fill="#64748b"
-            textAnchor="middle"
-            fontWeight="500"
-          >
-            100
-          </text>
-
-          {/* Y轴刻度 */}
-          <text
-            x={padding - 20}
-            y={chartSize - padding + 5}
-            fontSize="14"
-            fill="#64748b"
-            textAnchor="middle"
-            fontWeight="500"
-          >
-            -100
-          </text>
-          <text
-            x={padding - 20}
-            y={chartSize / 2 + 5}
-            fontSize="14"
-            fill="#64748b"
-            textAnchor="middle"
-            fontWeight="500"
-          >
-            0
-          </text>
-          <text
-            x={padding - 20}
-            y={padding + 5}
-            fontSize="14"
-            fill="#64748b"
-            textAnchor="middle"
-            fontWeight="500"
-          >
-            100
-          </text>
-
-          {/* 轴标签 */}
-          <text
-            x={chartSize / 2}
-            y={chartSize - 8}
-            fontSize="16"
-            fill="#1e293b"
-            textAnchor="middle"
-            fontWeight="bold"
-          >
-            传统 ← → 现代
-          </text>
-          <text
-            x={15}
-            y={chartSize / 2}
-            fontSize="16"
-            fill="#1e293b"
-            textAnchor="middle"
-            fontWeight="bold"
-            transform={`rotate(-90, 15, ${chartSize / 2})`}
-          >
-            保守 ← → 开放
-          </text>
         </svg>
       </div>
 
       {/* 坐标轴说明 */}
       <div className="axis-explanation">
-        <div className="axis-info">
-          <div className="axis-item">
-            <h3 className="axis-title">横轴：传统 ↔ 现代</h3>
-            <p className="axis-description">
-              反映您对传统文化与现代生活方式的态度倾向。左侧代表更偏向传统价值观，右侧代表更拥抱现代理念。
-            </p>
-          </div>
-          <div className="axis-item">
-            <h3 className="axis-title">纵轴：保守 ↔ 开放</h3>
-            <p className="axis-description">
-              体现您的性格特质和行为方式。下方代表相对保守稳重，上方代表更加开放活跃。
-            </p>
-          </div>
+        <div className="axis-description-single">
+          <p className="axis-description-text">
+            此坐标轴基于您的答案百分比动态计算生成。横轴代表
+            <strong>实际重庆人指数</strong>（生活经历与地域认同），纵轴代表
+            <strong>精神重庆人指数</strong>（文化认同与情感归属）。
+            网格从-5到5划分为10个单位，您的位置会随着更多人参与答题而动态调整，反映您在所有参与者中的相对位置。
+          </p>
         </div>
       </div>
 
@@ -324,7 +360,6 @@ export const UserScoreChart: React.FC<UserScoreChartProps> = ({
       <div className="user-position">
         <div className="position-card">
           <div className="position-header">
-            <div className="position-icon">📍</div>
             <h3 className="position-title">您的位置</h3>
           </div>
           <div className="position-content">
@@ -338,17 +373,25 @@ export const UserScoreChart: React.FC<UserScoreChartProps> = ({
               <p>
                 您位于坐标系的
                 <strong className="highlight">
-                  {normalizedX > 0 ? "现代" : "传统"}
-                  {normalizedY > 0 ? "开放" : "保守"}
+                  {normalizedX > 0 ? "实际重庆人" : "实际非重庆人"}，
+                  {normalizedY > 0 ? "精神重庆人" : "精神非重庆人"}
                 </strong>
                 象限，这表明您是一个
                 <strong className="highlight">
-                  {normalizedX > 0 && normalizedY > 0 && "现代开放型"}
-                  {normalizedX > 0 && normalizedY <= 0 && "现代稳重型"}
-                  {normalizedX <= 0 && normalizedY > 0 && "传统活跃型"}
-                  {normalizedX <= 0 && normalizedY <= 0 && "传统保守型"}
+                  {normalizedX > 0 &&
+                    normalizedY > 0 &&
+                    "实际重庆人，精神重庆人"}
+                  {normalizedX > 0 &&
+                    normalizedY <= 0 &&
+                    "实际重庆人，精神非重庆人"}
+                  {normalizedX <= 0 &&
+                    normalizedY > 0 &&
+                    "实际非重庆人，精神重庆人"}
+                  {normalizedX <= 0 &&
+                    normalizedY <= 0 &&
+                    "实际非重庆人，精神非重庆人"}
                 </strong>
-                的重庆人。
+                的身份。
               </p>
             </div>
           </div>

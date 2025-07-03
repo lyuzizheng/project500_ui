@@ -1,19 +1,27 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import "./App.css";
-import "./UserScoreChart.css";
 import logoThin from "../assets/logo/500logo1.png";
 import logoThick from "../assets/logo/500logo2.png";
 import logoDiff from "../assets/logo/500logo3.png";
 import logoEmpty from "../assets/logo/500logo4.png";
+import "./App.css";
 import UserScoreChart from "./UserScoreChart";
+import "./UserScoreChart.css";
 
 function App() {
-  const { userId } = useParams<{ userId?: string; apiKey?: string }>();
+  const { userId, apiKey } = useParams<{ userId?: string; apiKey?: string }>();
   const [currentLogoIndex, setCurrentLogoIndex] = useState(0);
   const [isLogoVisible, setIsLogoVisible] = useState(true);
   const appContainerRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+
+  // 保存当前用户路由到localStorage
+  useEffect(() => {
+    if (userId && apiKey) {
+      const currentRoute = `/${userId}/${apiKey}`;
+      localStorage.setItem("userRoute", currentRoute);
+    }
+  }, [userId, apiKey]);
 
   // 防止用户修改URL中的userId
   useEffect(() => {
@@ -129,17 +137,17 @@ function App() {
       <section id="section-1" className="section second-section">
         <div className="second-content">
           {/* 用户坐标轴图表 */}
-          <UserScoreChart 
+          <UserScoreChart
             userScore={{
               x_axis_raw: 75,
               y_axis_raw: 60,
               x_axis_percent: 65,
               y_axis_percent: 70,
               x_axis_mapped: 30,
-              y_axis_mapped: 40
+              y_axis_mapped: 40,
             }}
           />
-          
+
           <div className="action-buttons">
             <button className="back-to-top-btn" onClick={scrollToTop}>
               返回顶部
