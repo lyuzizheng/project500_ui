@@ -79,14 +79,16 @@ function App() {
 
   // 加载Commento评论系统
   useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://commento.brabalawuka.cc/js/commento.js';
+    const script = document.createElement("script");
+    script.src = "https://commento.brabalawuka.cc/js/commento.js";
     script.defer = true;
     document.head.appendChild(script);
 
     return () => {
       // 清理脚本
-      const existingScript = document.querySelector('script[src="https://commento.brabalawuka.cc/js/commento.js"]');
+      const existingScript = document.querySelector(
+        'script[src="https://commento.brabalawuka.cc/js/commento.js"]'
+      );
       if (existingScript) {
         document.head.removeChild(existingScript);
       }
