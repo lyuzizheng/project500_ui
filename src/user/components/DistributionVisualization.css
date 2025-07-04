@@ -73,17 +73,17 @@
 }
 
 .average-card {
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 8px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+  transition: none;
   text-align: center;
 }
 
 .average-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  transform: none;
+  box-shadow: none;
 }
 
 .average-display {
@@ -139,7 +139,7 @@
 
 @media (max-width: 768px) {
   .stats-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 0.5rem;
   }
   

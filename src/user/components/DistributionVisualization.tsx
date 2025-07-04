@@ -93,7 +93,9 @@ const DistributionVisualization: React.FC<DistributionVisualizationProps> = ({
 
   // 过滤出"其他的环节呢？"部分的题目
   const otherDistributionQuestions = Object.entries(distributionData.questions)
-    .filter(([questionId]) => OTHER_QUESTIONS.distributions.includes(questionId))
+    .filter(([questionId]) =>
+      OTHER_QUESTIONS.distributions.includes(questionId)
+    )
     .map(
       ([questionId, questionData]) =>
         [questionId, questionData as QuestionData] as const
@@ -246,14 +248,14 @@ const DistributionVisualization: React.FC<DistributionVisualizationProps> = ({
         min: questionData.value_stats.min_value,
         max: questionData.value_stats.max_value,
         average: questionData.value_stats.average_value,
-        median: questionData.value_stats.median_value
+        median: questionData.value_stats.median_value,
       };
       // 根据题目类型设置单位
-      if (questionId === 'f') {
+      if (questionId === "f") {
         unit = "次";
-      } else if (questionId === 'i') {
+      } else if (questionId === "i") {
         unit = "次";
-      } else if (questionId === 'l') {
+      } else if (questionId === "l") {
         unit = "次";
       }
     } else if (questionData.average_score !== undefined) {
@@ -262,7 +264,7 @@ const DistributionVisualization: React.FC<DistributionVisualizationProps> = ({
         min: 0,
         max: 0,
         average: questionData.average_score,
-        median: 0
+        median: 0,
       };
       unit = "分";
     } else if (questionData.coordinate_stats?.score_statistics) {
@@ -271,7 +273,7 @@ const DistributionVisualization: React.FC<DistributionVisualizationProps> = ({
         min: coordStats.lowest_score || 0,
         max: coordStats.highest_score || 0,
         average: coordStats.average_value,
-        median: 0 // 坐标统计没有中位数
+        median: 0, // 坐标统计没有中位数
       };
     }
 
@@ -283,24 +285,38 @@ const DistributionVisualization: React.FC<DistributionVisualizationProps> = ({
     );
 
     return (
-      <div className="average-display">
-        <h3 className="average-title">{displayTitle}</h3>
+      <div className="horizontal-bar-chart">
+        <div className="chart-title-header">
+          <h3 className="chart-question-title">{displayTitle}</h3>
+        </div>
         <div className="stats-grid">
           <div className="stat-item">
             <span className="stat-label">最小值</span>
-            <span className="stat-value">{stats.min}{unit}</span>
+            <span className="stat-value">
+              {stats.min}
+              {unit}
+            </span>
           </div>
           <div className="stat-item">
             <span className="stat-label">最大值</span>
-            <span className="stat-value">{stats.max}{unit}</span>
+            <span className="stat-value">
+              {stats.max}
+              {unit}
+            </span>
           </div>
           <div className="stat-item">
             <span className="stat-label">平均值</span>
-            <span className="stat-value highlight">{stats.average.toFixed(2)}{unit}</span>
+            <span className="stat-value highlight">
+              {stats.average.toFixed(2)}
+              {unit}
+            </span>
           </div>
           <div className="stat-item">
             <span className="stat-label">中位数</span>
-            <span className="stat-value">{stats.median}{unit}</span>
+            <span className="stat-value">
+              {stats.median}
+              {unit}
+            </span>
           </div>
         </div>
       </div>
@@ -321,7 +337,7 @@ const DistributionVisualization: React.FC<DistributionVisualizationProps> = ({
 
       {/* 其他的环节呢？ section */}
       <h2 className="section-title">其他的环节呢？</h2>
-      
+
       {/* 分布图显示 */}
       <div className="questions-grid">
         {otherDistributionQuestions.map(([questionId, questionData]) => (
@@ -334,7 +350,7 @@ const DistributionVisualization: React.FC<DistributionVisualizationProps> = ({
       {/* 平均数显示 */}
       <div className="averages-grid">
         {otherAverageQuestions.map(([questionId, questionData]) => (
-          <div key={questionId} className="average-card">
+          <div key={questionId} className="question-card">
             {renderAverageDisplay(questionData, questionId)}
           </div>
         ))}

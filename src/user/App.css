@@ -202,7 +202,7 @@
 
 .second-content {
   background-color: rgba(255, 255, 255, 0.6);
-  padding: 1rem 1rem 300vh 1rem;
+  padding: 1rem 1rem 600vh 1rem;
   border-radius: 0px;
   text-align: center;
   max-width: none;
@@ -533,7 +533,6 @@
 /* 留言板section样式 */
 .comment-section-wrapper {
   background: transparent;
-  padding: 1.7rem;
 }
 
 .comment-section {
@@ -583,7 +582,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding: 1.7rem;
+  /* padding: 1.7rem; */
   min-height: 100vh;
   position: relative;
   overflow: visible;
@@ -592,6 +591,7 @@
 .distribution-content {
   background: transparent;
   padding: 1rem 1rem 100vh 1rem;
+  margin: 1.7rem;
   border-radius: 0px;
   text-align: center;
   max-width: none;
@@ -700,9 +700,58 @@
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
 }
 
+/* 简化的评论区域样式 */
+.comment-section-simple {
+  background-color: rgba(255, 255, 255, 0.85);
+  width: 107%;
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+.comment-section-simple .comment-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-family: 'LXGW WenKai', 'KaiTi', '楷体', 'STKaiti', 'DFKai-SB', '华文楷体', 'FangSong', serif;
+}
+
+.comment-section-simple .action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.comment-section-simple .back-to-top-btn,
+.comment-section-simple .credit-nav-btn {
+  background: rgba(212, 165, 116, 0.9);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'LXGW WenKai', 'KaiTi', '楷体', serif;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.comment-section-simple .back-to-top-btn:hover,
+.comment-section-simple .credit-nav-btn:hover {
+  background: rgba(184, 149, 106, 0.95);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
 /* Commento评论系统样式覆盖 */
 #commento {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  margin: 2rem 0;
 }
 
 /* 响应式设计 */

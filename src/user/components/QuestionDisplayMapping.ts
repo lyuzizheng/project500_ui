@@ -98,7 +98,7 @@ export const QUESTION_DISPLAY_MAPPING: Record<string, QuestionDisplayInfo> = {
 
   // F组题目 - 语言能力
   f: {
-    title: "绕口令挑战得分",
+    title: "绕口令出错次数",
     // 排名型题目
   },
 
@@ -120,7 +120,7 @@ export const QUESTION_DISPLAY_MAPPING: Record<string, QuestionDisplayInfo> = {
 
   // I组题目 - 文化理解
   i: {
-    title: "重庆文化理解测试",
+    title: "重庆话使用情况",
     // 分数型题目
   },
 
@@ -138,7 +138,7 @@ export const QUESTION_DISPLAY_MAPPING: Record<string, QuestionDisplayInfo> = {
 
   // L组题目 - 游戏参与
   l: {
-    title: "脏话牌游戏表现",
+    title: "脏话使用情况",
     // 数值统计型题目
   },
 

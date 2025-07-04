@@ -271,59 +271,32 @@ function App() {
                 <DistributionVisualization
                   distributionData={distributionData}
                 />
+                <div className="action-buttons">
+                    <button className="back-to-top-btn" onClick={scrollToTop}>
+                      返回顶部
+                    </button>
+                    <button
+                      className="credit-nav-btn"
+                      onClick={() => navigate("/credit")}
+                    >
+                      制作团队
+                    </button>
+                  </div>
 
                 {/* 留言板部分 - 放在答案分布下方 */}
-                <div className="comment-section-in-distribution">
-                  <div className="comment-overlay"></div>
-                  <div className="comment-content">
-                    <h2 className="comment-title">匿名留言板</h2>
-                    <div id="commento"></div>
-
-                    <div className="action-buttons">
-                      <button className="back-to-top-btn" onClick={scrollToTop}>
-                        返回顶部
-                      </button>
-                      <button
-                        className="credit-nav-btn"
-                        onClick={() => navigate("/credit")}
-                      >
-                        制作团队
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                
               </>
             ) : (
               <div className="no-data-container">
                 <p>暂无分布数据</p>
               </div>
             )}
+            <div className="comment-section-simple">
+                  <h2 className="comment-title">匿名留言板</h2>
+                  <div id="commento"></div>
+                </div>
           </div>
-        </section>
-      )}
 
-      {/* 第四个界面 - 留言板 (非移动端显示) */}
-      {!isMobile && (
-        <section id="section-3" className="section comment-section-wrapper">
-          <div className="comment-section">
-            <div className="comment-overlay"></div>
-            <div className="comment-content">
-              <h2 className="comment-title">匿名留言板</h2>
-              <div id="commento"></div>
-
-              <div className="action-buttons">
-                <button className="back-to-top-btn" onClick={scrollToTop}>
-                  返回顶部
-                </button>
-                <button
-                  className="credit-nav-btn"
-                  onClick={() => navigate("/credit")}
-                >
-                  制作团队
-                </button>
-              </div>
-            </div>
-          </div>
         </section>
       )}
     </div>
