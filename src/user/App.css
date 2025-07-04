@@ -218,6 +218,33 @@
   min-height: calc(100vh - 3.4rem);
 }
 
+/* 操作区域样式 */
+.action-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 感谢文字样式 */
+.thank-you-text {
+  font-family: 'LXGW WenKai', 'KaiTi', '楷体', 'STKaiti', 'DFKai-SB', '华文楷体', 'FangSong', serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #000000;
+  text-align: center;
+  line-height: 1.6;
+  max-width: 600px;
+  margin-bottom: 2rem;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  background: rgba(240, 230, 210, 0.6);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(160, 132, 92, 0.1);
+  border: 1px solid rgba(160, 132, 92, 0.2);
+  letter-spacing: 0.02em;
+}
+
 .action-buttons {
   display: flex;
   justify-content: center;
@@ -792,5 +819,25 @@
   .credit-nav-btn {
     font-size: 1.1rem;
     padding: 10px 20px;
+  }
+  
+  .thank-you-text {
+    font-size: 1.2rem;
+    padding: 0.8rem 1.5rem;
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .thank-you-text {
+    font-size: 1.1rem;
+    padding: 0.8rem 1rem;
+    max-width: 95%;
+    line-height: 1.5;
+  }
+  
+  .action-section {
+    gap: 1rem;
+    margin-top: 1.5rem;
   }
 }

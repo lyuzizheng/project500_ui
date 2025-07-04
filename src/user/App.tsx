@@ -274,16 +274,21 @@ function App() {
               <p>暂无分布数据</p>
             </div>
           )}
-          <div className="action-buttons">
-            <button className="back-to-top-btn" onClick={scrollToTop}>
-              返回顶部
-            </button>
-            <button
-              className="credit-nav-btn"
-              onClick={() => navigate("/credit")}
-            >
-              制作团队
-            </button>
+          <div className="action-section">
+            <p className="thank-you-text">
+              感谢参与我们的活动，可以点击查看制作团队信息，也可以积极在下方留言板进行讨论，我们的主创团队会进行回复
+            </p>
+            <div className="action-buttons">
+              <button className="back-to-top-btn" onClick={scrollToTop}>
+                返回顶部
+              </button>
+              <button
+                className="credit-nav-btn"
+                onClick={() => navigate("/credit")}
+              >
+                制作团队
+              </button>
+            </div>
           </div>
         </div>
       </section>

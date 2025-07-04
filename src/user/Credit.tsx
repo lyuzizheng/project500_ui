@@ -155,7 +155,6 @@ function Credit() {
             />
           </div>
           <h1 className="credit-main-title">感谢您体验伍零零剧场</h1>
-          <p className="credit-thanks-text">感谢参与我们的活动，可以点击查看制作团队信息，也可以积极在下方留言板进行讨论，我们的主创团队会进行回复</p>
           <h2 className="credit-subtitle">制作团队</h2>
           <div className="credit-next-arrow"></div>
         </div>
