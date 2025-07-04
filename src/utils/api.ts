@@ -2,9 +2,7 @@ import type { ApiResponse, UserScore } from "../admin/types/Question";
 
 // 全局配置获取函数（用于非React组件）
 function getApiBaseUrl(): string {
-  return (
-     "https://chongqing.brabalawuka.cc"
-  );
+  return "https://chongqing.brabalawuka.cc";
 }
 
 function getApiKey(): string {

@@ -1,0 +1,939 @@
+{
+    "code": 0,
+    "message": "获取题目分布成功",
+    "data": {
+        "total_questions": 31,
+        "total_participants": 8,
+        "questions": {
+            "a1": {
+                "type": "fixed_score",
+                "total_responses": 7,
+                "response_rate": "87.5%",
+                "score_distribution": {
+                    "-1.0": 1,
+                    "1.0": 6
+                },
+                "answer_distribution": {
+                    "no": 1,
+                    "yes": 6
+                },
+                "average_score": 0.7142857142857143,
+                "metadata": {
+                    "description": "您的身份证前三位是否为500？",
+                    "scoring": "是的+1分，不是-1分",
+                    "type": "boolean"
+                }
+            },
+            "a2": {
+                "type": "fixed_score",
+                "total_responses": 7,
+                "response_rate": "87.5%",
+                "score_distribution": {
+                    "0.0": 1,
+                    "1.0": 6
+                },
+                "answer_distribution": {
+                    "1985": 1,
+                    "1998": 1,
+                    "2002": 1,
+                    "2004": 2,
+                    "2005": 1,
+                    "2011": 1
+                },
+                "average_score": 0.8571428571428571,
+                "metadata": {
+                    "description": "请填写您的出生年份",
+                    "scoring": "≥1997年+1分，\u003c1997年不得分",
+                    "type": "number"
+                }
+            },
+            "b1": {
+                "type": "fixed_score",
+                "total_responses": 8,
+                "response_rate": "100.0%",
+                "score_distribution": {
+                    "-1.0": 1,
+                    "1.0": 7
+                },
+                "answer_distribution": {
+                    "否+否": 1,
+                    "是+是": 7
+                },
+                "average_score": 0.75,
+                "metadata": {
+                    "description": "父母是否来自重庆？",
+                    "options": [
+                        "是+是",
+                        "是+否",
+                        "否+否"
+                    ],
+                    "scoring": "是+是：+1分，是+否：+0分，否+否：-1分",
+                    "type": "choice"
+                }
+            },
+            "b2": {
+                "type": "fixed_score",
+                "total_responses": 5,
+                "response_rate": "62.5%",
+                "score_distribution": {
+                    "0.0": 5
+                },
+                "answer_distribution": {
+                    "否+否": 4,
+                    "是+是": 1
+                },
+                "metadata": {
+                    "depends_on": "d",
+                    "description": "父母是否来自主城九区？",
+                    "options": [
+                        "是+是",
+                        "是+否",
+                        "否+否"
+                    ],
+                    "scoring": "基础分：是+是：+1分，是+否：+0.5分，否+否：0分；最终得分乘以D题区县百分比",
+                    "type": "choice"
+                }
+            },
+            "b3": {
+                "type": "fixed_score",
+                "total_responses": 1,
+                "response_rate": "12.5%",
+                "score_distribution": {
+                    "0.0": 1
+                },
+                "answer_distribution": {
+                    "是": 1
+                },
+                "metadata": {
+                    "depends_on": "d",
+                    "description": "是重庆的一方是否来自主城九区？",
+                    "options": [
+                        "是",
+                        "否"
+                    ],
+                    "scoring": "基础分：是：+1分，否：+0.5分；最终得分乘以D题区县百分比",
+                    "type": "boolean"
+                }
+            },
+            "b4": {
+                "type": "fixed_score",
+                "total_responses": 0,
+                "response_rate": "0.0%",
+                "metadata": {
+                    "depends_on": "d",
+                    "description": "非重庆的一方是否来自四川？",
+                    "options": [
+                        "是",
+                        "否"
+                    ],
+                    "scoring": "基础分：是：+1分，否：+0.5分；最终得分乘以D题直辖百分比",
+                    "type": "boolean"
+                }
+            },
+            "b5": {
+                "type": "fixed_score",
+                "total_responses": 1,
+                "response_rate": "12.5%",
+                "score_distribution": {
+                    "0.0": 1
+                },
+                "answer_distribution": {
+                    "是+否": 1
+                },
+                "metadata": {
+                    "depends_on": "d",
+                    "description": "父母是否来自四川？",
+                    "options": [
+                        "是+是",
+                        "是+否",
+                        "否+否"
+                    ],
+                    "scoring": "基础分：是+是：+0.5分，是+否：+0分，否+否：-1分；最终得分乘以D题直辖百分比",
+                    "type": "choice"
+                }
+            },
+            "c1": {
+                "type": "fixed_score",
+                "total_responses": 5,
+                "response_rate": "62.5%",
+                "score_distribution": {
+                    "1.0": 5
+                },
+                "answer_distribution": {
+                    "是": 5
+                },
+                "average_score": 1,
+                "metadata": {
+                    "description": "童年是否在重庆？",
+                    "options": [
+                        "是",
+                        "否"
+                    ],
+                    "scoring": "是：+1分，否：-1分",
+                    "type": "boolean"
+                }
+            },
+            "c2": {
+                "type": "fixed_score",
+                "total_responses": 5,
+                "response_rate": "62.5%",
+                "score_distribution": {
+                    "1.0": 5
+                },
+                "answer_distribution": {
+                    "是": 5
+                },
+                "average_score": 1,
+                "metadata": {
+                    "description": "常居地是否为重庆？",
+                    "options": [
+                        "是",
+                        "否"
+                    ],
+                    "scoring": "是：+1分，否：-1分",
+                    "type": "boolean"
+                }
+            },
+            "c3": {
+                "type": "ranking_based",
+                "total_responses": 5,
+                "response_rate": "62.5%",
+                "ranking_distribution": {
+                    "rank_1": {
+                        "count": 2,
+                        "score_range": "1.00"
+                    },
+                    "rank_2": {
+                        "count": 1,
+                        "score_range": "0.50"
+                    },
+                    "rank_3": {
+                        "count": 1,
+                        "score_range": "0.25"
+                    },
+                    "rank_4": {
+                        "count": 1,
+                        "score_range": "0.00"
+                    }
+                },
+                "value_stats": {
+                    "min_value": 0,
+                    "max_value": 0,
+                    "average_value": 0,
+                    "median_value": 0
+                },
+                "average_score": 0.55,
+                "metadata": {
+                    "description": "在重庆待的时长（）年（）月",
+                    "format": "X年Y月",
+                    "scoring": "根据时间长度进行实时排序，根据实时排名进行给分，最高分1分，最低分0分，允许并列",
+                    "type": "text"
+                }
+            },
+            "d": {
+                "type": "voting_based",
+                "total_responses": 5,
+                "response_rate": "62.5%",
+                "vote_distribution": {
+                    "1(区县)": {
+                        "votes": 1,
+                        "percentage": 20,
+                        "rank": 3
+                    },
+                    "2(直辖)": {
+                        "votes": 2,
+                        "percentage": 40,
+                        "rank": 1
+                    },
+                    "3(赛博)": {
+                        "votes": 2,
+                        "percentage": 40,
+                        "rank": 2
+                    }
+                },
+                "winner": "2(直辖)",
+                "metadata": {
+                    "d1_percentage": 0,
+                    "d2_percentage": 0,
+                    "d3_percentage": 0,
+                    "description": "维度选择：重庆人身份认同的核心矛盾",
+                    "options": {
+                        "1": "区县",
+                        "2": "直辖",
+                        "3": "赛博"
+                    },
+                    "percentages": {
+                        "1": 0,
+                        "2": 0,
+                        "3": 0
+                    },
+                    "related_questions": {
+                        "1": [
+                            "b2",
+                            "b3",
+                            "h1"
+                        ],
+                        "2": [
+                            "b4",
+                            "b5",
+                            "h2"
+                        ],
+                        "3": [
+                            "g",
+                            "b5",
+                            "i",
+                            "j",
+                            "k"
+                        ]
+                    },
+                    "scoring": "计算百分比分布，作为其他题目的权重",
+                    "type": "choice"
+                }
+            },
+            "e": {
+                "type": "coordinate_based",
+                "total_responses": 5,
+                "response_rate": "62.5%",
+                "coordinate_stats": {
+                    "center_point": null,
+                    "distance_distribution": {
+                        "0-1km": 0,
+                        "1-5km": 0,
+                        "10km+": 0,
+                        "5-10km": 0
+                    },
+                    "score_statistics": {
+                        "min_value": 0,
+                        "max_value": 0,
+                        "average_value": 0,
+                        "median_value": 0
+                    }
+                },
+                "metadata": {
+                    "description": "重庆的中心坐标选择",
+                    "format": "[x, y] 坐标，x和y都在1-10范围内",
+                    "range": "x轴和y轴都是1-10",
+                    "scoring": "和大多数人分布越近，分数越高，最高分1分，最低分0分",
+                    "type": "coordinate"
+                }
+            },
+            "f": {
+                "type": "ranking_based",
+                "total_responses": 5,
+                "response_rate": "62.5%",
+                "ranking_distribution": {
+                    "rank_1": {
+                        "count": 5,
+                        "score_range": "1.00"
+                    }
+                },
+                "value_stats": {
+                    "min_value": 1,
+                    "max_value": 45,
+                    "average_value": 17.8,
+                    "median_value": 10
+                },
+                "average_score": 1,
+                "metadata": {
+                    "ascending_order": true,
+                    "chongqing_nonzero_errors": 5,
+                    "chongqing_zero_errors": 0,
+                    "dependency": "需要a1题目的答案来判断重庆人身份",
+                    "description": "绕口令出错次数",
+                    "format": "整数，表示出错次数",
+                    "scoring": "先判断重庆人群体出错分布，决定排序方式，然后排序给分",
+                    "type": "number"
+                }
+            },
+            "g": {
+                "type": "fixed_score",
+                "total_responses": 3,
+                "response_rate": "37.5%",
+                "score_distribution": {
+                    "0.0": 3
+                },
+                "answer_distribution": {
+                    "1": 1,
+                    "3": 2
+                },
+                "metadata": {
+                    "base_scoring": "每个打卡地点0.1分，最多10个地点1分",
+                    "description": "迷宫打卡地点数量",
+                    "final_multiplier": "最终得分要乘以d题的D3百分比",
+                    "final_scoring": "最终得分需要乘以d题的D3百分比",
+                    "format": "整数，表示打卡的地方数量（0-10）",
+                    "range": "0-10",
+                    "scoring": "0处=0分，1处=0.1分，2处=0.2分，...，10处=1分",
+                    "type": "number"
+                }
+            },
+            "h1": {
+                "type": "ranking_based",
+                "total_responses": 5,
+                "response_rate": "62.5%",
+                "ranking_distribution": {
+                    "rank_1": {
+                        "count": 1,
+                        "score_range": "1.00"
+                    },
+                    "rank_2": {
+                        "count": 1,
+                        "score_range": "0.75"
+                    },
+                    "rank_3": {
+                        "count": 1,
+                        "score_range": "0.50"
+                    },
+                    "rank_4": {
+                        "count": 1,
+                        "score_range": "0.25"
+                    },
+                    "rank_5": {
+                        "count": 1,
+                        "score_range": "0.00"
+                    }
+                },
+                "value_stats": {
+                    "min_value": -4,
+                    "max_value": 4,
+                    "average_value": 0.4,
+                    "median_value": 1
+                },
+                "average_score": 0.5,
+                "metadata": {
+                    "d1_percentage": 100,
+                    "dependency": "需要d题目的区县百分比作为权重",
+                    "description": "切蛋糕 - 区县，填空得分",
+                    "format": "数字，表示得分",
+                    "scoring": "根据所填得分进行实时排序，根据实时排名进行给分，最高分1分，最低分0分，最终得分乘以D1%",
+                    "type": "number",
+                    "weight_applied": true,
+                    "weight_source": "d1_percentage"
+                }
+            },
+            "h2": {
+                "type": "ranking_based",
+                "total_responses": 5,
+                "response_rate": "62.5%",
+                "ranking_distribution": {
+                    "rank_1": {
+                        "count": 1,
+                        "score_range": "1.00"
+                    },
+                    "rank_2": {
+                        "count": 1,
+                        "score_range": "0.75"
+                    },
+                    "rank_3": {
+                        "count": 2,
+                        "score_range": "0.50"
+                    },
+                    "rank_4": {
+                        "count": 1,
+                        "score_range": "0.00"
+                    }
+                },
+                "value_stats": {
+                    "min_value": -5,
+                    "max_value": 4,
+                    "average_value": 0.6,
+                    "median_value": 1
+                },
+                "average_score": 0.55,
+                "metadata": {
+                    "d2_percentage": 100,
+                    "dependency": "需要d题目的直辖百分比作为权重",
+                    "description": "切蛋糕 - 直辖，填空得分",
+                    "format": "数字，表示得分",
+                    "scoring": "根据所填得分进行实时排序，根据实时排名进行给分，最高分1分，最低分0分，最终得分乘以D2%",
+                    "type": "number",
+                    "weight_applied": true,
+                    "weight_source": "d2_percentage"
+                }
+            },
+            "i": {
+                "type": "ranking_based",
+                "total_responses": 4,
+                "response_rate": "50.0%",
+                "ranking_distribution": {
+                    "rank_1": {
+                        "count": 2,
+                        "score_range": "1.00"
+                    },
+                    "rank_2": {
+                        "count": 1,
+                        "score_range": "0.33"
+                    },
+                    "rank_3": {
+                        "count": 1,
+                        "score_range": "0.00"
+                    }
+                },
+                "value_stats": {
+                    "min_value": 2,
+                    "max_value": 3,
+                    "average_value": 2.6666666666666665,
+                    "median_value": 3
+                },
+                "average_score": 0.58325,
+                "metadata": {
+                    "d3_percentage": 100,
+                    "dependency": "需要d题目的赛博百分比作为权重",
+                    "description": "乱劈柴，填空使用重庆言子儿次数",
+                    "format": "整数，表示使用重庆言子儿的次数",
+                    "scoring": "根据所填次数进行实时排序，根据实时排名进行给分，最高分1分，最低分0分，最终得分乘以D3%",
+                    "type": "number",
+                    "weight_applied": true,
+                    "weight_source": "d3_percentage"
+                }
+            },
+            "j": {
+                "type": "voting_based",
+                "total_responses": 5,
+                "response_rate": "62.5%",
+                "vote_distribution": {
+                    "2": {
+                        "votes": 2,
+                        "percentage": 40,
+                        "rank": 1
+                    },
+                    "4": {
+                        "votes": 1,
+                        "percentage": 20,
+                        "rank": 3
+                    },
+                    "7": {
+                        "votes": 2,
+                        "percentage": 40,
+                        "rank": 2
+                    }
+                },
+                "winner": "2",
+                "metadata": {
+                    "d3_percentage": 100,
+                    "dependency": "需要d题目的赛博百分比作为权重",
+                    "description": "夜景图片，7选1",
+                    "max_votes": 2,
+                    "most_popular_choices": {
+                        "2": true,
+                        "7": true
+                    },
+                    "options": {
+                        "1": "1号",
+                        "2": "2号",
+                        "3": "3号",
+                        "4": "4号",
+                        "5": "5号",
+                        "6": "6号",
+                        "7": "7号"
+                    },
+                    "scoring": "投票题，根据投票分布计算得分，越和大多数人相似分数越高，最终得分乘以D3%",
+                    "total_votes": 5,
+                    "type": "choice",
+                    "vote_counts": {
+                        "2": 2,
+                        "4": 1,
+                        "7": 2
+                    },
+                    "weight_applied": true,
+                    "weight_source": "d3_percentage"
+                }
+            },
+            "k": {
+                "type": "voting_based",
+                "total_responses": 5,
+                "response_rate": "62.5%",
+                "vote_distribution": {
+                    "1(医疗队)": {
+                        "votes": 1,
+                        "percentage": 20,
+                        "rank": 2
+                    },
+                    "2(摩托车队)": {
+                        "votes": 4,
+                        "percentage": 80,
+                        "rank": 1
+                    }
+                },
+                "winner": "2(摩托车队)",
+                "metadata": {
+                    "d3_percentage": 100,
+                    "dependency": "需要d题目的赛博百分比作为权重",
+                    "description": "山火志愿对象，4选1",
+                    "option_scores": {
+                        "1(医疗队)": 0,
+                        "2(摩托车队)": 1
+                    },
+                    "options": {
+                        "1": "医疗队",
+                        "2": "摩托车队",
+                        "3": "油锯手队",
+                        "4": "不捐钱"
+                    },
+                    "scoring": "投票题，根据投票进行实时得票排名给分，最高分1分，最低分0分，最终得分乘以D3%",
+                    "total_votes": 5,
+                    "type": "choice",
+                    "vote_counts": {
+                        "1(医疗队)": 1,
+                        "2(摩托车队)": 4
+                    },
+                    "weight_applied": true,
+                    "weight_source": "d3_percentage"
+                }
+            },
+            "l": {
+                "type": "numerical_based",
+                "total_responses": 2,
+                "response_rate": "25.0%",
+                "answer_distribution": {
+                    "10": 1,
+                    "5": 1
+                },
+                "value_stats": {
+                    "min_value": 5,
+                    "max_value": 10,
+                    "average_value": 0.5,
+                    "median_value": 7.5,
+                    "highest_score": 1
+                },
+                "metadata": {
+                    "ascending_order": true,
+                    "dependency": "无依赖",
+                    "description": "脏话牌，填空使用重庆脏话次数",
+                    "format": "整数，表示使用重庆脏话的次数",
+                    "non_zero_count": 2,
+                    "r1_percentage": 100,
+                    "scoring": "先判断次数=0和次数\u003e0的人数分布，决定排序方式，然后排序给分",
+                    "type": "number",
+                    "weight_applied": true,
+                    "zero_count": 0
+                }
+            },
+            "m": {
+                "type": "numerical_based",
+                "total_responses": 2,
+                "response_rate": "25.0%",
+                "answer_distribution": {
+                    "1,2,5,6": 1,
+                    "9,4,7,5,13,15,17": 1
+                },
+                "value_stats": {
+                    "min_value": 0,
+                    "max_value": 0,
+                    "average_value": 1,
+                    "median_value": 0,
+                    "highest_score": 1,
+                    "lowest_score": 1
+                },
+                "metadata": {
+                    "all_choices": {
+                        "1,2,5,6": 1,
+                        "9,4,7,5,13,15,17": 1
+                    },
+                    "description": "火锅油碟，多选投票（1-18号选项）",
+                    "max_similarity": 0,
+                    "min_similarity": 0,
+                    "options": {
+                        "1": "1号选项",
+                        "10": "10号选项",
+                        "11": "11号选项",
+                        "12": "12号选项",
+                        "13": "13号选项",
+                        "14": "14号选项",
+                        "15": "15号选项",
+                        "16": "16号选项",
+                        "17": "17号选项",
+                        "18": "18号选项",
+                        "2": "2号选项",
+                        "3": "3号选项",
+                        "4": "4号选项",
+                        "5": "5号选项",
+                        "6": "6号选项",
+                        "7": "7号选项",
+                        "8": "8号选项",
+                        "9": "9号选项"
+                    },
+                    "r2_percentage": 100,
+                    "scoring": "多选投票题，根据各选项的实时得票分布进行排名给分，和选择最多的人越靠近得分越高",
+                    "total_users": 2,
+                    "type": "multi_choice",
+                    "user_similarity_scores": {
+                        "A1": 0,
+                        "L0098": 0
+                    },
+                    "weight_applied": true
+                }
+            },
+            "n": {
+                "type": "numerical_based",
+                "total_responses": 2,
+                "response_rate": "25.0%",
+                "answer_distribution": {
+                    "1": 1,
+                    "3": 1
+                },
+                "value_stats": {
+                    "min_value": 1,
+                    "max_value": 3,
+                    "average_value": 0.5,
+                    "median_value": 2,
+                    "highest_score": 1
+                },
+                "metadata": {
+                    "average_score": 2,
+                    "description": "打麻将，填空番数（）番",
+                    "format": "数字",
+                    "max_score": 3,
+                    "min_score": 1,
+                    "r3_percentage": 100,
+                    "scoring": "根据所填番数进行实时排序，根据实时排名进行给分，最高分1分，最低分0分，允许并列",
+                    "total_users": 2,
+                    "type": "number",
+                    "weight_applied": true
+                }
+            },
+            "o1": {
+                "type": "weighted_average",
+                "total_responses": 2,
+                "response_rate": "25.0%",
+                "value_stats": {
+                    "min_value": 163,
+                    "max_value": 188,
+                    "average_value": 0,
+                    "median_value": 175.5
+                },
+                "metadata": {
+                    "average_height": 175.5,
+                    "description": "身高，填空身高（）cm",
+                    "format": "数字cm",
+                    "max_distance": 12.5,
+                    "max_score": 0.2,
+                    "r4_percentage": 100,
+                    "scoring": "根据当前所有参与o1的人的数据计算实时平均数，与实时平均数越接近得分越高，最高得分0.2，最低得分0",
+                    "total_users": 2,
+                    "type": "number",
+                    "user_distances": {
+                        "A1": 12.5,
+                        "A2": 12.5
+                    },
+                    "weight_applied": true
+                }
+            },
+            "o2": {
+                "type": "weighted_average",
+                "total_responses": 2,
+                "response_rate": "25.0%",
+                "value_stats": {
+                    "min_value": 0,
+                    "max_value": 0,
+                    "average_value": 0.2,
+                    "median_value": 0,
+                    "highest_score": 0.2,
+                    "lowest_score": 0.2
+                },
+                "metadata": {
+                    "average_years": 0,
+                    "description": "社保年限，填空缴纳社保（）年（可以有小数）",
+                    "format": "数字（可以有小数）",
+                    "max_score": 0.2,
+                    "max_years": 0,
+                    "min_years": 0,
+                    "r4_percentage": 100,
+                    "scoring": "根据所填年数进行实时排序，根据实时排名进行给分，最高分0.2分，最低分0分，允许并列",
+                    "total_users": 2,
+                    "type": "number",
+                    "weight_applied": true
+                }
+            },
+            "o3": {
+                "type": "weighted_average",
+                "total_responses": 2,
+                "response_rate": "25.0%",
+                "value_stats": {
+                    "min_value": 69,
+                    "max_value": 69,
+                    "average_value": 0.1,
+                    "median_value": 69,
+                    "highest_score": 0.2
+                },
+                "metadata": {
+                    "average_amount": 34.5,
+                    "description": "消费，填空今天在山城巷消费（）元",
+                    "format": "数字元",
+                    "max_amount": 69,
+                    "max_score": 0.2,
+                    "min_amount": 0,
+                    "r4_percentage": 100,
+                    "scoring": "根据所填消费金额进行实时排序，根据实时排名进行给分，最高分0.2分，最低分0分，允许并列",
+                    "total_users": 2,
+                    "type": "number",
+                    "weight_applied": true
+                }
+            },
+            "o4": {
+                "type": "weighted_average",
+                "total_responses": 2,
+                "response_rate": "25.0%",
+                "value_stats": {
+                    "min_value": 2,
+                    "max_value": 3,
+                    "average_value": 0.1,
+                    "median_value": 2.5,
+                    "highest_score": 0.2
+                },
+                "metadata": {
+                    "average_count": 2.5,
+                    "description": "游客量，填空带来（）游客（整数）",
+                    "format": "整数",
+                    "max_count": 3,
+                    "max_score": 0.2,
+                    "min_count": 2,
+                    "r4_percentage": 100,
+                    "scoring": "根据所填游客人数进行实时排序，根据实时排名进行给分，最高分0.2分，最低分0分，允许并列",
+                    "total_users": 2,
+                    "type": "integer",
+                    "weight_applied": true
+                }
+            },
+            "o5": {
+                "type": "weighted_average",
+                "total_responses": 2,
+                "response_rate": "25.0%",
+                "value_stats": {
+                    "min_value": 0,
+                    "max_value": 0,
+                    "average_value": 0.2,
+                    "median_value": 0,
+                    "highest_score": 0.2,
+                    "lowest_score": 0.2
+                },
+                "metadata": {
+                    "average_count": 0,
+                    "description": "户口量，填空带来（）人（整数）",
+                    "format": "整数",
+                    "max_count": 0,
+                    "max_score": 0.2,
+                    "min_count": 0,
+                    "r4_percentage": 100,
+                    "scoring": "根据所填人数进行实时排序，根据实时排名进行给分，最高分0.2分，最低分0分，允许并列",
+                    "total_users": 2,
+                    "type": "integer",
+                    "weight_applied": true
+                }
+            },
+            "p": {
+                "type": "info_collection",
+                "total_responses": 7,
+                "response_rate": "87.5%",
+                "answer_distribution": {
+                    "AAAA": 1,
+                    "ENFP": 1,
+                    "enfp": 1,
+                    "i": 1,
+                    "intp": 1,
+                    "istp": 2
+                },
+                "metadata": {
+                    "description": "请填写您的MBTI类型",
+                    "store_field": "mbti",
+                    "type": "text"
+                }
+            },
+            "q1": {
+                "type": "info_collection",
+                "total_responses": 8,
+                "response_rate": "100.0%",
+                "answer_distribution": {
+                    "aven": 1,
+                    "佳玮": 2,
+                    "嘎嘎": 1,
+                    "坦克": 1,
+                    "小张": 1,
+                    "张涵丰": 1,
+                    "蔡佳圻": 1
+                },
+                "metadata": {
+                    "description": "请填写您的称呼",
+                    "store_field": "username",
+                    "type": "text"
+                }
+            },
+            "q2": {
+                "type": "info_collection",
+                "total_responses": 6,
+                "response_rate": "75.0%",
+                "answer_distribution": {
+                    "女": 3,
+                    "男": 3
+                },
+                "metadata": {
+                    "description": "请选择您的性别",
+                    "options": [
+                        "男",
+                        "女"
+                    ],
+                    "store_field": "gender",
+                    "type": "choice"
+                }
+            },
+            "r": {
+                "type": "voting_based",
+                "total_responses": 4,
+                "response_rate": "50.0%",
+                "vote_distribution": {
+                    "1": {
+                        "votes": 3,
+                        "percentage": 75,
+                        "rank": 1
+                    },
+                    "4": {
+                        "votes": 1,
+                        "percentage": 25,
+                        "rank": 2
+                    }
+                },
+                "winner": "1",
+                "metadata": {
+                    "description": "选游戏：4选1",
+                    "options": {
+                        "1": "脏话牌",
+                        "2": "火锅油碟",
+                        "3": "打麻将",
+                        "4": "量身高等"
+                    },
+                    "percentages": {
+                        "1": 75,
+                        "2": 0,
+                        "3": 0,
+                        "4": 25
+                    },
+                    "r1_percentage": 75,
+                    "r2_percentage": 0,
+                    "r3_percentage": 0,
+                    "r4_percentage": 25,
+                    "related_questions": {
+                        "1": [
+                            "l"
+                        ],
+                        "2": [
+                            "m"
+                        ],
+                        "3": [
+                            "n"
+                        ],
+                        "4": [
+                            "o1",
+                            "o2",
+                            "o3",
+                            "o4",
+                            "o5"
+                        ]
+                    },
+                    "scoring": "计算百分比分布，作为其他题目的权重",
+                    "type": "choice"
+                }
+            }
+        },
+        "generated_at": "2025-07-04T09:26:34Z"
+    }
+}

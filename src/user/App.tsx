@@ -7,7 +7,12 @@ import logoEmpty from "../assets/logo/500logo4.png";
 import "./App.css";
 import UserScoreChart from "./UserScoreChart";
 import "./UserScoreChart.css";
+import DistributionVisualization from "./components/DistributionVisualization";
 import { useUserData } from "./hooks/useUserData";
+import {
+  UserDataService,
+  type QuestionsDistribution,
+} from "./services/UserDataService";
 
 function App() {
   const { userId, apiKey } = useParams<{ userId?: string; apiKey?: string }>();
@@ -18,6 +23,64 @@ function App() {
 
   // 使用新的hook获取用户数据
   const { userScore, loading, error, refetch } = useUserData(userId, apiKey);
+
+  // 分布数据状态管理
+  const [distributionData, setDistributionData] =
+    useState<QuestionsDistribution | null>(null);
+  const [distributionLoading, setDistributionLoading] = useState(false);
+  const [distributionError, setDistributionError] = useState<string | null>(
+    null
+  );
+
+  // 检测是否为移动端
+  const [isMobile, setIsMobile] = useState(false);
+
+  // 获取分布数据的函数
+  const fetchDistributionData = async () => {
+    if (!isMobile) return; // 只在移动端获取数据
+
+    setDistributionLoading(true);
+    setDistributionError(null);
+    try {
+      const data = await UserDataService.getQuestionsDistribution(
+        apiKey,
+        userId
+      );
+      setDistributionData(data);
+    } catch (err) {
+      setDistributionError(
+        err instanceof Error ? err.message : "获取分布数据失败"
+      );
+    } finally {
+      setDistributionLoading(false);
+    }
+  };
+
+  // 重试获取分布数据
+  const refetchDistribution = () => {
+    fetchDistributionData();
+  };
+
+  // 检测设备类型
+  useEffect(() => {
+    const checkIsMobile = () => {
+      const userAgent = navigator.userAgent;
+      const mobileRegex =
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+      setIsMobile(mobileRegex.test(userAgent) || window.innerWidth <= 768);
+    };
+
+    checkIsMobile();
+    window.addEventListener("resize", checkIsMobile);
+    return () => window.removeEventListener("resize", checkIsMobile);
+  }, []);
+
+  // 获取分布数据
+  useEffect(() => {
+    if (isMobile && apiKey) {
+      fetchDistributionData();
+    }
+  }, [isMobile, apiKey, userId]);
 
   // 保存当前用户路由到localStorage
   useEffect(() => {
@@ -106,7 +169,7 @@ function App() {
       // 视差滚动效果：背景滚动速度为前景的0.3倍
       if (backgroundContainer && container) {
         const scrollTop = container.scrollTop;
-        const parallaxSpeed = scrollTop * 0.1; // 0.1倍的速度
+        const parallaxSpeed = scrollTop * 0.03; // 0.1倍的速度
         (
           backgroundContainer as HTMLElement
         ).style.backgroundPositionY = `-${parallaxSpeed}px`;
@@ -155,7 +218,7 @@ function App() {
         </div>
       </section>
 
-      {/* 第二个界面 */}
+      {/* 第二个界面 - 答题结果 */}
       <section id="section-1" className="section second-section">
         <div className="second-content">
           {/* 用户坐标轴图表 */}
@@ -181,24 +244,88 @@ function App() {
               <p>暂无数据</p>
             </div>
           )}
-
-          {/* 匿名留言板 */}
-          <h2 className="comment-title">匿名留言板</h2>
-          <div id="commento"></div>
-
-          <div className="action-buttons">
-            <button className="back-to-top-btn" onClick={scrollToTop}>
-              返回顶部
-            </button>
-            <button
-              className="credit-nav-btn"
-              onClick={() => navigate("/credit")}
-            >
-              制作团队
-            </button>
-          </div>
         </div>
       </section>
+
+      {/* 第三个界面 - 看看大家 (仅移动端显示) */}
+      {isMobile && (
+        <section id="section-2" className="section distribution-section">
+          <div className="distribution-content">
+            {distributionLoading ? (
+              <div className="loading-container">
+                <div className="loading-spinner"></div>
+                <p className="loading-text">正在获取大家的答题数据...</p>
+              </div>
+            ) : distributionError ? (
+              <div className="error-container">
+                <div className="error-message">
+                  <h3>获取分布数据失败</h3>
+                  <p>{distributionError}</p>
+                  <button className="retry-btn" onClick={refetchDistribution}>
+                    重试
+                  </button>
+                </div>
+              </div>
+            ) : distributionData ? (
+              <>
+                <DistributionVisualization
+                  distributionData={distributionData}
+                />
+
+                {/* 留言板部分 - 放在答案分布下方 */}
+                <div className="comment-section-in-distribution">
+                  <div className="comment-overlay"></div>
+                  <div className="comment-content">
+                    <h2 className="comment-title">匿名留言板</h2>
+                    <div id="commento"></div>
+
+                    <div className="action-buttons">
+                      <button className="back-to-top-btn" onClick={scrollToTop}>
+                        返回顶部
+                      </button>
+                      <button
+                        className="credit-nav-btn"
+                        onClick={() => navigate("/credit")}
+                      >
+                        制作团队
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="no-data-container">
+                <p>暂无分布数据</p>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
+      {/* 第四个界面 - 留言板 (非移动端显示) */}
+      {!isMobile && (
+        <section id="section-3" className="section comment-section-wrapper">
+          <div className="comment-section">
+            <div className="comment-overlay"></div>
+            <div className="comment-content">
+              <h2 className="comment-title">匿名留言板</h2>
+              <div id="commento"></div>
+
+              <div className="action-buttons">
+                <button className="back-to-top-btn" onClick={scrollToTop}>
+                  返回顶部
+                </button>
+                <button
+                  className="credit-nav-btn"
+                  onClick={() => navigate("/credit")}
+                >
+                  制作团队
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
     </div>
   );
 }
