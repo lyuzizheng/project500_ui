@@ -3,21 +3,21 @@
     "message": "获取题目分布成功",
     "data": {
         "total_questions": 31,
-        "total_participants": 8,
+        "total_participants": 11,
         "questions": {
             "a1": {
                 "type": "fixed_score",
-                "total_responses": 7,
-                "response_rate": "87.5%",
+                "total_responses": 10,
+                "response_rate": "90.9%",
                 "score_distribution": {
-                    "-1.0": 1,
-                    "1.0": 6
+                    "-1.0": 3,
+                    "1.0": 7
                 },
                 "answer_distribution": {
-                    "no": 1,
-                    "yes": 6
+                    "no": 3,
+                    "yes": 7
                 },
-                "average_score": 0.7142857142857143,
+                "average_score": 0.4,
                 "metadata": {
                     "description": "您的身份证前三位是否为500？",
                     "scoring": "是的+1分，不是-1分",
@@ -26,21 +26,24 @@
             },
             "a2": {
                 "type": "fixed_score",
-                "total_responses": 7,
-                "response_rate": "87.5%",
+                "total_responses": 10,
+                "response_rate": "90.9%",
                 "score_distribution": {
-                    "0.0": 1,
-                    "1.0": 6
+                    "0.0": 3,
+                    "1.0": 7
                 },
                 "answer_distribution": {
+                    "1900": 1,
+                    "1983": 1,
                     "1985": 1,
+                    "1997": 1,
                     "1998": 1,
                     "2002": 1,
                     "2004": 2,
                     "2005": 1,
                     "2011": 1
                 },
-                "average_score": 0.8571428571428571,
+                "average_score": 0.7,
                 "metadata": {
                     "description": "请填写您的出生年份",
                     "scoring": "≥1997年+1分，\u003c1997年不得分",
@@ -49,17 +52,17 @@
             },
             "b1": {
                 "type": "fixed_score",
-                "total_responses": 8,
+                "total_responses": 11,
                 "response_rate": "100.0%",
                 "score_distribution": {
-                    "-1.0": 1,
-                    "1.0": 7
+                    "-1.0": 2,
+                    "1.0": 9
                 },
                 "answer_distribution": {
-                    "否+否": 1,
-                    "是+是": 7
+                    "否+否": 2,
+                    "是+是": 9
                 },
-                "average_score": 0.75,
+                "average_score": 0.6363636363636364,
                 "metadata": {
                     "description": "父母是否来自重庆？",
                     "options": [
@@ -73,13 +76,14 @@
             },
             "b2": {
                 "type": "fixed_score",
-                "total_responses": 5,
-                "response_rate": "62.5%",
+                "total_responses": 6,
+                "response_rate": "54.5%",
                 "score_distribution": {
-                    "0.0": 5
+                    "0.0": 6
                 },
                 "answer_distribution": {
                     "否+否": 4,
+                    "是+否": 1,
                     "是+是": 1
                 },
                 "metadata": {
@@ -97,7 +101,7 @@
             "b3": {
                 "type": "fixed_score",
                 "total_responses": 1,
-                "response_rate": "12.5%",
+                "response_rate": "9.1%",
                 "score_distribution": {
                     "0.0": 1
                 },
@@ -132,12 +136,14 @@
             },
             "b5": {
                 "type": "fixed_score",
-                "total_responses": 1,
-                "response_rate": "12.5%",
+                "total_responses": 2,
+                "response_rate": "18.2%",
                 "score_distribution": {
+                    "-0.0": 1,
                     "0.0": 1
                 },
                 "answer_distribution": {
+                    "否+否": 1,
                     "是+否": 1
                 },
                 "metadata": {
@@ -154,15 +160,17 @@
             },
             "c1": {
                 "type": "fixed_score",
-                "total_responses": 5,
-                "response_rate": "62.5%",
+                "total_responses": 7,
+                "response_rate": "63.6%",
                 "score_distribution": {
-                    "1.0": 5
+                    "-1.0": 1,
+                    "1.0": 6
                 },
                 "answer_distribution": {
-                    "是": 5
+                    "否": 1,
+                    "是": 6
                 },
-                "average_score": 1,
+                "average_score": 0.7142857142857143,
                 "metadata": {
                     "description": "童年是否在重庆？",
                     "options": [
@@ -175,15 +183,17 @@
             },
             "c2": {
                 "type": "fixed_score",
-                "total_responses": 5,
-                "response_rate": "62.5%",
+                "total_responses": 7,
+                "response_rate": "63.6%",
                 "score_distribution": {
-                    "1.0": 5
+                    "-1.0": 1,
+                    "1.0": 6
                 },
                 "answer_distribution": {
-                    "是": 5
+                    "否": 1,
+                    "是": 6
                 },
-                "average_score": 1,
+                "average_score": 0.7142857142857143,
                 "metadata": {
                     "description": "常居地是否为重庆？",
                     "options": [
@@ -196,8 +206,8 @@
             },
             "c3": {
                 "type": "ranking_based",
-                "total_responses": 5,
-                "response_rate": "62.5%",
+                "total_responses": 7,
+                "response_rate": "63.6%",
                 "ranking_distribution": {
                     "rank_1": {
                         "count": 2,
@@ -205,24 +215,28 @@
                     },
                     "rank_2": {
                         "count": 1,
-                        "score_range": "0.50"
+                        "score_range": "0.67"
                     },
                     "rank_3": {
                         "count": 1,
-                        "score_range": "0.25"
+                        "score_range": "0.50"
                     },
                     "rank_4": {
                         "count": 1,
-                        "score_range": "0.00"
+                        "score_range": "0.33"
+                    },
+                    "rank_5": {
+                        "count": 2,
+                        "score_range": "0.17"
                     }
                 },
                 "value_stats": {
-                    "min_value": 0,
-                    "max_value": 0,
-                    "average_value": 0,
-                    "median_value": 0
+                    "min_value": 41,
+                    "max_value": 41,
+                    "average_value": 41,
+                    "median_value": 41
                 },
-                "average_score": 0.55,
+                "average_score": 0.5477142857142857,
                 "metadata": {
                     "description": "在重庆待的时长（）年（）月",
                     "format": "X年Y月",
@@ -232,22 +246,22 @@
             },
             "d": {
                 "type": "voting_based",
-                "total_responses": 5,
-                "response_rate": "62.5%",
+                "total_responses": 7,
+                "response_rate": "63.6%",
                 "vote_distribution": {
                     "1(区县)": {
                         "votes": 1,
-                        "percentage": 20,
+                        "percentage": 14.285714285714285,
                         "rank": 3
                     },
                     "2(直辖)": {
-                        "votes": 2,
-                        "percentage": 40,
+                        "votes": 4,
+                        "percentage": 57.14285714285714,
                         "rank": 1
                     },
                     "3(赛博)": {
                         "votes": 2,
-                        "percentage": 40,
+                        "percentage": 28.57142857142857,
                         "rank": 2
                     }
                 },
@@ -292,8 +306,8 @@
             },
             "e": {
                 "type": "coordinate_based",
-                "total_responses": 5,
-                "response_rate": "62.5%",
+                "total_responses": 6,
+                "response_rate": "54.5%",
                 "coordinate_stats": {
                     "center_point": null,
                     "distance_distribution": {
@@ -319,24 +333,24 @@
             },
             "f": {
                 "type": "ranking_based",
-                "total_responses": 5,
-                "response_rate": "62.5%",
+                "total_responses": 7,
+                "response_rate": "63.6%",
                 "ranking_distribution": {
                     "rank_1": {
-                        "count": 5,
+                        "count": 7,
                         "score_range": "1.00"
                     }
                 },
                 "value_stats": {
                     "min_value": 1,
                     "max_value": 45,
-                    "average_value": 17.8,
+                    "average_value": 15.142857142857142,
                     "median_value": 10
                 },
                 "average_score": 1,
                 "metadata": {
                     "ascending_order": true,
-                    "chongqing_nonzero_errors": 5,
+                    "chongqing_nonzero_errors": 7,
                     "chongqing_zero_errors": 0,
                     "dependency": "需要a1题目的答案来判断重庆人身份",
                     "description": "绕口令出错次数",
@@ -347,14 +361,16 @@
             },
             "g": {
                 "type": "fixed_score",
-                "total_responses": 3,
-                "response_rate": "37.5%",
+                "total_responses": 5,
+                "response_rate": "45.5%",
                 "score_distribution": {
-                    "0.0": 3
+                    "0.0": 5
                 },
                 "answer_distribution": {
                     "1": 1,
-                    "3": 2
+                    "3": 2,
+                    "6": 1,
+                    "8": 1
                 },
                 "metadata": {
                     "base_scoring": "每个打卡地点0.1分，最多10个地点1分",
@@ -369,16 +385,16 @@
             },
             "h1": {
                 "type": "ranking_based",
-                "total_responses": 5,
-                "response_rate": "62.5%",
+                "total_responses": 7,
+                "response_rate": "63.6%",
                 "ranking_distribution": {
                     "rank_1": {
                         "count": 1,
                         "score_range": "1.00"
                     },
                     "rank_2": {
-                        "count": 1,
-                        "score_range": "0.75"
+                        "count": 2,
+                        "score_range": "0.83"
                     },
                     "rank_3": {
                         "count": 1,
@@ -386,20 +402,24 @@
                     },
                     "rank_4": {
                         "count": 1,
-                        "score_range": "0.25"
+                        "score_range": "0.33"
                     },
                     "rank_5": {
+                        "count": 1,
+                        "score_range": "0.17"
+                    },
+                    "rank_6": {
                         "count": 1,
                         "score_range": "0.00"
                     }
                 },
                 "value_stats": {
                     "min_value": -4,
-                    "max_value": 4,
-                    "average_value": 0.4,
-                    "median_value": 1
+                    "max_value": 5,
+                    "average_value": 1.5714285714285714,
+                    "median_value": 3
                 },
-                "average_score": 0.5,
+                "average_score": 0.5237142857142857,
                 "metadata": {
                     "d1_percentage": 100,
                     "dependency": "需要d题目的区县百分比作为权重",
@@ -413,8 +433,8 @@
             },
             "h2": {
                 "type": "ranking_based",
-                "total_responses": 5,
-                "response_rate": "62.5%",
+                "total_responses": 7,
+                "response_rate": "63.6%",
                 "ranking_distribution": {
                     "rank_1": {
                         "count": 1,
@@ -422,24 +442,32 @@
                     },
                     "rank_2": {
                         "count": 1,
-                        "score_range": "0.75"
+                        "score_range": "0.83"
                     },
                     "rank_3": {
+                        "count": 1,
+                        "score_range": "0.67"
+                    },
+                    "rank_4": {
                         "count": 2,
                         "score_range": "0.50"
                     },
-                    "rank_4": {
+                    "rank_5": {
+                        "count": 1,
+                        "score_range": "0.17"
+                    },
+                    "rank_6": {
                         "count": 1,
                         "score_range": "0.00"
                     }
                 },
                 "value_stats": {
                     "min_value": -5,
-                    "max_value": 4,
-                    "average_value": 0.6,
-                    "median_value": 1
+                    "max_value": 6,
+                    "average_value": 1.5,
+                    "median_value": 1.5
                 },
-                "average_score": 0.55,
+                "average_score": 0.5238571428571428,
                 "metadata": {
                     "d2_percentage": 100,
                     "dependency": "需要d题目的直辖百分比作为权重",
@@ -454,7 +482,7 @@
             "i": {
                 "type": "ranking_based",
                 "total_responses": 4,
-                "response_rate": "50.0%",
+                "response_rate": "36.4%",
                 "ranking_distribution": {
                     "rank_1": {
                         "count": 2,
@@ -490,7 +518,7 @@
             "j": {
                 "type": "voting_based",
                 "total_responses": 5,
-                "response_rate": "62.5%",
+                "response_rate": "45.5%",
                 "vote_distribution": {
                     "2": {
                         "votes": 2,
@@ -541,17 +569,17 @@
             },
             "k": {
                 "type": "voting_based",
-                "total_responses": 5,
-                "response_rate": "62.5%",
+                "total_responses": 7,
+                "response_rate": "63.6%",
                 "vote_distribution": {
                     "1(医疗队)": {
                         "votes": 1,
-                        "percentage": 20,
+                        "percentage": 14.285714285714285,
                         "rank": 2
                     },
                     "2(摩托车队)": {
-                        "votes": 4,
-                        "percentage": 80,
+                        "votes": 6,
+                        "percentage": 85.71428571428571,
                         "rank": 1
                     }
                 },
@@ -571,11 +599,11 @@
                         "4": "不捐钱"
                     },
                     "scoring": "投票题，根据投票进行实时得票排名给分，最高分1分，最低分0分，最终得分乘以D3%",
-                    "total_votes": 5,
+                    "total_votes": 7,
                     "type": "choice",
                     "vote_counts": {
                         "1(医疗队)": 1,
-                        "2(摩托车队)": 4
+                        "2(摩托车队)": 6
                     },
                     "weight_applied": true,
                     "weight_source": "d3_percentage"
@@ -584,7 +612,7 @@
             "l": {
                 "type": "numerical_based",
                 "total_responses": 2,
-                "response_rate": "25.0%",
+                "response_rate": "18.2%",
                 "answer_distribution": {
                     "10": 1,
                     "5": 1
@@ -611,10 +639,11 @@
             },
             "m": {
                 "type": "numerical_based",
-                "total_responses": 2,
-                "response_rate": "25.0%",
+                "total_responses": 3,
+                "response_rate": "27.3%",
                 "answer_distribution": {
                     "1,2,5,6": 1,
+                    "1,2,5,9,12": 1,
                     "9,4,7,5,13,15,17": 1
                 },
                 "value_stats": {
@@ -628,6 +657,7 @@
                 "metadata": {
                     "all_choices": {
                         "1,2,5,6": 1,
+                        "1,2,5,9,12": 1,
                         "9,4,7,5,13,15,17": 1
                     },
                     "description": "火锅油碟，多选投票（1-18号选项）",
@@ -655,10 +685,11 @@
                     },
                     "r2_percentage": 100,
                     "scoring": "多选投票题，根据各选项的实时得票分布进行排名给分，和选择最多的人越靠近得分越高",
-                    "total_users": 2,
+                    "total_users": 3,
                     "type": "multi_choice",
                     "user_similarity_scores": {
                         "A1": 0,
+                        "L0095": 0,
                         "L0098": 0
                     },
                     "weight_applied": true
@@ -667,7 +698,7 @@
             "n": {
                 "type": "numerical_based",
                 "total_responses": 2,
-                "response_rate": "25.0%",
+                "response_rate": "18.2%",
                 "answer_distribution": {
                     "1": 1,
                     "3": 1
@@ -694,70 +725,72 @@
             },
             "o1": {
                 "type": "weighted_average",
-                "total_responses": 2,
-                "response_rate": "25.0%",
+                "total_responses": 3,
+                "response_rate": "27.3%",
                 "value_stats": {
-                    "min_value": 163,
+                    "min_value": 161,
                     "max_value": 188,
-                    "average_value": 0,
-                    "median_value": 175.5
+                    "average_value": 0.06666666666666667,
+                    "median_value": 163,
+                    "highest_score": 0.112
                 },
                 "metadata": {
-                    "average_height": 175.5,
+                    "average_height": 170.66666666666666,
                     "description": "身高，填空身高（）cm",
                     "format": "数字cm",
-                    "max_distance": 12.5,
+                    "max_distance": 17.333333333333343,
                     "max_score": 0.2,
                     "r4_percentage": 100,
                     "scoring": "根据当前所有参与o1的人的数据计算实时平均数，与实时平均数越接近得分越高，最高得分0.2，最低得分0",
-                    "total_users": 2,
+                    "total_users": 3,
                     "type": "number",
                     "user_distances": {
-                        "A1": 12.5,
-                        "A2": 12.5
+                        "A1": 7.666666666666657,
+                        "A2": 17.333333333333343,
+                        "L0096": 9.666666666666657
                     },
                     "weight_applied": true
                 }
             },
             "o2": {
                 "type": "weighted_average",
-                "total_responses": 2,
-                "response_rate": "25.0%",
+                "total_responses": 3,
+                "response_rate": "27.3%",
                 "value_stats": {
-                    "min_value": 0,
-                    "max_value": 0,
-                    "average_value": 0.2,
-                    "median_value": 0,
+                    "min_value": 20,
+                    "max_value": 20,
+                    "average_value": 0.13333333333333333,
+                    "median_value": 20,
                     "highest_score": 0.2,
-                    "lowest_score": 0.2
+                    "lowest_score": 0.1
                 },
                 "metadata": {
-                    "average_years": 0,
+                    "average_years": 6.666666666666667,
                     "description": "社保年限，填空缴纳社保（）年（可以有小数）",
                     "format": "数字（可以有小数）",
                     "max_score": 0.2,
-                    "max_years": 0,
+                    "max_years": 20,
                     "min_years": 0,
                     "r4_percentage": 100,
                     "scoring": "根据所填年数进行实时排序，根据实时排名进行给分，最高分0.2分，最低分0分，允许并列",
-                    "total_users": 2,
+                    "total_users": 3,
                     "type": "number",
                     "weight_applied": true
                 }
             },
             "o3": {
                 "type": "weighted_average",
-                "total_responses": 2,
-                "response_rate": "25.0%",
+                "total_responses": 3,
+                "response_rate": "27.3%",
                 "value_stats": {
-                    "min_value": 69,
+                    "min_value": 18,
                     "max_value": 69,
-                    "average_value": 0.1,
-                    "median_value": 69,
+                    "average_value": 0.10000000000000002,
+                    "median_value": 43.5,
                     "highest_score": 0.2
                 },
                 "metadata": {
-                    "average_amount": 34.5,
+                    "average_amount": 29,
                     "description": "消费，填空今天在山城巷消费（）元",
                     "format": "数字元",
                     "max_amount": 69,
@@ -765,72 +798,75 @@
                     "min_amount": 0,
                     "r4_percentage": 100,
                     "scoring": "根据所填消费金额进行实时排序，根据实时排名进行给分，最高分0.2分，最低分0分，允许并列",
-                    "total_users": 2,
+                    "total_users": 3,
                     "type": "number",
                     "weight_applied": true
                 }
             },
             "o4": {
                 "type": "weighted_average",
-                "total_responses": 2,
-                "response_rate": "25.0%",
+                "total_responses": 3,
+                "response_rate": "27.3%",
                 "value_stats": {
                     "min_value": 2,
-                    "max_value": 3,
-                    "average_value": 0.1,
-                    "median_value": 2.5,
+                    "max_value": 500,
+                    "average_value": 0.10000000000000002,
+                    "median_value": 3,
                     "highest_score": 0.2
                 },
                 "metadata": {
-                    "average_count": 2.5,
+                    "average_count": 168.33333333333334,
                     "description": "游客量，填空带来（）游客（整数）",
                     "format": "整数",
-                    "max_count": 3,
+                    "max_count": 500,
                     "max_score": 0.2,
                     "min_count": 2,
                     "r4_percentage": 100,
                     "scoring": "根据所填游客人数进行实时排序，根据实时排名进行给分，最高分0.2分，最低分0分，允许并列",
-                    "total_users": 2,
+                    "total_users": 3,
                     "type": "integer",
                     "weight_applied": true
                 }
             },
             "o5": {
                 "type": "weighted_average",
-                "total_responses": 2,
-                "response_rate": "25.0%",
+                "total_responses": 3,
+                "response_rate": "27.3%",
                 "value_stats": {
-                    "min_value": 0,
-                    "max_value": 0,
-                    "average_value": 0.2,
-                    "median_value": 0,
+                    "min_value": 4,
+                    "max_value": 4,
+                    "average_value": 0.13333333333333333,
+                    "median_value": 4,
                     "highest_score": 0.2,
-                    "lowest_score": 0.2
+                    "lowest_score": 0.1
                 },
                 "metadata": {
-                    "average_count": 0,
+                    "average_count": 1.3333333333333333,
                     "description": "户口量，填空带来（）人（整数）",
                     "format": "整数",
-                    "max_count": 0,
+                    "max_count": 4,
                     "max_score": 0.2,
                     "min_count": 0,
                     "r4_percentage": 100,
                     "scoring": "根据所填人数进行实时排序，根据实时排名进行给分，最高分0.2分，最低分0分，允许并列",
-                    "total_users": 2,
+                    "total_users": 3,
                     "type": "integer",
                     "weight_applied": true
                 }
             },
             "p": {
                 "type": "info_collection",
-                "total_responses": 7,
-                "response_rate": "87.5%",
+                "total_responses": 10,
+                "response_rate": "90.9%",
                 "answer_distribution": {
                     "AAAA": 1,
+                    "Abce": 1,
+                    "ENFJ": 1,
                     "ENFP": 1,
                     "enfp": 1,
                     "i": 1,
                     "intp": 1,
+                    "isfp": 1,
                     "istp": 2
                 },
                 "metadata": {
@@ -841,13 +877,16 @@
             },
             "q1": {
                 "type": "info_collection",
-                "total_responses": 8,
+                "total_responses": 11,
                 "response_rate": "100.0%",
                 "answer_distribution": {
+                    "AA": 1,
                     "aven": 1,
+                    "yin": 1,
                     "佳玮": 2,
                     "嘎嘎": 1,
                     "坦克": 1,
+                    "小崴": 1,
                     "小张": 1,
                     "张涵丰": 1,
                     "蔡佳圻": 1
@@ -860,10 +899,10 @@
             },
             "q2": {
                 "type": "info_collection",
-                "total_responses": 6,
-                "response_rate": "75.0%",
+                "total_responses": 9,
+                "response_rate": "81.8%",
                 "answer_distribution": {
-                    "女": 3,
+                    "女": 6,
                     "男": 3
                 },
                 "metadata": {
@@ -878,18 +917,23 @@
             },
             "r": {
                 "type": "voting_based",
-                "total_responses": 4,
-                "response_rate": "50.0%",
+                "total_responses": 5,
+                "response_rate": "45.5%",
                 "vote_distribution": {
                     "1": {
                         "votes": 3,
-                        "percentage": 75,
+                        "percentage": 60,
                         "rank": 1
+                    },
+                    "2": {
+                        "votes": 1,
+                        "percentage": 20,
+                        "rank": 2
                     },
                     "4": {
                         "votes": 1,
-                        "percentage": 25,
-                        "rank": 2
+                        "percentage": 20,
+                        "rank": 3
                     }
                 },
                 "winner": "1",
@@ -902,15 +946,15 @@
                         "4": "量身高等"
                     },
                     "percentages": {
-                        "1": 75,
-                        "2": 0,
+                        "1": 60,
+                        "2": 20,
                         "3": 0,
-                        "4": 25
+                        "4": 20
                     },
-                    "r1_percentage": 75,
-                    "r2_percentage": 0,
+                    "r1_percentage": 60,
+                    "r2_percentage": 20,
                     "r3_percentage": 0,
-                    "r4_percentage": 25,
+                    "r4_percentage": 20,
                     "related_questions": {
                         "1": [
                             "l"
@@ -934,6 +978,6 @@
                 }
             }
         },
-        "generated_at": "2025-07-04T09:26:34Z"
+        "generated_at": "2025-07-04T17:37:19Z"
     }
 }

@@ -67,7 +67,7 @@ interface DistributionVisualizationProps {
 }
 
 // "看看大家"部分的题目ID
-const MAIN_QUESTIONS = ["a1", "q2", "a2", "b1", "c2", "c3", "o3", "o4"];
+const MAIN_QUESTIONS = ["a1", "q2", "a2", "b1", "c2", "o2", "o3", "o4"];
 
 // "其他的环节呢？"部分的题目ID
 const OTHER_QUESTIONS = {
@@ -213,7 +213,7 @@ const DistributionVisualization: React.FC<DistributionVisualizationProps> = ({
           return {
             label: displayLabel,
             value: voteData.votes,
-            percentage: voteData.percentage,
+            percentage: parseFloat(voteData.percentage.toFixed(1)),
             color: colors[index % colors.length],
           };
         });
@@ -243,7 +243,49 @@ const DistributionVisualization: React.FC<DistributionVisualizationProps> = ({
     let unit = "";
 
     // 从不同的数据源获取统计数据
-    if (questionData.value_stats) {
+    if (questionId === "o2" && questionData.metadata) {
+      // o2题目使用metadata中的数据
+      const metadata = questionData.metadata as QuestionMetadata & {
+        min_years?: number;
+        max_years?: number;
+        average_years?: number;
+      };
+      stats = {
+        min: metadata.min_years || 0,
+        max: metadata.max_years || 0,
+        average: metadata.average_years || 0,
+        median: questionData.value_stats?.median_value || 0,
+      };
+      unit = "年";
+    } else if (questionId === "o3" && questionData.metadata) {
+      // o3题目使用metadata中的消费金额数据
+      const metadata = questionData.metadata as QuestionMetadata & {
+        min_amount?: number;
+        max_amount?: number;
+        average_amount?: number;
+      };
+      stats = {
+        min: metadata.min_amount || 0,
+        max: metadata.max_amount || 0,
+        average: metadata.average_amount || 0,
+        median: questionData.value_stats?.median_value || 0,
+      };
+      unit = "元";
+    } else if (questionId === "o4" && questionData.metadata) {
+      // o4题目使用metadata中的游客数量数据
+      const metadata = questionData.metadata as QuestionMetadata & {
+        min_count?: number;
+        max_count?: number;
+        average_count?: number;
+      };
+      stats = {
+        min: metadata.min_count || 0,
+        max: metadata.max_count || 0,
+        average: metadata.average_count || 0,
+        median: questionData.value_stats?.median_value || 0,
+      };
+      unit = "人";
+    } else if (questionData.value_stats) {
       stats = {
         min: questionData.value_stats.min_value,
         max: questionData.value_stats.max_value,
@@ -257,6 +299,8 @@ const DistributionVisualization: React.FC<DistributionVisualizationProps> = ({
         unit = "次";
       } else if (questionId === "l") {
         unit = "次";
+      } else if (questionId === "o3") {
+        unit = "元";
       }
     } else if (questionData.average_score !== undefined) {
       // 如果只有平均分，创建简化的统计
@@ -283,6 +327,31 @@ const DistributionVisualization: React.FC<DistributionVisualizationProps> = ({
       questionId,
       questionData.metadata.description
     );
+
+    // o2, o3, o4题目特殊显示：不显示中位数，放在一行，平均值高亮
+    if (questionId === "o2" || questionId === "o3" || questionId === "o4") {
+      return (
+        <div className="horizontal-bar-chart">
+          <div className="chart-title-header">
+            <h3 className="chart-question-title">{displayTitle}</h3>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 0' }}>
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ marginBottom: '4px', color: '#8b6914', fontWeight: '600' }}>最小值</div>
+              <div style={{ color: '#5d4e37', fontWeight: 'bold', fontSize: '1.2rem' }}>{stats.min}{unit}</div>
+            </div>
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ marginBottom: '4px', color: '#8b6914', fontWeight: '600' }}>最大值</div>
+              <div style={{ color: '#5d4e37', fontWeight: 'bold', fontSize: '1.2rem' }}>{stats.max}{unit}</div>
+            </div>
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ marginBottom: '4px', color: '#8b6914', fontWeight: '600' }}>平均值</div>
+              <div><span className="stat-value highlight"><strong>{stats.average.toFixed(2)}{unit}</strong></span></div>
+            </div>
+          </div>
+        </div>
+      );
+    }
 
     return (
       <div className="horizontal-bar-chart">
@@ -323,6 +392,19 @@ const DistributionVisualization: React.FC<DistributionVisualizationProps> = ({
     );
   };
 
+  // 智能渲染函数，根据数据类型选择合适的渲染方式
+  const renderQuestionCard = (
+    questionData: QuestionData,
+    questionId: string
+  ) => {
+    // 如果有value_stats且是weighted_average类型，使用平均数显示
+    if (questionData.type === "weighted_average" && questionData.value_stats) {
+      return renderAverageDisplay(questionData, questionId);
+    }
+    // 否则使用横向分布图
+    return renderHorizontalDistribution(questionData, questionId);
+  };
+
   return (
     <div className="distribution-visualization">
       {/* 看看大家 section */}
@@ -330,7 +412,7 @@ const DistributionVisualization: React.FC<DistributionVisualizationProps> = ({
       <div className="questions-grid">
         {mainQuestions.map(([questionId, questionData]) => (
           <div key={questionId} className="question-card">
-            {renderHorizontalDistribution(questionData, questionId)}
+            {renderQuestionCard(questionData, questionId)}
           </div>
         ))}
       </div>

@@ -19,7 +19,7 @@ export const UserScoreChart: React.FC<UserScoreChartProps> = ({
   const { x_axis_percent = 50, y_axis_percent = 50 } = userScore || {};
 
   // 坐标轴配置
-  const chartSize = 300;
+  const chartSize = 280;
   const padding = 8;
   const axisLength = chartSize - 2 * padding;
 

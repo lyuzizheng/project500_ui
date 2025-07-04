@@ -1,7 +1,14 @@
 import React from "react";
 
 interface ScoreChartProps {
-  userScore: any;
+  userScore: {
+    x_axis_raw?: number;
+    y_axis_raw?: number;
+    x_axis_percent?: number;
+    y_axis_percent?: number;
+    x_axis_mapped?: number;
+    y_axis_mapped?: number;
+  } | null;
 }
 
 export const ScoreChart: React.FC<ScoreChartProps> = ({ userScore }) => {
@@ -203,7 +210,7 @@ export const ScoreChart: React.FC<ScoreChartProps> = ({ userScore }) => {
           <div className="detail-item">
             <span className="detail-label">百分比:</span>
             <span className="detail-value">
-              ({x_axis_percent}%, {y_axis_percent}%)
+              ({x_axis_percent.toFixed(1)}%, {y_axis_percent.toFixed(1)}%)
             </span>
           </div>
           <div className="detail-item">

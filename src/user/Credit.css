@@ -197,6 +197,20 @@
   animation: fadeInUp 1s ease-out 0.7s both;
 }
 
+.credit-thanks-text {
+  font-family: 'LXGW WenKai', 'KaiTi', '楷体', 'STKaiti', 'DFKai-SB', '华文楷体', 'FangSong', serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: #333333;
+  text-align: center;
+  line-height: 1.6;
+  margin: 1.5rem 0;
+  padding: 0 1rem;
+  opacity: 0.9;
+  letter-spacing: 0.01em;
+  animation: fadeInUp 1s ease-out 0.9s both;
+}
+
 .credit-subtitle-small {
   font-family: 'LXGW WenKai', 'KaiTi', '楷体', 'STKaiti', 'DFKai-SB', '华文楷体', 'FangSong', serif;
   font-size: 1.1rem;

@@ -32,8 +32,8 @@
 
 /* 通用section样式 */
 .section {
-  width: 100%;
-  height: 100vh;
+ width: 100%;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -49,6 +49,7 @@
   padding: 2rem;
   position: relative;
   overflow: hidden;
+  height: 100vh;
 }
 
 .main-content {
@@ -196,13 +197,15 @@
   justify-content: center;
   padding: 1.7rem;
   min-height: 100vh;
+  height: auto;
   position: relative;
   overflow: visible;
+  
 }
 
 .second-content {
   background-color: rgba(255, 255, 255, 0.6);
-  padding: 1rem 1rem 600vh 1rem;
+  padding: 1rem;
   border-radius: 0px;
   text-align: center;
   max-width: none;
@@ -212,7 +215,7 @@
   align-items: center;
   justify-content: flex-start;
   gap: 2rem;
-  min-height: calc(200vh - 2rem);
+  min-height: calc(100vh - 3.4rem);
 }
 
 .action-buttons {
@@ -536,12 +539,16 @@
 }
 
 .comment-section {
-  width: 100%;
-  height: 100%;
-  position: relative;
+  background: transparent;
+  color: #333;
+  text-align: center;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+  min-height: 100vh;
+  height: auto;
+  position: relative;
+  overflow: visible;
 }
 
 .comment-overlay {
@@ -559,9 +566,19 @@
 }
 
 .comment-content {
-  width: 90%;
-  max-width: 800px;
-  padding: 2rem;
+  background-color: rgba(255, 255, 255, 0.88);
+  padding: 0rem;
+  margin: 1.7rem;
+  border-radius: 5px;
+  text-align: center;
+  max-width: none;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2rem;
+  min-height: calc(100vh - 3.4rem);
   position: relative;
   z-index: 1;
 }
@@ -572,10 +589,12 @@
   color: #333;
   text-align: center;
   margin-bottom: 1.5rem;
+  font-family: 'LXGW WenKai', 'KaiTi', '楷体', 'STKaiti', 'DFKai-SB', '华文楷体', 'FangSong', serif;
 }
 
 /* 分布数据界面样式 */
 .distribution-section {
+  
   background: transparent;
   color: #333;
   text-align: center;
@@ -584,15 +603,17 @@
   justify-content: center;
   /* padding: 1.7rem; */
   min-height: 100vh;
+  height: auto;
   position: relative;
   overflow: visible;
+  
 }
 
 .distribution-content {
-  background: transparent;
-  padding: 1rem 1rem 100vh 1rem;
+  background-color: rgba(255, 255, 255, 0.6);
+  padding: 1rem;
   margin: 1.7rem;
-  border-radius: 0px;
+  border-radius: 5px;
   text-align: center;
   max-width: none;
   width: 100%;
@@ -601,8 +622,7 @@
   align-items: center;
   justify-content: flex-start;
   gap: 2rem;
-  min-height: calc(100vh - 2rem);
-  margin-bottom: -100vh;
+  min-height: calc(100vh - 3.4rem);
 }
 
 .distribution-content h2 {
@@ -653,7 +673,7 @@
 }
 
 .comment-section-in-distribution .comment-content {
-  width: 90%;
+  width: 100%;
   max-width: 800px;
   padding: 2rem;
   position: relative;
@@ -702,9 +722,8 @@
 
 /* 简化的评论区域样式 */
 .comment-section-simple {
-  background-color: rgba(255, 255, 255, 0.85);
-  width: 107%;
-  padding: 2rem 1rem;
+  width: 100%;
+  padding: 0rem;
   text-align: center;
 }
 
@@ -757,7 +776,7 @@
 /* 响应式设计 */
 @media (max-width: 768px) {
   .comment-content {
-    width: 95%;
+    width: 100%;
     padding: 1.5rem;
   }
   

@@ -247,58 +247,56 @@ function App() {
         </div>
       </section>
 
-      {/* 第三个界面 - 看看大家 (仅移动端显示) */}
-      {isMobile && (
-        <section id="section-2" className="section distribution-section">
-          <div className="distribution-content">
-            {distributionLoading ? (
-              <div className="loading-container">
-                <div className="loading-spinner"></div>
-                <p className="loading-text">正在获取大家的答题数据...</p>
+      {/* 第三个界面 - 看看大家 */}
+      <section id="section-2" className="section distribution-section">
+        <div className="distribution-content">
+          {distributionLoading ? (
+            <div className="loading-container">
+              <div className="loading-spinner"></div>
+              <p className="loading-text">正在获取大家的答题数据...</p>
+            </div>
+          ) : distributionError ? (
+            <div className="error-container">
+              <div className="error-message">
+                <h3>获取分布数据失败</h3>
+                <p>{distributionError}</p>
+                <button className="retry-btn" onClick={refetchDistribution}>
+                  重试
+                </button>
               </div>
-            ) : distributionError ? (
-              <div className="error-container">
-                <div className="error-message">
-                  <h3>获取分布数据失败</h3>
-                  <p>{distributionError}</p>
-                  <button className="retry-btn" onClick={refetchDistribution}>
-                    重试
-                  </button>
-                </div>
-              </div>
-            ) : distributionData ? (
-              <>
-                <DistributionVisualization
-                  distributionData={distributionData}
-                />
-                <div className="action-buttons">
-                    <button className="back-to-top-btn" onClick={scrollToTop}>
-                      返回顶部
-                    </button>
-                    <button
-                      className="credit-nav-btn"
-                      onClick={() => navigate("/credit")}
-                    >
-                      制作团队
-                    </button>
-                  </div>
-
-                {/* 留言板部分 - 放在答案分布下方 */}
-                
-              </>
-            ) : (
-              <div className="no-data-container">
-                <p>暂无分布数据</p>
-              </div>
-            )}
-            <div className="comment-section-simple">
-                  <h2 className="comment-title">匿名留言板</h2>
-                  <div id="commento"></div>
-                </div>
+            </div>
+          ) : distributionData ? (
+            <>
+              <DistributionVisualization distributionData={distributionData} />
+            </>
+          ) : (
+            <div className="no-data-container">
+              <p>暂无分布数据</p>
+            </div>
+          )}
+          <div className="action-buttons">
+            <button className="back-to-top-btn" onClick={scrollToTop}>
+              返回顶部
+            </button>
+            <button
+              className="credit-nav-btn"
+              onClick={() => navigate("/credit")}
+            >
+              制作团队
+            </button>
           </div>
+        </div>
+      </section>
 
-        </section>
-      )}
+      {/* 第四个界面 - 留言板 */}
+      <section id="section-3" className="section comment-section">
+        <div className="comment-content">
+          <div className="comment-section-simple">
+            <h2 className="comment-title">匿名留言板</h2>
+            <div id="commento"></div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

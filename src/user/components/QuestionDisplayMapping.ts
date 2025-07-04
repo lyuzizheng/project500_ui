@@ -120,7 +120,7 @@ export const QUESTION_DISPLAY_MAPPING: Record<string, QuestionDisplayInfo> = {
 
   // I组题目 - 文化理解
   i: {
-    title: "重庆话使用情况",
+    title: "重庆言子使用情况",
     // 分数型题目
   },
 
@@ -163,6 +163,14 @@ export const QUESTION_DISPLAY_MAPPING: Record<string, QuestionDisplayInfo> = {
     title: "社保缴纳年限",
     // 数值型题目
   },
+  o3: {
+    title: "今天在山城巷的消费金额",
+    // 数值型题目
+  },
+  o4: {
+    title: "预计带来的游客数量",
+    // 数值型题目
+  },
 
   // P组题目 - 性格类型
   p: {
@@ -185,7 +193,7 @@ export const QUESTION_DISPLAY_MAPPING: Record<string, QuestionDisplayInfo> = {
 
   // R组题目 - 游戏选择
   r: {
-    title: "你最想玩哪个重庆特色游戏？",
+    title: "你想让下个人玩哪个特色游戏？",
     optionMapping: {
       "1": "脏话牌",
       "2": "火锅油碟调配",
