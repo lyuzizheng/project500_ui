@@ -487,9 +487,8 @@ function Credit() {
               <p className="credit-line">即刻艺术工作室</p>
               <p className="credit-line">B站：吃瓜南</p>
               <p className="credit-line">视频号：红都快讯</p>
-              <p className="credit-line">豆包AI</p>
-              <p className="credit-line">即梦AI</p>
-              <p className="credit-line">DeepSeek</p>
+              <p className="credit-line">视频制作：豆包AI 即梦AI</p>
+              <p className="credit-line">宣传文案：豆包AI DeepSeek</p>
             </div>
           </div>
           <div className="credit-next-arrow"></div>
