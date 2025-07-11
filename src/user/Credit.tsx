@@ -357,7 +357,10 @@ function Credit() {
               </p>
               <br />
               <p className="credit-line">
-                <span className="credit-role">现场执行</span> 小崴 Aven
+                <span className="credit-role">现场执行</span> 小崴 Aven 王思引
+              </p>
+              <p className="credit-line">
+                <span className="credit-role">摄影</span> 张翅鹏
               </p>
               <br />
               <p className="credit-line">
